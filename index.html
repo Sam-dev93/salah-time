@@ -1,0 +1,981 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Prayer times data for July 2025 with corrected Maghrib Jamah times</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const prayerData = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>7: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>1: { fajr: { jamah: "4:00", begin: "2:51" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:41" }, maghrib: { jamah: "9:29", begin: "9:24" }, isha: { jamah: "11:00", begin: "10:41" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>2: { fajr: { jamah: "4:00", begin: "2:52" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:41" }, maghrib: { jamah: "9:28", begin: "9:23" }, isha: { jamah: "11:00", begin: "10:41" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>3: { fajr: { jamah: "4:00", begin: "2:53" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:41" }, maghrib: { jamah: "9:28", begin: "9:23" }, isha: { jamah: "11:00", begin: "10:40" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>4: { fajr: { jamah: "4:00", begin: "2:54" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:27", begin: "9:22" }, isha: { jamah: "11:00", begin: "10:39" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>5: { fajr: { jamah: "4:00", begin: "2:55" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:27", begin: "9:22" }, isha: { jamah: "11:00", begin: "10:38" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>6: { fajr: { jamah: "4:15", begin: "2:57" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:26", begin: "9:21" }, isha: { jamah: "10:50", begin: "10:37" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>7: { fajr: { jamah: "4:15", begin: "2:58" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:26", begin: "9:21" }, isha: { jamah: "10:50", begin: "10:36" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>8: { fajr: { jamah: "4:15", begin: "2:59" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:25", begin: "9:20" }, isha: { jamah: "10:50", begin: "10:35" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>9: { fajr: { jamah: "4:15", begin: "3:00" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:39" }, maghrib: { jamah: "9:24", begin: "9:19" }, isha: { jamah: "10:50", begin: "10:34" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>10: { fajr: { jamah: "4:15", begin: "3:02" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:39" }, maghrib: { jamah: "9:23", begin: "9:18" }, isha: { jamah: "10:50", begin: "10:33" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>11: { fajr: { jamah: "4:15", begin: "3:03" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:39" }, maghrib: { jamah: "9:23", begin: "9:18" }, isha: { jamah: "10:50", begin: "10:32" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>12: { fajr: { jamah: "4:15", begin: "3:04" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:38" }, maghrib: { jamah: "9:22", begin: "9:17" }, isha: { jamah: "10:50", begin: "10:31" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>13: { fajr: { jamah: "4:15", begin: "3:06" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:38" }, maghrib: { jamah: "9:21", begin: "9:16" }, isha: { jamah: "10:45", begin: "10:30" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>14: { fajr: { jamah: "4:15", begin: "3:07" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:37" }, maghrib: { jamah: "9:20", begin: "9:15" }, isha: { jamah: "10:45", begin: "10:28" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>15: { fajr: { jamah: "4:15", begin: "3:09" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:37" }, maghrib: { jamah: "9:19", begin: "9:14" }, isha: { jamah: "10:45", begin: "10:27" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>16: { fajr: { jamah: "4:15", begin: "3:10" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:36" }, maghrib: { jamah: "9:18", begin: "9:13" }, isha: { jamah: "10:45", begin: "10:26" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>17: { fajr: { jamah: "4:15", begin: "3:12" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:36" }, maghrib: { jamah: "9:17", begin: "9:12" }, isha: { jamah: "10:45", begin: "10:24" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>18: { fajr: { jamah: "4:15", begin: "3:13" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:35" }, maghrib: { jamah: "9:16", begin: "9:11" }, isha: { jamah: "10:45", begin: "10:23" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>19: { fajr: { jamah: "4:15", begin: "3:15" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:35" }, maghrib: { jamah: "9:14", begin: "9:09" }, isha: { jamah: "10:45", begin: "10:21" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>20: { fajr: { jamah: "4:30", begin: "3:16" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:34" }, maghrib: { jamah: "9:13", begin: "9:08" }, isha: { jamah: "10:35", begin: "10:20" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>21: { fajr: { jamah: "4:30", begin: "3:18" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:33" }, maghrib: { jamah: "9:12", begin: "9:07" }, isha: { jamah: "10:35", begin: "10:18" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>22: { fajr: { jamah: "4:30", begin: "3:20" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:33" }, maghrib: { jamah: "9:11", begin: "9:06" }, isha: { jamah: "10:35", begin: "10:17" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>23: { fajr: { jamah: "4:30", begin: "3:21" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:32" }, maghrib: { jamah: "9:09", begin: "9:04" }, isha: { jamah: "10:35", begin: "10:15" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>24: { fajr: { jamah: "4:30", begin: "3:23" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:31" }, maghrib: { jamah: "9:08", begin: "9:03" }, isha: { jamah: "10:35", begin: "10:13" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>25: { fajr: { jamah: "4:30", begin: "3:25" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:30" }, maghrib: { jamah: "9:07", begin: "9:02" }, isha: { jamah: "10:35", begin: "10:12" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>26: { fajr: { jamah: "4:30", begin: "3:26" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:29" }, maghrib: { jamah: "9:05", begin: "9:00" }, isha: { jamah: "10:25", begin: "10:10" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>27: { fajr: { jamah: "4:30", begin: "3:28" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:29" }, maghrib: { jamah: "9:04", begin: "8:59" }, isha: { jamah: "10:25", begin: "10:08" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>28: { fajr: { jamah: "4:30", begin: "3:30" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:28" }, maghrib: { jamah: "9:02", begin: "8:57" }, isha: { jamah: "10:25", begin: "10:06" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>29: { fajr: { jamah: "4:30", begin: "3:32" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:27" }, maghrib: { jamah: "9:01", begin: "8:56" }, isha: { jamah: "10:25", begin: "10:04" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>30: { fajr: { jamah: "4:30", begin: "3:33" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:26" }, maghrib: { jamah: "8:59", begin: "8:54" }, isha: { jamah: "10:25", begin: "10:03" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>31: { fajr: { jamah: "4:30", begin: "3:35" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:25" }, maghrib: { jamah: "8:57", begin: "8:52" }, isha: { jamah: "10:25", begin: "10:01" } }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>6: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>29: { fajr: { jamah: "4:30", begin: "3:32" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:27" }, maghrib: { jamah: "9:01", begin: "8:56" }, isha: { jamah: "10:25", begin: "10:04" } },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>30: { fajr: { jamah: "4:30", begin: "3:33" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:26" }, maghrib: { jamah: "8:59", begin: "8:54" }, isha: { jamah: "10:25", begin: "10:03" } }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const prayerNames = ['Fajr', 'Zuhr', 'Asr', 'Maghrib', 'Isha'];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const prayerIcons = ['🌅', '☀️', '🌤️', '🌆', '🌙'];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function showChart(type) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.tab').forEach(tab =&gt; tab.classList.remove('active'));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>event.target.classList.add('active');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.chart-container').forEach(chart =&gt; chart.classList.remove('active'));</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (type === 'weekly') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('weeklyChart').classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('monthlyChart').classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function openDayModal(day, month) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const dayTimes = prayerData[month] &amp;&amp; prayerData[month][day];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!dayTimes) return;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const date = new Date(2025, month - 1, day);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const dateStr = date.toLocaleDateString('en-US', {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>weekday: 'long',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>month: 'long',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>day: 'numeric'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('modalTitle').textContent = dateStr;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const prayerList = document.getElementById('modalPrayerList');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>prayerList.innerHTML = '';</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const prayerKeys = ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'];</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>prayerKeys.forEach((prayer, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const prayerItem = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>prayerItem.className = 'modal-prayer-item';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>prayerItem.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="modal-prayer-info"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="modal-prayer-icon"&gt;${prayerIcons[index]}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="modal-prayer-name"&gt;${prayerNames[index]}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="modal-prayer-time"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="modal-jamah-time"&gt;${dayTimes[prayer].jamah}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="modal-begin-time"&gt;${dayTimes[prayer].begin}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>prayerList.appendChild(prayerItem);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('dayModal').style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function closeModal() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('dayModal').style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Close modal when clicking outside of it</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.onclick = function(event) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const modal = document.getElementById('dayModal');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (event.target === modal) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>closeModal();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Update countdown every second</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updateCountdown() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const now = new Date();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const tomorrow = new Date(now);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>tomorrow.setDate(tomorrow.getDate() + 1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>tomorrow.setHours(4, 0, 0, 0); // Tomorrow's Fajr at 4:00</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const timeDiff = tomorrow - now;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (timeDiff &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const hours = Math.floor(timeDiff / (1000 * 60 * 60));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('countdown').textContent =<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Update prayer highlighting</p>
+<p class="p1"><span class="Apple-converted-space">            </span>updatePrayerHighlighting();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updatePrayerHighlighting() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const now = new Date();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const todayTimes = {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>fajr: { jamah: "4:00", begin: "2:55" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>zuhr: { jamah: "1:30", begin: "1:10" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>asr: { jamah: "7:30", begin: "6:40" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>maghrib: { jamah: "9:27", begin: "9:22" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>isha: { jamah: "11:00", begin: "10:38" }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Parse prayer times - using Jamah for start and next prayer's BEGIN for end</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const prayers = [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: 'Fajr',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>startTime: parseTime(todayTimes.fajr.jamah),</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>endTime: parseTime(todayTimes.zuhr.begin) // Until Zuhr begins</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: 'Zuhr',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>startTime: parseTime(todayTimes.zuhr.jamah),</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>endTime: parseTime(todayTimes.asr.begin) // Until Asr begins</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: 'Asr',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>startTime: parseTime(todayTimes.asr.jamah),</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>endTime: parseTime(todayTimes.maghrib.begin) // Until Maghrib begins</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: 'Maghrib',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>startTime: parseTime(todayTimes.maghrib.jamah),</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>endTime: parseTime(todayTimes.isha.begin) // Until Isha begins</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: 'Isha',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>startTime: parseTime(todayTimes.isha.jamah),</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>endTime: (() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>// Until tomorrow's Fajr begins</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const tomorrowFajr = parseTime("2:55");</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>tomorrowFajr.setDate(tomorrowFajr.getDate() + 1);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>return tomorrowFajr;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>})()</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Find current and next prayer</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let currentPrayer = null;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let nextPrayer = null;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Check if we're currently in a prayer window</p>
+<p class="p1"><span class="Apple-converted-space">            </span>for (let prayer of prayers) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (now &gt;= prayer.startTime &amp;&amp; now &lt; prayer.endTime) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>currentPrayer = prayer.name;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Find next prayer</p>
+<p class="p1"><span class="Apple-converted-space">            </span>for (let prayer of prayers) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (now &lt; prayer.startTime) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>nextPrayer = prayer.name;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// If no next prayer today, next is tomorrow's Fajr</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!nextPrayer) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>nextPrayer = 'Fajr';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Update prayer name in next prayer section</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('nextPrayerName').textContent = nextPrayer;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Remove existing classes</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.prayer-row').forEach(row =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>row.classList.remove('current', 'next');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const statusElement = row.querySelector('.prayer-details p');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>statusElement.textContent = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Add current prayer highlighting</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (currentPrayer) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const currentRow = document.querySelector(`[data-prayer="${currentPrayer.toLowerCase()}"]`);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (currentRow) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>currentRow.classList.add('current');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const statusElement = currentRow.querySelector('.prayer-details p');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>statusElement.textContent = 'Current Prayer';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Add next prayer highlighting</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const nextRow = document.querySelector(`[data-prayer="${nextPrayer.toLowerCase()}"]`);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (nextRow) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>nextRow.classList.add('next');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const statusElement = nextRow.querySelector('.prayer-details p');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>statusElement.textContent = 'Next Prayer';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function parseTime(timeStr) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [hours, minutes] = timeStr.split(':').map(Number);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const date = new Date();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>date.setHours(hours, minutes, 0, 0);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return date;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Start countdown</p>
+<p class="p1"><span class="Apple-converted-space">        </span>setInterval(updateCountdown, 1000);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>updateCountdown(); // Run immediately</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Salah Times - Manor Park Islamic Cultural Centre&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>* {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #0F0F0F;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #E6E6E6;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 414px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #181818;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #2E2E2E 0%, #1A1A1A 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #E6E6E6;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 50px 20px 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid #2E2E2E;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header h1 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 28px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #F5F5F5;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.current-date {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 255, 255, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(255, 255, 255, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.next-prayer {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #1F1F1F;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 25px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #2E2E2E;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.next-prayer h3 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #B8B8B8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.countdown {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 36px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #10A37F;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 15px 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-name {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #F5F5F5;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.today-prayers {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 20px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.section-title {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #F5F5F5;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding-left: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-times {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #1F1F1F;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #2E2E2E;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-row {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px 25px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid #2E2E2E;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-row:last-child {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-row:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 255, 255, 0.05);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-row.current {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #10A37F, #0D8B6F);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid rgba(255, 255, 255, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-row.next {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #3B82F6, #1D4ED8);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid rgba(255, 255, 255, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-info {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-icon {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 40px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 40px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 255, 255, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-right: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(255, 255, 255, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-row.current .prayer-icon,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-row.next .prayer-icon {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 255, 255, 0.2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(255, 255, 255, 0.2);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-details h4 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 2px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: inherit;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-details p {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.7;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-time {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: flex-end;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.jamah-time {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.begin-time {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.6;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 400;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 2px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tabs {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #1F1F1F;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #2E2E2E;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tab {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: transparent;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #B8B8B8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tab.active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #2E2E2E;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #F5F5F5;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tab:hover:not(.active) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 255, 255, 0.05);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #E6E6E6;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chart-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #1F1F1F;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 20px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 25px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #2E2E2E;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chart-container.active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chart-container h3 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #F5F5F5;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.week-grid {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(7, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.day-item {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px 4px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #2A2A2A;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 9px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #3A3A3A;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.day-item:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #353535;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.day-item.today {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #3B82F6, #1D4ED8);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #3B82F6;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.day-name {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 4px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #F5F5F5;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-times-mini {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 1px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 3px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.prayer-time-mini {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #B8B8B8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.2;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.day-item.today .prayer-time-mini {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: rgba(255, 255, 255, 0.9);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.monthly-grid {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(7, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.month-day {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>aspect-ratio: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #2A2A2A;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #3A3A3A;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.month-day:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #353535;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.month-day.today {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #3B82F6, #1D4ED8);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #3B82F6;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.month-day.has-data:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #404040;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1000;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>left: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: rgba(0, 0, 0, 0.8);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(5px);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal-content {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #1F1F1F;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 50% auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 25px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #2E2E2E;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 85%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 350px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-50%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal-header {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding-bottom: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid #2E2E2E;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal-title {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #F5F5F5;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.close {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #B8B8B8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 28px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: color 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.close:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #F5F5F5;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal-prayer-list {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal-prayer-item {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #2A2A2A;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #3A3A3A;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal-prayer-info {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal-prayer-icon {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-right: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal-prayer-name {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #F5F5F5;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal-prayer-time {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #10A37F;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: flex-end;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal-jamah-time {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal-begin-time {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 11px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.6;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 400;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 2px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #B8B8B8;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.footer {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #B8B8B8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-top: 1px solid #2E2E2E;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes pulse {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>0%, 100% { opacity: 1; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>50% { opacity: 0.7; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.pulse {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: pulse 2s infinite;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.day-header {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #B8B8B8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1&gt;🕌 Salah Times&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="current-date" id="currentDate"&gt;Saturday, July 5, 2025&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="next-prayer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;Next Prayer&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="prayer-name" id="nextPrayerName"&gt;Fajr&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="countdown pulse" id="countdown"&gt;16:32:45&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="today-prayers"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="section-title"&gt;Today's Prayer Times&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="prayer-times" id="todayPrayers"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="prayer-row" data-prayer="fajr"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-info"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-icon"&gt;🌅&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-details"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;Fajr&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-time"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="jamah-time"&gt;4:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="begin-time"&gt;2:55&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="prayer-row" data-prayer="zuhr"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-info"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-icon"&gt;☀️&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-details"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;Zuhr&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-time"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="jamah-time"&gt;1:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="begin-time"&gt;1:10&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="prayer-row" data-prayer="asr"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-info"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-icon"&gt;🌤️&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-details"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;Asr&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-time"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="jamah-time"&gt;7:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="begin-time"&gt;6:40&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="prayer-row" data-prayer="maghrib"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-info"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-icon"&gt;🌆&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-details"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;Maghrib&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-time"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="jamah-time"&gt;9:27&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="begin-time"&gt;9:22&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="prayer-row" data-prayer="isha"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-info"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-icon"&gt;🌙&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-details"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;Isha&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-time"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="jamah-time"&gt;11:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="begin-time"&gt;10:38&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tabs"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="tab active" onclick="showChart('weekly')"&gt;Weekly&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="tab" onclick="showChart('monthly')"&gt;Monthly&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="chart-container active" id="weeklyChart"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;This Week&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="week-grid" id="weekGrid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-item" onclick="openDayModal(29, 6)"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="day-name"&gt;Sun&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="font-weight: 600; margin-bottom: 3px;"&gt;29&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-times-mini"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;F: 4:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;Z: 1:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;A: 7:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;M: 9:01&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;I: 10:25&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-item" onclick="openDayModal(30, 6)"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="day-name"&gt;Mon&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="font-weight: 600; margin-bottom: 3px;"&gt;30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-times-mini"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;F: 4:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;Z: 1:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;A: 7:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;M: 8:59&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;I: 10:25&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-item" onclick="openDayModal(1, 7)"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="day-name"&gt;Tue&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="font-weight: 600; margin-bottom: 3px;"&gt;1&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-times-mini"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;F: 4:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;Z: 1:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;A: 7:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;M: 9:29&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;I: 11:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-item" onclick="openDayModal(2, 7)"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="day-name"&gt;Wed&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="font-weight: 600; margin-bottom: 3px;"&gt;2&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-times-mini"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;F: 4:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;Z: 1:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;A: 7:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;M: 9:28&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;I: 11:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-item" onclick="openDayModal(3, 7)"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="day-name"&gt;Thu&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="font-weight: 600; margin-bottom: 3px;"&gt;3&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-times-mini"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;F: 4:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;Z: 1:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;A: 7:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;M: 9:28&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;I: 11:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-item" onclick="openDayModal(4, 7)"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="day-name"&gt;Fri&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="font-weight: 600; margin-bottom: 3px;"&gt;4&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-times-mini"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;F: 4:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;Z: 1:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;A: 7:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;M: 9:27&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;I: 11:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-item today" onclick="openDayModal(5, 7)"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="day-name"&gt;Sat&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="font-weight: 600; margin-bottom: 3px;"&gt;5&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prayer-times-mini"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;F: 4:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;Z: 1:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;A: 7:30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;M: 9:27&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="prayer-time-mini"&gt;I: 11:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="chart-container" id="monthlyChart"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;This Month - July 2025&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="monthly-grid" id="monthGrid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-header"&gt;S&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-header"&gt;M&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-header"&gt;T&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-header"&gt;W&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-header"&gt;T&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-header"&gt;F&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="day-header"&gt;S&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(1, 7)"&gt;1&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(2, 7)"&gt;2&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(3, 7)"&gt;3&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(4, 7)"&gt;4&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day today" onclick="openDayModal(5, 7)"&gt;5&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(6, 7)"&gt;6&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(7, 7)"&gt;7&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(8, 7)"&gt;8&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(9, 7)"&gt;9&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(10, 7)"&gt;10&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(11, 7)"&gt;11&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(12, 7)"&gt;12&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(13, 7)"&gt;13&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(14, 7)"&gt;14&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(15, 7)"&gt;15&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(16, 7)"&gt;16&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(17, 7)"&gt;17&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(18, 7)"&gt;18&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(19, 7)"&gt;19&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(20, 7)"&gt;20&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(21, 7)"&gt;21&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(22, 7)"&gt;22&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(23, 7)"&gt;23&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(24, 7)"&gt;24&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(25, 7)"&gt;25&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(26, 7)"&gt;26&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(27, 7)"&gt;27&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(28, 7)"&gt;28&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(29, 7)"&gt;29&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(30, 7)"&gt;30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="month-day" onclick="openDayModal(31, 7)"&gt;31&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="footer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Manor Park Islamic Cultural Centre&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>722-726 Romford Road, London E12 6BT</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Modal for Day Details --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="dayModal" class="modal"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="modal-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="modal-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="modal-title" id="modalTitle"&gt;Prayer Times&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="close" onclick="closeModal()"&gt;&amp;times;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="modal-prayer-list" id="modalPrayerList"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Prayer times will be populated here --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function showChart(type) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.tab').forEach(tab =&gt; tab.classList.remove('active'));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>event.target.classList.add('active');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.chart-container').forEach(chart =&gt; chart.classList.remove('active'));</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (type === 'weekly') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('weeklyChart').classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('monthlyChart').classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Update countdown every second</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updateCountdown() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const now = new Date();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const tomorrow = new Date(now);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>tomorrow.setDate(tomorrow.getDate() + 1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>tomorrow.setHours(4, 0, 0, 0); // Tomorrow's Fajr at 4:00</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const timeDiff = tomorrow - now;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (timeDiff &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const hours = Math.floor(timeDiff / (1000 * 60 * 60));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('countdown').textContent =<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Start countdown</p>
+<p class="p1"><span class="Apple-converted-space">        </span>setInterval(updateCountdown, 1000);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>updateCountdown(); // Run immediately</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
