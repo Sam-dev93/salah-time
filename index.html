@@ -29,7 +29,7 @@
         .header {
             background: linear-gradient(135deg, #2E2E2E 0%, #1A1A1A 100%);
             color: #E6E6E6;
-            padding: 20px 20px 15px;
+            padding: 30px 20px 30px;
             text-align: center;
             border-bottom: 1px solid #2E2E2E;
         }
@@ -37,7 +37,7 @@
         .header h1 {
             font-size: 22px;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 15px;
             color: #F5F5F5;
         }
 
@@ -449,7 +449,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🕌 Salah Times</h1>
+            <h1>Shahjalal Salah Times</h1>
             <div class="current-date" id="currentDate">Sunday, July 6, 2025</div>
         </div>
 
@@ -536,14 +536,14 @@
         </div>
 
         <div class="chart-container active" id="weeklyChart">
-            <h3>This Week</h3>
+            <h3>This Week | 6 - 12 July</h3>
             <div class="week-grid" id="weekGrid">
                 <!-- Weekly prayer times will be dynamically generated here -->
             </div>
         </div>
 
         <div class="chart-container" id="monthlyChart">
-            <h3>This Month - July 2025</h3>
+            <h3>This Month | July 2025</h3>
             <div class="monthly-grid" id="monthGrid">
                 <div class="day-header">S</div>
                 <div class="day-header">M</div>
@@ -729,9 +729,10 @@
             endDate.setDate(endDate.getDate() + 6);
             
             // Update week title
-            const startStr = startDate.toLocaleDateString('en-US', { day: 'numeric', month: 'long' });
-            const endStr = endDate.toLocaleDateString('en-US', { day: 'numeric', month: 'long' });
-            weekTitle.textContent = `This Week - ${startStr} to ${endStr}`;
+            const startStr = startDate.getDate();
+            const endStr = endDate.getDate();
+            const monthStr = startDate.toLocaleDateString('en-US', { month: 'long' });
+            weekTitle.textContent = `This Week | ${startStr} - ${endStr} ${monthStr}`;
             
             // Clear existing grid
             weekGrid.innerHTML = '';
@@ -778,6 +779,25 @@
             }
         }
 
+        // Convert prayer time to minutes, accounting for AM/PM
+        function prayerTimeToMinutes(timeStr, prayerName) {
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            
+            // Fajr is always AM (early morning)
+            if (prayerName === 'fajr') {
+                return hours * 60 + minutes;
+            }
+            
+            // All other prayers are PM
+            // For 12-hour format times that show as single digit or are clearly PM
+            if (hours >= 1 && hours <= 11) {
+                return (hours + 12) * 60 + minutes; // Convert to 24-hour format
+            }
+            
+            // If it's already in 24-hour format or is 12 PM
+            return hours * 60 + minutes;
+        }
+
         // Update countdown every second
         function updateCountdown() {
             const now = new Date();
@@ -797,21 +817,23 @@
             const currentMinute = now.getMinutes();
             const currentTimeInMinutes = currentHour * 60 + currentMinute;
 
-            // Convert begin times to minutes for comparison
+            // Convert begin times to minutes for comparison with proper AM/PM handling
             const beginTimes = [
-                { name: 'Fajr', time: timeToMinutes(todayTimes.fajr.begin), timeStr: todayTimes.fajr.begin },
-                { name: 'Zuhr', time: timeToMinutes(todayTimes.zuhr.begin), timeStr: todayTimes.zuhr.begin },
-                { name: 'Asr', time: timeToMinutes(todayTimes.asr.begin), timeStr: todayTimes.asr.begin },
-                { name: 'Maghrib', time: timeToMinutes(todayTimes.maghrib.begin), timeStr: todayTimes.maghrib.begin },
-                { name: 'Isha', time: timeToMinutes(todayTimes.isha.begin), timeStr: todayTimes.isha.begin }
+                { name: 'Fajr', time: prayerTimeToMinutes(todayTimes.fajr.begin, 'fajr'), timeStr: todayTimes.fajr.begin },
+                { name: 'Zuhr', time: prayerTimeToMinutes(todayTimes.zuhr.begin, 'zuhr'), timeStr: todayTimes.zuhr.begin },
+                { name: 'Asr', time: prayerTimeToMinutes(todayTimes.asr.begin, 'asr'), timeStr: todayTimes.asr.begin },
+                { name: 'Maghrib', time: prayerTimeToMinutes(todayTimes.maghrib.begin, 'maghrib'), timeStr: todayTimes.maghrib.begin },
+                { name: 'Isha', time: prayerTimeToMinutes(todayTimes.isha.begin, 'isha'), timeStr: todayTimes.isha.begin }
             ];
 
             let nextPrayerTime = null;
+            let nextPrayerName = null;
 
             // Find next begin time today
             for (let begin of beginTimes) {
                 if (currentTimeInMinutes < begin.time) {
-                    nextPrayerTime = parseTime(begin.timeStr);
+                    nextPrayerTime = parseTime(begin.timeStr, begin.name.toLowerCase());
+                    nextPrayerName = begin.name;
                     break;
                 }
             }
@@ -825,9 +847,13 @@
                 const tomorrowTimes = prayerData[tomorrowMonth] && prayerData[tomorrowMonth][tomorrowDay];
                 const tomorrowFajrBegin = tomorrowTimes ? tomorrowTimes.fajr.begin : "2:57";
                 
-                nextPrayerTime = parseTime(tomorrowFajrBegin);
+                nextPrayerTime = parseTime(tomorrowFajrBegin, 'fajr');
                 nextPrayerTime.setDate(nextPrayerTime.getDate() + 1);
+                nextPrayerName = 'Fajr';
             }
+
+            // Update prayer name in next prayer section
+            document.getElementById('nextPrayerName').textContent = nextPrayerName;
 
             const timeDiff = nextPrayerTime - now;
             
@@ -858,24 +884,16 @@
                 isha: { jamah: "10:50", begin: "10:37" }
             };
 
-            // Get tomorrow's Fajr time for Isha end time
-            const tomorrow = new Date(now);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            const tomorrowDay = tomorrow.getDate();
-            const tomorrowMonth = tomorrow.getMonth() + 1;
-            const tomorrowTimes = prayerData[tomorrowMonth] && prayerData[tomorrowMonth][tomorrowDay];
-            const tomorrowFajrBegin = tomorrowTimes ? tomorrowTimes.fajr.begin : "2:57";
-
             const currentHour = now.getHours();
             const currentMinute = now.getMinutes();
             const currentTimeInMinutes = currentHour * 60 + currentMinute;
 
-            // Convert prayer begin times to minutes
-            const fajrBeginMinutes = timeToMinutes(todayTimes.fajr.begin);
-            const zuhrBeginMinutes = timeToMinutes(todayTimes.zuhr.begin);
-            const asrBeginMinutes = timeToMinutes(todayTimes.asr.begin);
-            const maghribBeginMinutes = timeToMinutes(todayTimes.maghrib.begin);
-            const ishaBeginMinutes = timeToMinutes(todayTimes.isha.begin);
+            // Convert prayer begin times to minutes with proper AM/PM handling
+            const fajrBeginMinutes = prayerTimeToMinutes(todayTimes.fajr.begin, 'fajr');
+            const zuhrBeginMinutes = prayerTimeToMinutes(todayTimes.zuhr.begin, 'zuhr');
+            const asrBeginMinutes = prayerTimeToMinutes(todayTimes.asr.begin, 'asr');
+            const maghribBeginMinutes = prayerTimeToMinutes(todayTimes.maghrib.begin, 'maghrib');
+            const ishaBeginMinutes = prayerTimeToMinutes(todayTimes.isha.begin, 'isha');
 
             // Determine current prayer based on time
             let currentPrayer = null;
@@ -892,32 +910,6 @@
                 // Isha continues until next day's Fajr
                 currentPrayer = 'Isha';
             }
-
-            // Find next prayer begin time for countdown
-            const beginTimes = [
-                { name: 'Fajr', time: timeToMinutes(todayTimes.fajr.begin) },
-                { name: 'Zuhr', time: timeToMinutes(todayTimes.zuhr.begin) },
-                { name: 'Asr', time: timeToMinutes(todayTimes.asr.begin) },
-                { name: 'Maghrib', time: timeToMinutes(todayTimes.maghrib.begin) },
-                { name: 'Isha', time: timeToMinutes(todayTimes.isha.begin) }
-            ];
-
-            let nextPrayer = null;
-            // Find next begin time
-            for (let begin of beginTimes) {
-                if (currentTimeInMinutes < begin.time) {
-                    nextPrayer = begin.name;
-                    break;
-                }
-            }
-
-            // If no next prayer today, next is tomorrow's Fajr
-            if (!nextPrayer) {
-                nextPrayer = 'Fajr';
-            }
-
-            // Update prayer name in next prayer section
-            document.getElementById('nextPrayerName').textContent = nextPrayer;
 
             // Remove existing classes
             document.querySelectorAll('.prayer-row').forEach(row => {
@@ -938,11 +930,6 @@
 
             // Update today's prayer times in the display
             updateTodaysPrayerTimes();
-        }
-
-        function timeToMinutes(timeStr) {
-            const [hours, minutes] = timeStr.split(':').map(Number);
-            return hours * 60 + minutes;
         }
 
         function updateTodaysPrayerTimes() {
@@ -966,10 +953,23 @@
             }
         }
 
-        function parseTime(timeStr) {
+        function parseTime(timeStr, prayerName) {
             const [hours, minutes] = timeStr.split(':').map(Number);
             const date = new Date();
-            date.setHours(hours, minutes, 0, 0);
+            
+            // Fajr is always AM (early morning)
+            if (prayerName === 'fajr') {
+                date.setHours(hours, minutes, 0, 0);
+            } else {
+                // All other prayers are PM
+                // Convert to 24-hour format if needed
+                if (hours >= 1 && hours <= 11) {
+                    date.setHours(hours + 12, minutes, 0, 0);
+                } else {
+                    date.setHours(hours, minutes, 0, 0);
+                }
+            }
+            
             return date;
         }
 
@@ -984,6 +984,11 @@
                 year: 'numeric'
             });
             document.getElementById('currentDate').textContent = dateStr;
+            
+            // Update monthly chart title with current month
+            const monthlyTitle = document.querySelector('#monthlyChart h3');
+            const monthYear = now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            monthlyTitle.textContent = `This Month | ${monthYear}`;
             
             // Generate dynamic weekly view
             generateWeeklyView();
