@@ -3,7 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salah Times - Manor Park Islamic Cultural Centre</title>
+    <title>Shahjalal Salah Times</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Salah Times">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#181818">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiU2hhaGphbGFsIFNhbGFoIFRpbWVzIiwic2hvcnRfbmFtZSI6IlNhbGFoIFRpbWVzIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwidGhlbWVfY29sb3IiOiIjMTgxODE4IiwiYmFja2dyb3VuZF9jb2xvciI6IiMwRjBGMEYiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQXhNakFnTVRJd0lpQjNhV1IwYUQwaU1USXdJaUJvWldsbmFIUTlJakV5TUNJK1BHeGphWEpqYkdVZ1kzZzlJall3SWlCamVUMGlOakFpSUhJOUlqUXdJaUJtYVd4c1BTSWpNVEJCTXpkR0lpOCtQSFJsZUhRZ2VEMGlOakFpSUhrOUlqY3dJaUIwWlhoMExXRnVZMmh2Y2owaWJXbGtaR3hsSWlCbWFXeHNQU0lqUmpaR05rWTJJaUJtYjI1MExYTnBlbVU5SWpFMklpQm1iMjUwTFdaaGJXbHNlVDBpVUc5d2NHbHVjeXdnYzJGdWN5MXpaWEpwWmlJK1UySXdaaThpTm1kOFltZmJNbjF3ZDI5eWMyaHBjQzVzYVc1cklpQnlaV3c5SWtkdmIyZHNaU0JCY0hBaUlpQnVZVzFsUFNKaFozUnliWGJ5ZDBSdlEyeGJObmNJOVkyMW9QU2dVbXh2YzJOYWM5VXlTOTR5VFFwZlZuVnRLamlqNk5iNElsMUJYTlJpcklqUUZjeUlpOCtQQzl6ZG1jKyIsInNpemVzIjoiMTI4eDEyOCIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn0seyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTV6TXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2IzZzlJakFnTUNBeE1qQWdNVEl3SWlCM2FXUjBhRDBpTVRJd0lpQm9aV2xuYUhROUlqRXlNQ0krUEd4amFYSmpiR1VnWTNnOUlqWXdJaUJqZVQwaU5qQWlJSEk5SWpRd0lpQm1hV3hzUFNJak1UQkJNemRHSWk4K1BIUmxlSFFnZUQwaU5qQWlJSGs5SWpjd0lpQjBaWGgwTFdGdVkyaHZjajBpYldsa1pHeGxJaUJtYVd4c1BTSWpSalpHTm1ZMklpQm1iMjUwTFhOcGVtVTlJakUySWlCbWIyNTBMV1poYldsc2VUMGlVRzl3Y0dsdWN5d2djMkZ1Y3kxelpYSnBaaUkrVTE1WmZpOGlObWQ4WW1mYk1ub3dkMjl5YzJocGNDNXNhVzVySWlCeVpXdzlJa2R2YjJkc1pTQkJjSEFpSWlCdVlXMWxQU0poWjNSeWJYWnlkRVJ2UTJ4Yk5uZEk5WTJsbVBTZ1VtdHZjMk5hYzlVeVM5NHlUUXBmVm5WdEtqaWo2TmI0SWwxQlhOUmlySWpRRmN5SWk4K1BDOXpkbWMrIiwic2l6ZXMiOiIyNTZ4MjU2IiwidHlwZSI6ImltYWdlL3N2Zyt4bWwifV19">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+PGNpcmNsZSBjeD0iNjAiIGN5PSI2MCIgcj0iNDAiIGZpbGw9IiMxMEEzN0YiLz48dGV4dCB4PSI2MCIgeT0iNzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNGNkY2RjYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtZmFtaWx5PSJQb3BwaW5zLCBzYW5zLXNlcmlmIj5TPC90ZXh0Pjwvc3ZnPg==">
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+PGNpcmNsZSBjeD0iNjAiIGN5PSI2MCIgcj0iNDAiIGZpbGw9IiMxMEEzN0YiLz48dGV4dCB4PSI2MCIgeT0iNzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNGNkY2RjYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtZmFtaWx5PSJQb3BwaW5zLCBzYW5zLXNlcmlmIj5TPC90ZXh0Pjwvc3ZnPg==">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+PGNpcmNsZSBjeD0iNjAiIGN5PSI2MCIgcj0iNDAiIGZpbGw9IiMxMEEzN0YiLz48dGV4dCB4PSI2MCIgeT0iNzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNGNkY2RjYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtZmFtaWx5PSJQb3BwaW5zLCBzYW5zLXNlcmlmIj5TPC90ZXh0Pjwvc3ZnPg==">"
     <style>
         * {
             margin: 0;
