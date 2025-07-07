@@ -620,6 +620,55 @@
     </div>
 
     <script>
+        // Sunrise times data for each month
+        const sunriseData = {
+            7: {
+                1: "4:47", 2: "4:48", 3: "4:49", 4: "4:49", 5: "4:50", 6: "4:51", 7: "4:52",
+                8: "4:53", 9: "4:54", 10: "4:55", 11: "4:56", 12: "4:57", 13: "4:58", 14: "4:59",
+                15: "5:00", 16: "5:02", 17: "5:03", 18: "5:04", 19: "5:05", 20: "5:07", 21: "5:08",
+                22: "5:09", 23: "5:11", 24: "5:12", 25: "5:13", 26: "5:15", 27: "5:16", 28: "5:18",
+                29: "5:19", 30: "5:21", 31: "5:22"
+            },
+            8: {
+                1: "5:24", 2: "5:25", 3: "5:27", 4: "5:28", 5: "5:30", 6: "5:31", 7: "5:33",
+                8: "5:34", 9: "5:36", 10: "5:38", 11: "5:39", 12: "5:41", 13: "5:42", 14: "5:44",
+                15: "5:45", 16: "5:47", 17: "5:49", 18: "5:50", 19: "5:52", 20: "5:53", 21: "5:55",
+                22: "5:57", 23: "5:58", 24: "6:00", 25: "6:01", 26: "6:03", 27: "6:05", 28: "6:06",
+                29: "6:08", 30: "6:09", 31: "6:11"
+            },
+            9: {
+                1: "6:13", 2: "6:14", 3: "6:16", 4: "6:17", 5: "6:19", 6: "6:20", 7: "6:22",
+                8: "6:24", 9: "6:25", 10: "6:27", 11: "6:28", 12: "6:30", 13: "6:32", 14: "6:33",
+                15: "6:35", 16: "6:36", 17: "6:38", 18: "6:40", 19: "6:41", 20: "6:43", 21: "6:44",
+                22: "6:46", 23: "6:48", 24: "6:49", 25: "6:51", 26: "6:52", 27: "6:54", 28: "6:56",
+                29: "6:57", 30: "6:59"
+            },
+            10: {
+                1: "7:01", 2: "7:02", 3: "7:04", 4: "7:05", 5: "7:07", 6: "7:09", 7: "7:10",
+                8: "7:12", 9: "7:14", 10: "7:15", 11: "7:17", 12: "7:19", 13: "7:20", 14: "7:22",
+                15: "7:24", 16: "7:25", 17: "7:27", 18: "7:29", 19: "7:31", 20: "7:32", 21: "7:34",
+                22: "7:36", 23: "7:38", 24: "7:39", 25: "7:41", 26: "6:43", 27: "6:45", 28: "6:46",
+                29: "6:48", 30: "6:50", 31: "6:52"
+            },
+            11: {
+                1: "6:53", 2: "6:55", 3: "6:57", 4: "6:59", 5: "7:00", 6: "7:02", 7: "7:04",
+                8: "7:06", 9: "7:07", 10: "7:09", 11: "7:11", 12: "7:13", 13: "7:14", 14: "7:16",
+                15: "7:18", 16: "7:20", 17: "7:21", 18: "7:23", 19: "7:25", 20: "7:26", 21: "7:28",
+                22: "7:29", 23: "7:31", 24: "7:33", 25: "7:34", 26: "7:36", 27: "7:37", 28: "7:39",
+                29: "7:40", 30: "7:42"
+            },
+            12: {
+                1: "7:43", 2: "7:45", 3: "7:46", 4: "7:47", 5: "7:48", 6: "7:50", 7: "7:51",
+                8: "7:52", 9: "7:53", 10: "7:54", 11: "7:55", 12: "7:56", 13: "7:57", 14: "7:58",
+                15: "7:59", 16: "8:00", 17: "8:01", 18: "8:01", 19: "8:02", 20: "8:03", 21: "8:03",
+                22: "8:04", 23: "8:04", 24: "8:05", 25: "8:05", 26: "8:05", 27: "8:05", 28: "8:06",
+                29: "8:06", 30: "8:06", 31: "8:06"
+            },
+            6: {
+                29: "6:13", 30: "6:14"
+            }
+        };
+
         // Prayer times data for July 2025 with corrected Maghrib Jamah times
         const prayerData = {
             7: {
@@ -963,16 +1012,35 @@
             prayerKeys.forEach((prayer, index) => {
                 const prayerItem = document.createElement('div');
                 prayerItem.className = 'modal-prayer-item';
-                prayerItem.innerHTML = `
-                    <div class="modal-prayer-info">
-                        <span class="modal-prayer-icon">${prayerIcons[index]}</span>
-                        <span class="modal-prayer-name">${prayerNames[index]}</span>
-                    </div>
-                    <div class="modal-prayer-time">
-                        <div class="modal-jamah-time">${dayTimes[prayer].jamah}</div>
-                        <div class="modal-begin-time">${dayTimes[prayer].begin}</div>
-                    </div>
-                `;
+                
+                // Special handling for Fajr to include sunrise time
+                if (prayer === 'fajr') {
+                    const sunriseTime = sunriseData[month] && sunriseData[month][day] ? sunriseData[month][day] : "06:00";
+                    prayerItem.innerHTML = `
+                        <div class="modal-prayer-info">
+                            <span class="modal-prayer-icon">${prayerIcons[index]}</span>
+                            <div>
+                                <span class="modal-prayer-name">${prayerNames[index]}</span>
+                                <div style="font-size: 11px; opacity: 0.6; margin-top: 2px; color: #B8B8B8;">Sunrise: ${sunriseTime}</div>
+                            </div>
+                        </div>
+                        <div class="modal-prayer-time">
+                            <div class="modal-jamah-time">${dayTimes[prayer].jamah}</div>
+                            <div class="modal-begin-time">${dayTimes[prayer].begin}</div>
+                        </div>
+                    `;
+                } else {
+                    prayerItem.innerHTML = `
+                        <div class="modal-prayer-info">
+                            <span class="modal-prayer-icon">${prayerIcons[index]}</span>
+                            <span class="modal-prayer-name">${prayerNames[index]}</span>
+                        </div>
+                        <div class="modal-prayer-time">
+                            <div class="modal-jamah-time">${dayTimes[prayer].jamah}</div>
+                            <div class="modal-begin-time">${dayTimes[prayer].begin}</div>
+                        </div>
+                    `;
+                }
                 prayerList.appendChild(prayerItem);
             });
             
@@ -1044,11 +1112,15 @@
                     const weekDayOfWeek = currentDate.getDay();
                     const zuhrLabel = weekDayOfWeek === 5 ? "J" : "Z"; // J for Jumu'ah, Z for Zuhr
                     
+                    // Get sunrise time for this day
+                    const sunriseTime = sunriseData[month] && sunriseData[month][day] ? sunriseData[month][day] : "06:00";
+                    
                     dayItem.innerHTML = `
                         <div class="day-name">${dayName}</div>
                         <div style="font-weight: 600; margin-bottom: 3px;">${day}</div>
                         <div class="prayer-times-mini">
                             <div class="prayer-time-mini">F: ${dayTimes.fajr.jamah}</div>
+                            <div class="prayer-time-mini" style="font-size: 7px; opacity: 0.7;">SR: ${sunriseTime}</div>
                             <div class="prayer-time-mini">${zuhrLabel}: ${dayTimes.zuhr.jamah}</div>
                             <div class="prayer-time-mini">A: ${dayTimes.asr.jamah}</div>
                             <div class="prayer-time-mini">M: ${dayTimes.maghrib.jamah}</div>
@@ -1184,11 +1256,16 @@
             const asrBeginMinutes = prayerTimeToMinutes(todayTimes.asr.begin, 'asr');
             const maghribBeginMinutes = prayerTimeToMinutes(todayTimes.maghrib.begin, 'maghrib');
             const ishaBeginMinutes = prayerTimeToMinutes(todayTimes.isha.begin, 'isha');
+            
+            // Get sunrise time and convert to minutes
+            const sunriseTime = sunriseData[month] && sunriseData[month][today] ? sunriseData[month][today] : "6:00";
+            const sunriseMinutes = prayerTimeToMinutes(sunriseTime, 'fajr'); // Use 'fajr' logic for AM time
 
             // Determine current prayer based on time
             let currentPrayer = null;
 
-            if (currentTimeInMinutes >= fajrBeginMinutes && currentTimeInMinutes < zuhrBeginMinutes) {
+            if (currentTimeInMinutes >= fajrBeginMinutes && currentTimeInMinutes < sunriseMinutes) {
+                // Fajr is current only until sunrise (not until Zuhr)
                 currentPrayer = 'Fajr';
             } else if (currentTimeInMinutes >= zuhrBeginMinutes && currentTimeInMinutes < asrBeginMinutes) {
                 currentPrayer = 'Zuhr';
@@ -1200,6 +1277,7 @@
                 // Isha continues until next day's Fajr
                 currentPrayer = 'Isha';
             }
+            // Note: Between sunrise and Zuhr begin, there is no current prayer
 
             // Remove existing classes
             document.querySelectorAll('.prayer-row').forEach(row => {
@@ -1214,7 +1292,11 @@
                 if (currentRow) {
                     currentRow.classList.add('current');
                     const statusElement = currentRow.querySelector('.prayer-details p');
-                    statusElement.textContent = 'Current Prayer';
+                    if (currentPrayer === 'Fajr') {
+                        statusElement.textContent = `Current Prayer | Sunrise: ${sunriseTime}`;
+                    } else {
+                        statusElement.textContent = 'Current Prayer';
+                    }
                 }
             }
 
@@ -1240,6 +1322,20 @@
                     jamahTime.textContent = todayTimes[prayer].jamah;
                     beginTime.textContent = todayTimes[prayer].begin;
                 });
+                
+                // Add sunrise time to Fajr prayer row
+                const fajrRow = document.querySelector('[data-prayer="fajr"]');
+                if (fajrRow) {
+                    const statusElement = fajrRow.querySelector('.prayer-details p');
+                    const sunriseTime = sunriseData[month] && sunriseData[month][today] ? sunriseData[month][today] : "06:00";
+                    
+                    // Check if Fajr is current prayer
+                    if (fajrRow.classList.contains('current')) {
+                        statusElement.textContent = `Current Prayer | Sunrise: ${sunriseTime}`;
+                    } else {
+                        statusElement.textContent = `Sunrise: ${sunriseTime}`;
+                    }
+                }
                 
                 // Check if today is Friday and update Zuhr to Jumu'ah
                 const dayOfWeek = now.getDay(); // 0 = Sunday, 5 = Friday
