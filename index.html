@@ -976,6 +976,15 @@
                 prayerList.appendChild(prayerItem);
             });
             
+            // Check if the selected day is Friday and update Zuhr to Jumu'ah
+            const selectedDate = new Date(currentDisplayYear, month - 1, day);
+            const dayOfWeek = selectedDate.getDay();
+            if (dayOfWeek === 5) {
+                const zuhrItem = prayerList.children[1]; // Zuhr is the second item (index 1)
+                const zuhrNameElement = zuhrItem.querySelector('.modal-prayer-name');
+                zuhrNameElement.textContent = "Jumu'ah";
+            }
+            
             document.getElementById('dayModal').style.display = 'block';
         }
 
@@ -1031,12 +1040,16 @@
                 dayItem.setAttribute('onclick', `openDayModal(${day}, ${month})`);
                 
                 if (dayTimes) {
+                    // Check if this day is Friday
+                    const weekDayOfWeek = currentDate.getDay();
+                    const zuhrLabel = weekDayOfWeek === 5 ? "J" : "Z"; // J for Jumu'ah, Z for Zuhr
+                    
                     dayItem.innerHTML = `
                         <div class="day-name">${dayName}</div>
                         <div style="font-weight: 600; margin-bottom: 3px;">${day}</div>
                         <div class="prayer-times-mini">
                             <div class="prayer-time-mini">F: ${dayTimes.fajr.jamah}</div>
-                            <div class="prayer-time-mini">Z: ${dayTimes.zuhr.jamah}</div>
+                            <div class="prayer-time-mini">${zuhrLabel}: ${dayTimes.zuhr.jamah}</div>
                             <div class="prayer-time-mini">A: ${dayTimes.asr.jamah}</div>
                             <div class="prayer-time-mini">M: ${dayTimes.maghrib.jamah}</div>
                             <div class="prayer-time-mini">I: ${dayTimes.isha.jamah}</div>
@@ -1227,6 +1240,16 @@
                     jamahTime.textContent = todayTimes[prayer].jamah;
                     beginTime.textContent = todayTimes[prayer].begin;
                 });
+                
+                // Check if today is Friday and update Zuhr to Jumu'ah
+                const dayOfWeek = now.getDay(); // 0 = Sunday, 5 = Friday
+                if (dayOfWeek === 5) {
+                    const zuhrRow = document.querySelector('[data-prayer="zuhr"]');
+                    if (zuhrRow) {
+                        const prayerNameElement = zuhrRow.querySelector('.prayer-details h4');
+                        prayerNameElement.textContent = "Jumu'ah";
+                    }
+                }
             }
         }
 
