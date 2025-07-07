@@ -16,6 +16,8 @@
             background: #0F0F0F;
             min-height: 100vh;
             color: #E6E6E6;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
@@ -29,7 +31,8 @@
         .header {
             background: linear-gradient(135deg, #252525 0%, #1A1A1A 100%);
             color: #E6E6E6;
-            padding: 35px 20px 35px;
+            padding: 0px 20px 35px 20px;
+            padding-top: env(safe-area-inset-top, 20px);
             text-align: center;
             border-bottom: 1px solid #2E2E2E;
         }
