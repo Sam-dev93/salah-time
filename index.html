@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#181818">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Salah Times">
+    <meta name="apple-mobile-web-app-title" content="🕌 Salah Times">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport-fit" content="cover">
     <meta name="application-name" content="Salah Times">
@@ -35,8 +35,17 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #181818;
-            min-height: 100vh;
             color: #E6E6E6;
+            line-height: 1.47;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            /* PWA specific */
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            overscroll-behavior: none;
+            -webkit-overflow-scrolling: touch;
+            min-height: 100vh;
             margin: 0;
             padding: 0;
             /* Support for notch devices */
@@ -49,10 +58,33 @@
         .container {
             max-width: 414px;
             margin: 0 auto;
-            min-height: 100vh;
+            height: 100vh;
             background: #181818;
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
-            padding-top: 15px; /* Space for status bar */
+            padding: 0 12px;
+        }
+        
+        .top-spacer {
+            height: 70px;
+            flex-shrink: 0;
+            background: #181818;
+        }
+        
+        .bottom-spacer {
+            height: 50px;
+            flex-shrink: 0;
+            background: #181818;
+        }
+        
+        .scrollable-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            padding-top: 0;
+            padding-bottom: 0;
         }
 
         .status-info {
@@ -473,7 +505,7 @@
             color: #B8B8B8;
             font-size: 11px;
             border-top: 1px solid #2E2E2E;
-            margin-bottom: env(safe-area-inset-bottom);
+            margin-bottom: 0;
         }
 
         @keyframes pulse {
@@ -637,8 +669,8 @@
                 padding-top: env(safe-area-inset-top);
             }
             
-            .container {
-                padding-top: 40px;
+            .top-spacer {
+                height: 90px;
             }
         }
 
@@ -647,128 +679,177 @@
                 padding-top: env(safe-area-inset-top);
             }
             
-            .container {
-                padding-top: 40px;
+            .top-spacer {
+                height: 90px;
             }
             
             .pwa-status {
                 display: none;
             }
         }
+
+        /* Enhanced mobile styles */
+        @media (max-width: 767px) {
+            .container {
+                padding: 0 12px;
+            }
+            
+            .top-spacer {
+                height: 60px;
+            }
+            
+            .bottom-spacer {
+                height: 40px;
+            }
+        }
+        
+        /* Tablet styles */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 768px;
+                margin: 0 auto;
+                padding: 0 24px;
+            }
+            
+            .bottom-spacer {
+                height: 60px;
+            }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1024px;
+                padding: 0 32px;
+            }
+            
+            .bottom-spacer {
+                height: 70px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="status-info">
-            <h1 class="mosque-name">Shahjalal Salah Times</h1>
-            <div class="current-date" id="currentDate">Sunday, July 6, 2025</div>
-            <div class="pwa-status offline" id="pwaStatus">📱 Loading...</div>
-        </div>
+        <!-- Top Spacer to push content below status bar -->
+        <div class="top-spacer"></div>
+        
+        <!-- Scrollable Content -->
+        <div class="scrollable-content">
+            <div class="status-info">
+                <h1 class="mosque-name">Shahjalal Salah Times</h1>
+                <div class="current-date" id="currentDate">Sunday, July 6, 2025</div>
+                <div class="pwa-status offline" id="pwaStatus">📱 Loading...</div>
+            </div>
 
-        <div class="next-prayer">
-            <h3>Next Prayer</h3>
-            <div class="prayer-name" id="nextPrayerName">Fajr</div>
-            <div class="countdown pulse" id="countdown">16:32:45</div>
-        </div>
+            <div class="next-prayer">
+                <h3>Next Prayer</h3>
+                <div class="prayer-name" id="nextPrayerName">Fajr</div>
+                <div class="countdown pulse" id="countdown">16:32:45</div>
+            </div>
 
-        <div class="today-prayers">
-            <h2 class="section-title">Today's Prayer Times</h2>
-            <div class="prayer-times" id="todayPrayers">
-                <div class="prayer-row" data-prayer="fajr">
-                    <div class="prayer-info">
-                        <div class="prayer-icon">🌅</div>
-                        <div class="prayer-details">
-                            <h4>Fajr</h4>
-                            <p></p>
+            <div class="today-prayers">
+                <h2 class="section-title">Today's Prayer Times</h2>
+                <div class="prayer-times" id="todayPrayers">
+                    <div class="prayer-row" data-prayer="fajr">
+                        <div class="prayer-info">
+                            <div class="prayer-icon">🌅</div>
+                            <div class="prayer-details">
+                                <h4>Fajr</h4>
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="prayer-time">
+                            <div class="jamah-time">4:15</div>
+                            <div class="begin-time">2:57</div>
                         </div>
                     </div>
-                    <div class="prayer-time">
-                        <div class="jamah-time">4:15</div>
-                        <div class="begin-time">2:57</div>
-                    </div>
-                </div>
-                <div class="prayer-row" data-prayer="zuhr">
-                    <div class="prayer-info">
-                        <div class="prayer-icon">☀️</div>
-                        <div class="prayer-details">
-                            <h4>Zuhr</h4>
-                            <p></p>
+                    <div class="prayer-row" data-prayer="zuhr">
+                        <div class="prayer-info">
+                            <div class="prayer-icon">☀️</div>
+                            <div class="prayer-details">
+                                <h4>Zuhr</h4>
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="prayer-time">
+                            <div class="jamah-time">1:30</div>
+                            <div class="begin-time">1:10</div>
                         </div>
                     </div>
-                    <div class="prayer-time">
-                        <div class="jamah-time">1:30</div>
-                        <div class="begin-time">1:10</div>
-                    </div>
-                </div>
-                <div class="prayer-row" data-prayer="asr">
-                    <div class="prayer-info">
-                        <div class="prayer-icon">🌤️</div>
-                        <div class="prayer-details">
-                            <h4>Asr</h4>
-                            <p></p>
+                    <div class="prayer-row" data-prayer="asr">
+                        <div class="prayer-info">
+                            <div class="prayer-icon">🌤️</div>
+                            <div class="prayer-details">
+                                <h4>Asr</h4>
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="prayer-time">
+                            <div class="jamah-time">7:30</div>
+                            <div class="begin-time">6:40</div>
                         </div>
                     </div>
-                    <div class="prayer-time">
-                        <div class="jamah-time">7:30</div>
-                        <div class="begin-time">6:40</div>
-                    </div>
-                </div>
-                <div class="prayer-row" data-prayer="maghrib">
-                    <div class="prayer-info">
-                        <div class="prayer-icon">🌆</div>
-                        <div class="prayer-details">
-                            <h4>Maghrib</h4>
-                            <p></p>
+                    <div class="prayer-row" data-prayer="maghrib">
+                        <div class="prayer-info">
+                            <div class="prayer-icon">🌆</div>
+                            <div class="prayer-details">
+                                <h4>Maghrib</h4>
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="prayer-time">
+                            <div class="jamah-time">9:26</div>
+                            <div class="begin-time">9:21</div>
                         </div>
                     </div>
-                    <div class="prayer-time">
-                        <div class="jamah-time">9:26</div>
-                        <div class="begin-time">9:21</div>
-                    </div>
-                </div>
-                <div class="prayer-row" data-prayer="isha">
-                    <div class="prayer-info">
-                        <div class="prayer-icon">🌙</div>
-                        <div class="prayer-details">
-                            <h4>Isha</h4>
-                            <p></p>
+                    <div class="prayer-row" data-prayer="isha">
+                        <div class="prayer-info">
+                            <div class="prayer-icon">🌙</div>
+                            <div class="prayer-details">
+                                <h4>Isha</h4>
+                                <p></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="prayer-time">
-                        <div class="jamah-time">10:50</div>
-                        <div class="begin-time">10:37</div>
+                        <div class="prayer-time">
+                            <div class="jamah-time">10:50</div>
+                            <div class="begin-time">10:37</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="tabs">
-            <button class="tab active" onclick="showChart('weekly')">Weekly</button>
-            <button class="tab" onclick="showChart('monthly')">Monthly</button>
-        </div>
+            <div class="tabs">
+                <button class="tab active" onclick="showChart('weekly')">Weekly</button>
+                <button class="tab" onclick="showChart('monthly')">Monthly</button>
+            </div>
 
-        <div class="chart-container active" id="weeklyChart">
-            <h3>This Week | 6 - 12 July</h3>
-            <div class="week-grid" id="weekGrid">
-                <!-- Weekly prayer times will be dynamically generated here -->
+            <div class="chart-container active" id="weeklyChart">
+                <h3>This Week | 6 - 12 July</h3>
+                <div class="week-grid" id="weekGrid">
+                    <!-- Weekly prayer times will be dynamically generated here -->
+                </div>
+            </div>
+
+            <div class="chart-container" id="monthlyChart">
+                <div class="month-navigation">
+                    <button class="nav-arrow" id="prevMonth" onclick="changeMonth(-1)">‹</button>
+                    <h3 class="month-title" id="monthTitle">This Month | July 2025</h3>
+                    <button class="nav-arrow" id="nextMonth" onclick="changeMonth(1)">›</button>
+                </div>
+                <div class="monthly-grid" id="monthGrid">
+                    <!-- Monthly calendar will be dynamically generated here -->
+                </div>
+            </div>
+
+            <div class="footer">
+                Manor Park Islamic Cultural Centre<br>
+                722-726 Romford Road, London E12 6BT
             </div>
         </div>
-
-        <div class="chart-container" id="monthlyChart">
-            <div class="month-navigation">
-                <button class="nav-arrow" id="prevMonth" onclick="changeMonth(-1)">‹</button>
-                <h3 class="month-title" id="monthTitle">This Month | July 2025</h3>
-                <button class="nav-arrow" id="nextMonth" onclick="changeMonth(1)">›</button>
-            </div>
-            <div class="monthly-grid" id="monthGrid">
-                <!-- Monthly calendar will be dynamically generated here -->
-            </div>
-        </div>
-
-        <div class="footer">
-            Manor Park Islamic Cultural Centre<br>
-            722-726 Romford Road, London E12 6BT
-        </div>
+        
+        <!-- Bottom Spacer to push content up from bottom -->
+        <div class="bottom-spacer"></div>
     </div>
 
     <!-- Install Prompt -->
@@ -1054,7 +1135,6 @@
             }
         }
 
-        // [Rest of your existing JavaScript functions remain the same...]
         function showChart(type) {
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             event.target.classList.add('active');
