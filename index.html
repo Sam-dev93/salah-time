@@ -1666,3 +1666,138 @@
                 // All other prayers are PM
                 // Convert to 24-hour format if needed
                 if (hours >= 1 && hours <= 11) {
+                    date.setHours(hours + 12, minutes, 0, 0);
+                } else {
+                    date.setHours(hours, minutes, 0, 0);
+                }
+            }
+            
+            return date;
+        }
+
+        // Initialize the app
+        function init() {
+            // Update current date
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                month: 'long', 
+                day: 'numeric',
+                year: 'numeric'
+            });
+            document.getElementById('currentDate').textContent = dateStr;
+            
+            // Set current display month to current month
+            currentDisplayMonth = now.getMonth() + 1;
+            currentDisplayYear = now.getFullYear();
+            
+            // Initialize PWA status
+            updatePWAStatus();
+            
+            // Generate dynamic monthly and weekly views
+            generateMonthlyView();
+            generateWeeklyView();
+            updateNavigationButtons();
+            
+            // Start countdown and update functions
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            
+            // Handle URL shortcuts
+            handleUrlShortcuts();
+        }
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful');
+                        
+                        // Check for updates periodically
+                        setInterval(() => {
+                            registration.update();
+                        }, 60000); // Check every minute
+                        
+                        // Handle updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    showUpdateNotification();
+                                }
+                            });
+                        });
+                    }, function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+
+        function showUpdateNotification() {
+            const notification = document.getElementById('updateNotification');
+            notification.classList.add('show');
+            
+            notification.addEventListener('click', () => {
+                if (navigator.serviceWorker.controller) {
+                    navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+                    window.location.reload();
+                }
+            });
+            
+            // Auto-hide after 10 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 10000);
+        }
+
+        // Handle online/offline status
+        window.addEventListener('online', () => {
+            updatePWAStatus();
+            console.log('App is online');
+        });
+
+        window.addEventListener('offline', () => {
+            updatePWAStatus();
+            console.log('App is offline');
+        });
+
+        // Handle URL shortcuts
+        function handleUrlShortcuts() {
+            const hash = window.location.hash;
+            if (hash === '#today') {
+                // Scroll to today's prayers
+                setTimeout(() => {
+                    document.querySelector('.today-prayers').scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+            } else if (hash === '#weekly') {
+                // Show weekly view
+                setTimeout(() => {
+                    showChart('weekly');
+                }, 500);
+            } else if (hash === '#monthly') {
+                // Show monthly view
+                setTimeout(() => {
+                    showChart('monthly');
+                }, 500);
+            }
+            // Clear the hash
+            if (hash) {
+                window.history.replaceState(null, null, window.location.pathname);
+            }
+        }
+
+        // Start the app when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            init();
+        });
+        
+        // Also call init if DOMContentLoaded already fired
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>
