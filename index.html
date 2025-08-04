@@ -1351,8 +1351,7 @@
             });
             
             // Check if the selected day is Friday and update Zuhr to Jumu'ah
-            const selectedDate = new Date(currentDisplayYear, month - 1, day);
-            const dayOfWeek = selectedDate.getDay();
+            const dayOfWeek = date.getDay();
             if (dayOfWeek === 5) {
                 const zuhrItem = prayerList.children[1]; // Zuhr is the second item (index 1)
                 const zuhrNameElement = zuhrItem.querySelector('.modal-prayer-name');
@@ -1614,8 +1613,19 @@
             const now = new Date();
             const today = now.getDate();
             const month = now.getMonth() + 1;
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+            const currentTimeInMinutes = currentHour * 60 + currentMinute;
+            
+            // Get tomorrow's date for prayers that have passed
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowDay = tomorrow.getDate();
+            const tomorrowMonth = tomorrow.getMonth() + 1;
             
             const todayTimes = prayerData[month] && prayerData[month][today];
+            const tomorrowTimes = prayerData[tomorrowMonth] && prayerData[tomorrowMonth][tomorrowDay];
+            
             if (todayTimes) {
                 const prayerRows = document.querySelectorAll('.prayer-row');
                 const prayers = ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'];
@@ -1625,31 +1635,72 @@
                     const jamahTime = row.querySelector('.jamah-time');
                     const beginTime = row.querySelector('.begin-time');
                     
-                    jamahTime.textContent = todayTimes[prayer].jamah;
-                    beginTime.textContent = todayTimes[prayer].begin;
+                    // Check if this prayer time has passed
+                    const todayPrayerBeginMinutes = prayerTimeToMinutes(todayTimes[prayer].begin, prayer);
+                    const hasPrayerPassed = currentTimeInMinutes > todayPrayerBeginMinutes;
+                    
+                    // If prayer has passed and we have tomorrow's data, show tomorrow's time
+                    if (hasPrayerPassed && tomorrowTimes && tomorrowTimes[prayer]) {
+                        jamahTime.textContent = tomorrowTimes[prayer].jamah;
+                        beginTime.textContent = tomorrowTimes[prayer].begin;
+                        
+                        // Add subtle indicator that this is tomorrow's time
+                        row.style.opacity = '0.8';
+                        
+                        // Special handling for Fajr sunrise time
+                        if (prayer === 'fajr') {
+                            const statusElement = row.querySelector('.prayer-details p');
+                            const tomorrowSunriseTime = sunriseData[tomorrowMonth] && sunriseData[tomorrowMonth][tomorrowDay] ? 
+                                sunriseData[tomorrowMonth][tomorrowDay] : "06:00";
+                            
+                            if (row.classList.contains('current')) {
+                                statusElement.textContent = `Current Prayer | Sunrise: ${tomorrowSunriseTime}`;
+                            } else {
+                                statusElement.textContent = `Sunrise: ${tomorrowSunriseTime}`;
+                            }
+                        }
+                    } else {
+                        // Show today's time
+                        jamahTime.textContent = todayTimes[prayer].jamah;
+                        beginTime.textContent = todayTimes[prayer].begin;
+                        row.style.opacity = '1';
+                        
+                        // Handle Fajr sunrise time for today
+                        if (prayer === 'fajr') {
+                            const statusElement = row.querySelector('.prayer-details p');
+                            const todaySunriseTime = sunriseData[month] && sunriseData[month][today] ? 
+                                sunriseData[month][today] : "06:00";
+                            
+                            if (row.classList.contains('current')) {
+                                statusElement.textContent = `Current Prayer | Sunrise: ${todaySunriseTime}`;
+                            } else {
+                                statusElement.textContent = `Sunrise: ${todaySunriseTime}`;
+                            }
+                        }
+                    }
                 });
                 
-                // Add sunrise time to Fajr prayer row
-                const fajrRow = document.querySelector('[data-prayer="fajr"]');
-                if (fajrRow) {
-                    const statusElement = fajrRow.querySelector('.prayer-details p');
-                    const sunriseTime = sunriseData[month] && sunriseData[month][today] ? sunriseData[month][today] : "06:00";
-                    
-                    // Check if Fajr is current prayer
-                    if (fajrRow.classList.contains('current')) {
-                        statusElement.textContent = `Current Prayer | Sunrise: ${sunriseTime}`;
-                    } else {
-                        statusElement.textContent = `Sunrise: ${sunriseTime}`;
-                    }
-                }
-                
-                // Check if today is Friday and update Zuhr to Jumu'ah
+                // Check if today is Friday and update Zuhr to Jumu'ah (only for today's time)
                 const dayOfWeek = now.getDay(); // 0 = Sunday, 5 = Friday
-                if (dayOfWeek === 5) {
-                    const zuhrRow = document.querySelector('[data-prayer="zuhr"]');
-                    if (zuhrRow) {
-                        const prayerNameElement = zuhrRow.querySelector('.prayer-details h4');
+                const zuhrRow = document.querySelector('[data-prayer="zuhr"]');
+                if (zuhrRow) {
+                    const prayerNameElement = zuhrRow.querySelector('.prayer-details h4');
+                    const zuhrBeginMinutes = prayerTimeToMinutes(todayTimes.zuhr.begin, 'zuhr');
+                    const hasZuhrPassed = currentTimeInMinutes > zuhrBeginMinutes;
+                    
+                    // If showing today's Zuhr and it's Friday, show Jumu'ah
+                    if (!hasZuhrPassed && dayOfWeek === 5) {
                         prayerNameElement.textContent = "Jumu'ah";
+                    } else if (hasZuhrPassed && tomorrowTimes) {
+                        // If showing tomorrow's Zuhr, check if tomorrow is Friday
+                        const tomorrowDayOfWeek = tomorrow.getDay();
+                        if (tomorrowDayOfWeek === 5) {
+                            prayerNameElement.textContent = "Jumu'ah";
+                        } else {
+                            prayerNameElement.textContent = "Zuhr";
+                        }
+                    } else {
+                        prayerNameElement.textContent = "Zuhr";
                     }
                 }
             }
