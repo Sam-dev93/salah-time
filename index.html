@@ -887,8 +887,49 @@
         let installPromptShown = false;
         let isOnline = navigator.onLine;
 
-        // Sunrise data for all months
+        // Sunrise data for all months - corrected from PDF
         const sunriseData = {
+            1: {
+                1: "8:06", 2: "8:06", 3: "8:06", 4: "8:06", 5: "8:06", 6: "8:05", 7: "8:05",
+                8: "8:04", 9: "8:04", 10: "8:03", 11: "8:03", 12: "8:02", 13: "8:01", 14: "8:01",
+                15: "8:00", 16: "7:59", 17: "7:58", 18: "7:57", 19: "7:56", 20: "7:55", 21: "7:54",
+                22: "7:53", 23: "7:52", 24: "7:51", 25: "7:49", 26: "7:48", 27: "7:47", 28: "7:45",
+                29: "7:44", 30: "7:43", 31: "7:41"
+            },
+            2: {
+                1: "7:39", 2: "7:36", 3: "7:34", 4: "7:32", 5: "7:30", 6: "7:28", 7: "7:26",
+                8: "7:25", 9: "7:23", 10: "7:21", 11: "7:19", 12: "7:17", 13: "7:15", 14: "7:13",
+                15: "7:11", 16: "7:09", 17: "7:08", 18: "7:06", 19: "7:04", 20: "7:01", 21: "6:59",
+                22: "6:57", 23: "6:55", 24: "6:53", 25: "6:51", 26: "6:49", 27: "6:47", 28: "6:45"
+            },
+            3: {
+                1: "6:45", 2: "6:43", 3: "6:40", 4: "6:38", 5: "6:36", 6: "6:34", 7: "6:32",
+                8: "6:29", 9: "6:27", 10: "6:25", 11: "6:23", 12: "6:20", 13: "6:18", 14: "6:16",
+                15: "6:13", 16: "6:11", 17: "6:09", 18: "6:07", 19: "6:04", 20: "6:02", 21: "6:00",
+                22: "5:58", 23: "5:55", 24: "5:53", 25: "5:51", 26: "5:48", 27: "5:46", 28: "5:44",
+                29: "5:42", 30: "6:39", 31: "6:37"
+            },
+            4: {
+                1: "6:35", 2: "6:33", 3: "6:30", 4: "6:28", 5: "6:26", 6: "6:24", 7: "6:21",
+                8: "6:19", 9: "6:17", 10: "6:15", 11: "6:12", 12: "6:10", 13: "6:08", 14: "6:06",
+                15: "6:04", 16: "6:02", 17: "6:00", 18: "5:57", 19: "5:55", 20: "5:53", 21: "5:51",
+                22: "5:49", 23: "5:47", 24: "5:45", 25: "5:43", 26: "5:41", 27: "5:39", 28: "5:37",
+                29: "5:35", 30: "5:33"
+            },
+            5: {
+                1: "5:32", 2: "5:30", 3: "5:28", 4: "5:26", 5: "5:24", 6: "5:23", 7: "5:21",
+                8: "5:19", 9: "5:17", 10: "5:16", 11: "5:14", 12: "5:13", 13: "5:11", 14: "5:10",
+                15: "5:08", 16: "5:07", 17: "5:05", 18: "5:04", 19: "5:02", 20: "5:01", 21: "5:00",
+                22: "4:59", 23: "4:58", 24: "4:56", 25: "4:55", 26: "4:54", 27: "4:53", 28: "4:52",
+                29: "4:51", 30: "4:50", 31: "4:50"
+            },
+            6: {
+                1: "4:49", 2: "4:48", 3: "4:47", 4: "4:47", 5: "4:46", 6: "4:46", 7: "4:45",
+                8: "4:45", 9: "4:44", 10: "4:44", 11: "4:44", 12: "4:43", 13: "4:43", 14: "4:43",
+                15: "4:43", 16: "4:43", 17: "4:43", 18: "4:43", 19: "4:43", 20: "4:43", 21: "4:43",
+                22: "4:44", 23: "4:44", 24: "4:44", 25: "4:45", 26: "4:45", 27: "4:46", 28: "4:46",
+                29: "4:47", 30: "4:48"
+            },
             7: {
                 1: "4:47", 2: "4:48", 3: "4:49", 4: "4:49", 5: "4:50", 6: "4:51", 7: "4:52",
                 8: "4:53", 9: "4:54", 10: "4:55", 11: "4:56", 12: "4:57", 13: "4:58", 14: "4:59",
@@ -933,203 +974,133 @@
             }
         };
 
-        // Prayer times data for all months
+        // Prayer times data for all months - corrected from PDF
         const prayerData = {
+            1: {
+                1: { fajr: { jamah: "7:15", begin: "6:25" }, zuhr: { jamah: "1:00", begin: "12:09" }, asr: { jamah: "2:45", begin: "2:15" }, maghrib: { jamah: "4:11", begin: "4:06" }, isha: { jamah: "7:30", begin: "5:42" } },
+                2: { fajr: { jamah: "7:15", begin: "6:25" }, zuhr: { jamah: "1:00", begin: "12:09" }, asr: { jamah: "2:45", begin: "2:16" }, maghrib: { jamah: "4:12", begin: "4:07" }, isha: { jamah: "7:30", begin: "5:43" } },
+                3: { fajr: { jamah: "7:15", begin: "6:25" }, zuhr: { jamah: "1:00", begin: "12:10" }, asr: { jamah: "2:45", begin: "2:17" }, maghrib: { jamah: "4:13", begin: "4:08" }, isha: { jamah: "7:30", begin: "5:44" } },
+                4: { fajr: { jamah: "7:15", begin: "6:25" }, zuhr: { jamah: "1:00", begin: "12:10" }, asr: { jamah: "2:45", begin: "2:18" }, maghrib: { jamah: "4:15", begin: "4:10" }, isha: { jamah: "7:30", begin: "5:45" } },
+                5: { fajr: { jamah: "7:15", begin: "6:25" }, zuhr: { jamah: "1:00", begin: "12:11" }, asr: { jamah: "3:00", begin: "2:19" }, maghrib: { jamah: "4:16", begin: "4:11" }, isha: { jamah: "7:30", begin: "5:46" } },
+                6: { fajr: { jamah: "7:15", begin: "6:25" }, zuhr: { jamah: "1:00", begin: "12:11" }, asr: { jamah: "3:00", begin: "2:20" }, maghrib: { jamah: "4:17", begin: "4:12" }, isha: { jamah: "7:30", begin: "5:47" } },
+                7: { fajr: { jamah: "7:15", begin: "6:24" }, zuhr: { jamah: "1:00", begin: "12:12" }, asr: { jamah: "3:00", begin: "2:22" }, maghrib: { jamah: "4:18", begin: "4:13" }, isha: { jamah: "7:30", begin: "5:48" } },
+                8: { fajr: { jamah: "7:15", begin: "6:24" }, zuhr: { jamah: "1:00", begin: "12:12" }, asr: { jamah: "3:00", begin: "2:23" }, maghrib: { jamah: "4:20", begin: "4:15" }, isha: { jamah: "7:30", begin: "5:49" } },
+                9: { fajr: { jamah: "7:15", begin: "6:23" }, zuhr: { jamah: "1:00", begin: "12:12" }, asr: { jamah: "3:00", begin: "2:24" }, maghrib: { jamah: "4:21", begin: "4:16" }, isha: { jamah: "7:30", begin: "5:50" } },
+                10: { fajr: { jamah: "7:15", begin: "6:23" }, zuhr: { jamah: "1:00", begin: "12:13" }, asr: { jamah: "3:00", begin: "2:25" }, maghrib: { jamah: "4:22", begin: "4:17" }, isha: { jamah: "7:30", begin: "5:51" } },
+                11: { fajr: { jamah: "7:15", begin: "6:22" }, zuhr: { jamah: "1:00", begin: "12:13" }, asr: { jamah: "3:00", begin: "2:27" }, maghrib: { jamah: "4:24", begin: "4:19" }, isha: { jamah: "7:30", begin: "5:53" } },
+                12: { fajr: { jamah: "7:15", begin: "6:22" }, zuhr: { jamah: "1:00", begin: "12:14" }, asr: { jamah: "3:00", begin: "2:28" }, maghrib: { jamah: "4:25", begin: "4:20" }, isha: { jamah: "7:30", begin: "5:54" } },
+                13: { fajr: { jamah: "7:15", begin: "6:21" }, zuhr: { jamah: "1:00", begin: "12:14" }, asr: { jamah: "3:00", begin: "2:29" }, maghrib: { jamah: "4:27", begin: "4:22" }, isha: { jamah: "7:30", begin: "5:55" } },
+                14: { fajr: { jamah: "7:15", begin: "6:20" }, zuhr: { jamah: "1:00", begin: "12:14" }, asr: { jamah: "3:00", begin: "2:31" }, maghrib: { jamah: "4:28", begin: "4:23" }, isha: { jamah: "7:30", begin: "5:56" } },
+                15: { fajr: { jamah: "7:15", begin: "6:20" }, zuhr: { jamah: "1:00", begin: "12:15" }, asr: { jamah: "3:00", begin: "2:32" }, maghrib: { jamah: "4:30", begin: "4:25" }, isha: { jamah: "7:30", begin: "5:58" } },
+                16: { fajr: { jamah: "7:15", begin: "6:19" }, zuhr: { jamah: "1:00", begin: "12:15" }, asr: { jamah: "3:00", begin: "2:34" }, maghrib: { jamah: "4:32", begin: "4:27" }, isha: { jamah: "7:30", begin: "5:59" } },
+                17: { fajr: { jamah: "7:15", begin: "6:18" }, zuhr: { jamah: "1:00", begin: "12:15" }, asr: { jamah: "3:00", begin: "2:35" }, maghrib: { jamah: "4:33", begin: "4:28" }, isha: { jamah: "7:30", begin: "6:01" } },
+                18: { fajr: { jamah: "7:15", begin: "6:17" }, zuhr: { jamah: "1:00", begin: "12:16" }, asr: { jamah: "3:00", begin: "2:37" }, maghrib: { jamah: "4:35", begin: "4:30" }, isha: { jamah: "7:30", begin: "6:02" } },
+                19: { fajr: { jamah: "7:00", begin: "6:16" }, zuhr: { jamah: "1:00", begin: "12:16" }, asr: { jamah: "3:15", begin: "2:38" }, maghrib: { jamah: "4:37", begin: "4:32" }, isha: { jamah: "7:30", begin: "6:03" } },
+                20: { fajr: { jamah: "7:00", begin: "6:15" }, zuhr: { jamah: "1:00", begin: "12:16" }, asr: { jamah: "3:15", begin: "2:40" }, maghrib: { jamah: "4:38", begin: "4:33" }, isha: { jamah: "7:30", begin: "6:05" } },
+                21: { fajr: { jamah: "7:00", begin: "6:14" }, zuhr: { jamah: "1:00", begin: "12:17" }, asr: { jamah: "3:15", begin: "2:42" }, maghrib: { jamah: "4:40", begin: "4:35" }, isha: { jamah: "7:30", begin: "6:06" } },
+                22: { fajr: { jamah: "7:00", begin: "6:13" }, zuhr: { jamah: "1:00", begin: "12:17" }, asr: { jamah: "3:15", begin: "2:43" }, maghrib: { jamah: "4:42", begin: "4:37" }, isha: { jamah: "7:30", begin: "6:08" } },
+                23: { fajr: { jamah: "7:00", begin: "6:12" }, zuhr: { jamah: "1:00", begin: "12:17" }, asr: { jamah: "3:15", begin: "2:45" }, maghrib: { jamah: "4:43", begin: "4:38" }, isha: { jamah: "7:30", begin: "6:09" } },
+                24: { fajr: { jamah: "7:00", begin: "6:11" }, zuhr: { jamah: "1:00", begin: "12:18" }, asr: { jamah: "3:15", begin: "2:46" }, maghrib: { jamah: "4:45", begin: "4:40" }, isha: { jamah: "7:30", begin: "6:11" } },
+                25: { fajr: { jamah: "7:00", begin: "6:10" }, zuhr: { jamah: "1:00", begin: "12:18" }, asr: { jamah: "3:15", begin: "2:48" }, maghrib: { jamah: "4:47", begin: "4:42" }, isha: { jamah: "7:30", begin: "6:12" } },
+                26: { fajr: { jamah: "7:00", begin: "6:08" }, zuhr: { jamah: "1:00", begin: "12:18" }, asr: { jamah: "3:30", begin: "2:50" }, maghrib: { jamah: "4:49", begin: "4:44" }, isha: { jamah: "7:30", begin: "6:14" } },
+                27: { fajr: { jamah: "7:00", begin: "6:07" }, zuhr: { jamah: "1:00", begin: "12:18" }, asr: { jamah: "3:30", begin: "2:51" }, maghrib: { jamah: "4:50", begin: "4:45" }, isha: { jamah: "7:30", begin: "6:15" } },
+                28: { fajr: { jamah: "7:00", begin: "6:06" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "3:30", begin: "2:53" }, maghrib: { jamah: "4:52", begin: "4:47" }, isha: { jamah: "7:30", begin: "6:17" } },
+                29: { fajr: { jamah: "7:00", begin: "6:05" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "3:30", begin: "2:55" }, maghrib: { jamah: "4:54", begin: "4:49" }, isha: { jamah: "7:30", begin: "6:18" } },
+                30: { fajr: { jamah: "7:00", begin: "6:03" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "3:30", begin: "2:56" }, maghrib: { jamah: "4:56", begin: "4:51" }, isha: { jamah: "7:30", begin: "6:20" } },
+                31: { fajr: { jamah: "7:00", begin: "6:03" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "3:30", begin: "2:58" }, maghrib: { jamah: "4:57", begin: "4:52" }, isha: { jamah: "7:30", begin: "6:21" } }
+            },
+            2: {
+                1: { fajr: { jamah: "7:00", begin: "6:00" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "3:30", begin: "3:00" }, maghrib: { jamah: "4:59", begin: "4:54" }, isha: { jamah: "7:30", begin: "6:23" } },
+                2: { fajr: { jamah: "6:45", begin: "5:59" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "3:45", begin: "3:03" }, maghrib: { jamah: "5:01", begin: "4:56" }, isha: { jamah: "7:30", begin: "6:25" } },
+                3: { fajr: { jamah: "6:45", begin: "5:57" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "3:45", begin: "3:05" }, maghrib: { jamah: "5:03", begin: "4:58" }, isha: { jamah: "7:30", begin: "6:26" } },
+                4: { fajr: { jamah: "6:45", begin: "5:56" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "3:45", begin: "3:07" }, maghrib: { jamah: "5:05", begin: "5:00" }, isha: { jamah: "7:30", begin: "6:28" } },
+                5: { fajr: { jamah: "6:45", begin: "5:54" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "3:45", begin: "3:08" }, maghrib: { jamah: "5:07", begin: "5:02" }, isha: { jamah: "7:30", begin: "6:29" } },
+                6: { fajr: { jamah: "6:45", begin: "5:53" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "3:45", begin: "3:10" }, maghrib: { jamah: "5:08", begin: "5:03" }, isha: { jamah: "7:30", begin: "6:31" } },
+                7: { fajr: { jamah: "6:45", begin: "5:51" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "3:45", begin: "3:12" }, maghrib: { jamah: "5:10", begin: "5:05" }, isha: { jamah: "7:30", begin: "6:33" } },
+                8: { fajr: { jamah: "6:45", begin: "5:49" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "3:45", begin: "3:13" }, maghrib: { jamah: "5:12", begin: "5:07" }, isha: { jamah: "7:30", begin: "6:34" } },
+                9: { fajr: { jamah: "6:30", begin: "5:48" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "4:00", begin: "3:15" }, maghrib: { jamah: "5:14", begin: "5:09" }, isha: { jamah: "7:30", begin: "6:36" } },
+                10: { fajr: { jamah: "6:30", begin: "5:46" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "4:00", begin: "3:17" }, maghrib: { jamah: "5:16", begin: "5:11" }, isha: { jamah: "7:30", begin: "6:37" } },
+                11: { fajr: { jamah: "6:30", begin: "5:44" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "4:00", begin: "3:19" }, maghrib: { jamah: "5:18", begin: "5:13" }, isha: { jamah: "7:30", begin: "6:39" } },
+                12: { fajr: { jamah: "6:30", begin: "5:42" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "4:00", begin: "3:20" }, maghrib: { jamah: "5:19", begin: "5:14" }, isha: { jamah: "7:30", begin: "6:40" } },
+                13: { fajr: { jamah: "6:30", begin: "5:41" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "4:00", begin: "3:22" }, maghrib: { jamah: "5:21", begin: "5:16" }, isha: { jamah: "7:30", begin: "6:42" } },
+                14: { fajr: { jamah: "6:30", begin: "5:39" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "4:00", begin: "3:24" }, maghrib: { jamah: "5:23", begin: "5:18" }, isha: { jamah: "7:30", begin: "6:44" } },
+                15: { fajr: { jamah: "6:30", begin: "5:37" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "4:00", begin: "3:25" }, maghrib: { jamah: "5:25", begin: "5:20" }, isha: { jamah: "7:30", begin: "6:45" } },
+                16: { fajr: { jamah: "6:15", begin: "5:35" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "4:15", begin: "3:27" }, maghrib: { jamah: "5:27", begin: "5:22" }, isha: { jamah: "7:30", begin: "6:47" } },
+                17: { fajr: { jamah: "6:15", begin: "5:33" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "4:15", begin: "3:29" }, maghrib: { jamah: "5:28", begin: "5:23" }, isha: { jamah: "7:30", begin: "6:48" } },
+                18: { fajr: { jamah: "6:15", begin: "5:31" }, zuhr: { jamah: "1:00", begin: "12:20" }, asr: { jamah: "4:15", begin: "3:30" }, maghrib: { jamah: "5:30", begin: "5:25" }, isha: { jamah: "7:30", begin: "6:50" } },
+                19: { fajr: { jamah: "6:15", begin: "5:29" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "4:15", begin: "3:32" }, maghrib: { jamah: "5:32", begin: "5:27" }, isha: { jamah: "7:30", begin: "6:52" } },
+                20: { fajr: { jamah: "6:15", begin: "5:28" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "4:15", begin: "3:34" }, maghrib: { jamah: "5:34", begin: "5:29" }, isha: { jamah: "7:30", begin: "6:53" } },
+                21: { fajr: { jamah: "6:15", begin: "5:26" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "4:15", begin: "3:35" }, maghrib: { jamah: "5:36", begin: "5:31" }, isha: { jamah: "7:30", begin: "6:55" } },
+                22: { fajr: { jamah: "6:15", begin: "5:24" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "4:15", begin: "3:37" }, maghrib: { jamah: "5:38", begin: "5:33" }, isha: { jamah: "7:30", begin: "6:56" } },
+                23: { fajr: { jamah: "6:00", begin: "5:22" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "4:15", begin: "3:39" }, maghrib: { jamah: "5:39", begin: "5:34" }, isha: { jamah: "7:30", begin: "6:58" } },
+                24: { fajr: { jamah: "6:00", begin: "5:20" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "4:15", begin: "3:40" }, maghrib: { jamah: "5:41", begin: "5:36" }, isha: { jamah: "7:30", begin: "6:59" } },
+                25: { fajr: { jamah: "6:00", begin: "5:18" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "4:15", begin: "3:42" }, maghrib: { jamah: "5:43", begin: "5:38" }, isha: { jamah: "7:30", begin: "7:01" } },
+                26: { fajr: { jamah: "6:00", begin: "5:16" }, zuhr: { jamah: "1:00", begin: "12:19" }, asr: { jamah: "4:15", begin: "3:43" }, maghrib: { jamah: "5:45", begin: "5:40" }, isha: { jamah: "7:30", begin: "7:02" } },
+                27: { fajr: { jamah: "6:00", begin: "5:14" }, zuhr: { jamah: "1:00", begin: "12:18" }, asr: { jamah: "4:15", begin: "3:45" }, maghrib: { jamah: "5:46", begin: "5:41" }, isha: { jamah: "7:30", begin: "7:04" } },
+                28: { fajr: { jamah: "6:00", begin: "5:12" }, zuhr: { jamah: "1:00", begin: "12:18" }, asr: { jamah: "4:15", begin: "3:47" }, maghrib: { jamah: "5:48", begin: "5:43" }, isha: { jamah: "7:30", begin: "7:06" } }
+            },
             7: {
-                1: { fajr: { jamah: "4:00", begin: "2:51" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:41" }, maghrib: { jamah: "9:29", begin: "9:24" }, isha: { jamah: "11:00", begin: "10:41" } },
-                2: { fajr: { jamah: "4:00", begin: "2:52" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:41" }, maghrib: { jamah: "9:28", begin: "9:23" }, isha: { jamah: "11:00", begin: "10:41" } },
-                3: { fajr: { jamah: "4:00", begin: "2:53" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:41" }, maghrib: { jamah: "9:28", begin: "9:23" }, isha: { jamah: "11:00", begin: "10:40" } },
-                4: { fajr: { jamah: "4:00", begin: "2:54" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:27", begin: "9:22" }, isha: { jamah: "11:00", begin: "10:39" } },
-                5: { fajr: { jamah: "4:00", begin: "2:55" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:27", begin: "9:22" }, isha: { jamah: "11:00", begin: "10:38" } },
-                6: { fajr: { jamah: "4:15", begin: "2:57" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:26", begin: "9:21" }, isha: { jamah: "10:50", begin: "10:37" } },
-                7: { fajr: { jamah: "4:15", begin: "2:58" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:26", begin: "9:21" }, isha: { jamah: "10:50", begin: "10:36" } },
-                8: { fajr: { jamah: "4:15", begin: "2:59" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:25", begin: "9:20" }, isha: { jamah: "10:50", begin: "10:35" } },
-                9: { fajr: { jamah: "4:15", begin: "3:00" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:39" }, maghrib: { jamah: "9:24", begin: "9:19" }, isha: { jamah: "10:50", begin: "10:34" } },
-                10: { fajr: { jamah: "4:15", begin: "3:02" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:39" }, maghrib: { jamah: "9:23", begin: "9:18" }, isha: { jamah: "10:50", begin: "10:33" } },
-                11: { fajr: { jamah: "4:15", begin: "3:03" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:39" }, maghrib: { jamah: "9:23", begin: "9:18" }, isha: { jamah: "10:50", begin: "10:32" } },
-                12: { fajr: { jamah: "4:15", begin: "3:04" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:38" }, maghrib: { jamah: "9:22", begin: "9:17" }, isha: { jamah: "10:50", begin: "10:31" } },
-                13: { fajr: { jamah: "4:15", begin: "3:06" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:38" }, maghrib: { jamah: "9:21", begin: "9:16" }, isha: { jamah: "10:45", begin: "10:30" } },
-                14: { fajr: { jamah: "4:15", begin: "3:07" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:37" }, maghrib: { jamah: "9:20", begin: "9:15" }, isha: { jamah: "10:45", begin: "10:28" } },
-                15: { fajr: { jamah: "4:15", begin: "3:09" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:37" }, maghrib: { jamah: "9:19", begin: "9:14" }, isha: { jamah: "10:45", begin: "10:27" } },
-                16: { fajr: { jamah: "4:15", begin: "3:10" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:36" }, maghrib: { jamah: "9:18", begin: "9:13" }, isha: { jamah: "10:45", begin: "10:26" } },
-                17: { fajr: { jamah: "4:15", begin: "3:12" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:36" }, maghrib: { jamah: "9:17", begin: "9:12" }, isha: { jamah: "10:45", begin: "10:24" } },
-                18: { fajr: { jamah: "4:15", begin: "3:13" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:35" }, maghrib: { jamah: "9:16", begin: "9:11" }, isha: { jamah: "10:45", begin: "10:23" } },
-                19: { fajr: { jamah: "4:15", begin: "3:15" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:35" }, maghrib: { jamah: "9:14", begin: "9:09" }, isha: { jamah: "10:45", begin: "10:21" } },
-                20: { fajr: { jamah: "4:30", begin: "3:16" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:34" }, maghrib: { jamah: "9:13", begin: "9:08" }, isha: { jamah: "10:35", begin: "10:20" } },
-                21: { fajr: { jamah: "4:30", begin: "3:18" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:33" }, maghrib: { jamah: "9:12", begin: "9:07" }, isha: { jamah: "10:35", begin: "10:18" } },
-                22: { fajr: { jamah: "4:30", begin: "3:20" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:33" }, maghrib: { jamah: "9:11", begin: "9:06" }, isha: { jamah: "10:35", begin: "10:17" } },
-                23: { fajr: { jamah: "4:30", begin: "3:21" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:32" }, maghrib: { jamah: "9:09", begin: "9:04" }, isha: { jamah: "10:35", begin: "10:15" } },
-                24: { fajr: { jamah: "4:30", begin: "3:23" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:31" }, maghrib: { jamah: "9:08", begin: "9:03" }, isha: { jamah: "10:35", begin: "10:13" } },
-                25: { fajr: { jamah: "4:30", begin: "3:25" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:30" }, maghrib: { jamah: "9:07", begin: "9:02" }, isha: { jamah: "10:35", begin: "10:12" } },
-                26: { fajr: { jamah: "4:30", begin: "3:26" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:29" }, maghrib: { jamah: "9:05", begin: "9:00" }, isha: { jamah: "10:25", begin: "10:10" } },
-                27: { fajr: { jamah: "4:30", begin: "3:28" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:29" }, maghrib: { jamah: "9:04", begin: "8:59" }, isha: { jamah: "10:25", begin: "10:08" } },
-                28: { fajr: { jamah: "4:30", begin: "3:30" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:28" }, maghrib: { jamah: "9:02", begin: "8:57" }, isha: { jamah: "10:25", begin: "10:06" } },
-                29: { fajr: { jamah: "4:30", begin: "3:32" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:27" }, maghrib: { jamah: "9:01", begin: "8:56" }, isha: { jamah: "10:25", begin: "10:04" } },
-                30: { fajr: { jamah: "4:30", begin: "3:33" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:26" }, maghrib: { jamah: "8:59", begin: "8:54" }, isha: { jamah: "10:25", begin: "10:03" } },
-                31: { fajr: { jamah: "4:30", begin: "3:35" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:25" }, maghrib: { jamah: "8:57", begin: "8:52" }, isha: { jamah: "10:25", begin: "10:01" } }
+                1: { fajr: { jamah: "4:00", begin: "2:51" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:41" }, maghrib: { jamah: "9:24", begin: "9:29" }, isha: { jamah: "11:00", begin: "10:41" } },
+                2: { fajr: { jamah: "4:00", begin: "2:52" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:41" }, maghrib: { jamah: "9:23", begin: "9:28" }, isha: { jamah: "11:00", begin: "10:41" } },
+                3: { fajr: { jamah: "4:00", begin: "2:53" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:41" }, maghrib: { jamah: "9:23", begin: "9:28" }, isha: { jamah: "11:00", begin: "10:40" } },
+                4: { fajr: { jamah: "4:00", begin: "2:54" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:22", begin: "9:27" }, isha: { jamah: "11:00", begin: "10:39" } },
+                5: { fajr: { jamah: "4:00", begin: "2:55" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:22", begin: "9:27" }, isha: { jamah: "11:00", begin: "10:38" } },
+                6: { fajr: { jamah: "4:15", begin: "2:57" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:21", begin: "9:26" }, isha: { jamah: "10:50", begin: "10:37" } },
+                7: { fajr: { jamah: "4:15", begin: "2:58" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:21", begin: "9:26" }, isha: { jamah: "10:50", begin: "10:36" } },
+                8: { fajr: { jamah: "4:15", begin: "2:59" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:40" }, maghrib: { jamah: "9:20", begin: "9:25" }, isha: { jamah: "10:50", begin: "10:35" } },
+                9: { fajr: { jamah: "4:15", begin: "3:00" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:39" }, maghrib: { jamah: "9:19", begin: "9:24" }, isha: { jamah: "10:50", begin: "10:34" } },
+                10: { fajr: { jamah: "4:15", begin: "3:02" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:39" }, maghrib: { jamah: "9:18", begin: "9:23" }, isha: { jamah: "10:50", begin: "10:33" } },
+                11: { fajr: { jamah: "4:15", begin: "3:03" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:39" }, maghrib: { jamah: "9:18", begin: "9:23" }, isha: { jamah: "10:50", begin: "10:32" } },
+                12: { fajr: { jamah: "4:15", begin: "3:04" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:38" }, maghrib: { jamah: "9:17", begin: "9:22" }, isha: { jamah: "10:50", begin: "10:31" } },
+                13: { fajr: { jamah: "4:15", begin: "3:06" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:30", begin: "6:38" }, maghrib: { jamah: "9:16", begin: "9:21" }, isha: { jamah: "10:45", begin: "10:30" } },
+                14: { fajr: { jamah: "4:15", begin: "3:07" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:37" }, maghrib: { jamah: "9:15", begin: "9:20" }, isha: { jamah: "10:45", begin: "10:28" } },
+                15: { fajr: { jamah: "4:15", begin: "3:09" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:37" }, maghrib: { jamah: "9:14", begin: "9:19" }, isha: { jamah: "10:45", begin: "10:27" } },
+                16: { fajr: { jamah: "4:15", begin: "3:10" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:36" }, maghrib: { jamah: "9:13", begin: "9:18" }, isha: { jamah: "10:45", begin: "10:26" } },
+                17: { fajr: { jamah: "4:15", begin: "3:12" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:36" }, maghrib: { jamah: "9:12", begin: "9:17" }, isha: { jamah: "10:45", begin: "10:24" } },
+                18: { fajr: { jamah: "4:15", begin: "3:13" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:35" }, maghrib: { jamah: "9:11", begin: "9:16" }, isha: { jamah: "10:45", begin: "10:23" } },
+                19: { fajr: { jamah: "4:15", begin: "3:15" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:35" }, maghrib: { jamah: "9:09", begin: "9:14" }, isha: { jamah: "10:45", begin: "10:21" } },
+                20: { fajr: { jamah: "4:30", begin: "3:16" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:34" }, maghrib: { jamah: "9:08", begin: "9:13" }, isha: { jamah: "10:35", begin: "10:20" } },
+                21: { fajr: { jamah: "4:30", begin: "3:18" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:33" }, maghrib: { jamah: "9:07", begin: "9:12" }, isha: { jamah: "10:35", begin: "10:18" } },
+                22: { fajr: { jamah: "4:30", begin: "3:20" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:33" }, maghrib: { jamah: "9:06", begin: "9:11" }, isha: { jamah: "10:35", begin: "10:17" } },
+                23: { fajr: { jamah: "4:30", begin: "3:21" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:32" }, maghrib: { jamah: "9:04", begin: "9:09" }, isha: { jamah: "10:35", begin: "10:15" } },
+                24: { fajr: { jamah: "4:30", begin: "3:23" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:31" }, maghrib: { jamah: "9:03", begin: "9:08" }, isha: { jamah: "10:35", begin: "10:13" } },
+                25: { fajr: { jamah: "4:30", begin: "3:25" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:30" }, maghrib: { jamah: "9:02", begin: "9:07" }, isha: { jamah: "10:35", begin: "10:12" } },
+                26: { fajr: { jamah: "4:30", begin: "3:26" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:29" }, maghrib: { jamah: "9:00", begin: "9:05" }, isha: { jamah: "10:25", begin: "10:10" } },
+                27: { fajr: { jamah: "4:30", begin: "3:28" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:29" }, maghrib: { jamah: "8:59", begin: "9:04" }, isha: { jamah: "10:25", begin: "10:08" } },
+                28: { fajr: { jamah: "4:30", begin: "3:30" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:28" }, maghrib: { jamah: "8:57", begin: "9:02" }, isha: { jamah: "10:25", begin: "10:06" } },
+                29: { fajr: { jamah: "4:30", begin: "3:32" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:27" }, maghrib: { jamah: "8:56", begin: "9:01" }, isha: { jamah: "10:25", begin: "10:04" } },
+                30: { fajr: { jamah: "4:30", begin: "3:33" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:26" }, maghrib: { jamah: "8:54", begin: "8:59" }, isha: { jamah: "10:25", begin: "10:03" } },
+                31: { fajr: { jamah: "4:30", begin: "3:35" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:25" }, maghrib: { jamah: "8:52", begin: "8:57" }, isha: { jamah: "10:25", begin: "10:01" } }
             },
             8: {
-                1: { fajr: { jamah: "4:30", begin: "3:37" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:24" }, maghrib: { jamah: "8:51", begin: "8:56" }, isha: { jamah: "10:25", begin: "9:59" } },
-                2: { fajr: { jamah: "4:30", begin: "3:39" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:23" }, maghrib: { jamah: "8:49", begin: "8:54" }, isha: { jamah: "10:25", begin: "9:57" } },
-                3: { fajr: { jamah: "4:45", begin: "3:41" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:15", begin: "6:22" }, maghrib: { jamah: "8:47", begin: "8:52" }, isha: { jamah: "10:15", begin: "9:55" } },
-                4: { fajr: { jamah: "4:45", begin: "3:43" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:15", begin: "6:21" }, maghrib: { jamah: "8:46", begin: "8:51" }, isha: { jamah: "10:15", begin: "9:53" } },
-                5: { fajr: { jamah: "4:45", begin: "3:44" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:15", begin: "6:20" }, maghrib: { jamah: "8:44", begin: "8:49" }, isha: { jamah: "10:15", begin: "9:51" } },
-                6: { fajr: { jamah: "4:45", begin: "3:46" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:15", begin: "6:19" }, maghrib: { jamah: "8:42", begin: "8:47" }, isha: { jamah: "10:15", begin: "9:48" } },
-                7: { fajr: { jamah: "4:45", begin: "3:48" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:15", begin: "6:17" }, maghrib: { jamah: "8:40", begin: "8:45" }, isha: { jamah: "10:15", begin: "9:47" } },
-                8: { fajr: { jamah: "4:45", begin: "3:50" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:15", begin: "6:16" }, maghrib: { jamah: "8:38", begin: "8:43" }, isha: { jamah: "10:15", begin: "9:45" } },
-                9: { fajr: { jamah: "4:45", begin: "3:52" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:15", begin: "6:15" }, maghrib: { jamah: "8:37", begin: "8:42" }, isha: { jamah: "10:15", begin: "9:44" } },
-                10: { fajr: { jamah: "5:00", begin: "3:54" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:00", begin: "6:14" }, maghrib: { jamah: "8:35", begin: "8:40" }, isha: { jamah: "10:00", begin: "9:42" } },
-                11: { fajr: { jamah: "5:00", begin: "3:55" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:00", begin: "6:12" }, maghrib: { jamah: "8:33", begin: "8:38" }, isha: { jamah: "10:00", begin: "9:40" } },
-                12: { fajr: { jamah: "5:00", begin: "3:57" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:00", begin: "6:11" }, maghrib: { jamah: "8:31", begin: "8:36" }, isha: { jamah: "10:00", begin: "9:39" } },
-                13: { fajr: { jamah: "5:00", begin: "3:59" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:00", begin: "6:10" }, maghrib: { jamah: "8:29", begin: "8:34" }, isha: { jamah: "10:00", begin: "9:37" } },
-                14: { fajr: { jamah: "5:00", begin: "4:01" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:00", begin: "6:09" }, maghrib: { jamah: "8:27", begin: "8:32" }, isha: { jamah: "10:00", begin: "9:35" } },
-                15: { fajr: { jamah: "5:00", begin: "4:03" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:00", begin: "6:07" }, maghrib: { jamah: "8:25", begin: "8:30" }, isha: { jamah: "10:00", begin: "9:33" } },
-                16: { fajr: { jamah: "5:00", begin: "4:05" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:00", begin: "6:06" }, maghrib: { jamah: "8:23", begin: "8:28" }, isha: { jamah: "10:00", begin: "9:32" } },
-                17: { fajr: { jamah: "5:15", begin: "4:07" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "6:45", begin: "6:04" }, maghrib: { jamah: "8:21", begin: "8:26" }, isha: { jamah: "9:45", begin: "9:30" } },
-                18: { fajr: { jamah: "5:15", begin: "4:09" }, zuhr: { jamah: "1:30", begin: "1:09" }, asr: { jamah: "6:45", begin: "6:03" }, maghrib: { jamah: "8:19", begin: "8:24" }, isha: { jamah: "9:45", begin: "9:28" } },
-                19: { fajr: { jamah: "5:15", begin: "4:11" }, zuhr: { jamah: "1:30", begin: "1:09" }, asr: { jamah: "6:45", begin: "6:01" }, maghrib: { jamah: "8:17", begin: "8:22" }, isha: { jamah: "9:45", begin: "9:26" } },
-                20: { fajr: { jamah: "5:15", begin: "4:12" }, zuhr: { jamah: "1:30", begin: "1:09" }, asr: { jamah: "6:45", begin: "6:00" }, maghrib: { jamah: "8:15", begin: "8:20" }, isha: { jamah: "9:45", begin: "9:24" } },
-                21: { fajr: { jamah: "5:15", begin: "4:14" }, zuhr: { jamah: "1:30", begin: "1:09" }, asr: { jamah: "6:45", begin: "5:58" }, maghrib: { jamah: "8:13", begin: "8:18" }, isha: { jamah: "9:45", begin: "9:23" } },
-                22: { fajr: { jamah: "5:15", begin: "4:16" }, zuhr: { jamah: "1:30", begin: "1:09" }, asr: { jamah: "6:45", begin: "5:57" }, maghrib: { jamah: "8:11", begin: "8:16" }, isha: { jamah: "9:45", begin: "9:21" } },
-                23: { fajr: { jamah: "5:15", begin: "4:18" }, zuhr: { jamah: "1:30", begin: "1:08" }, asr: { jamah: "6:45", begin: "5:55" }, maghrib: { jamah: "8:08", begin: "8:13" }, isha: { jamah: "9:45", begin: "9:19" } },
-                24: { fajr: { jamah: "5:15", begin: "4:20" }, zuhr: { jamah: "1:30", begin: "1:08" }, asr: { jamah: "6:30", begin: "5:54" }, maghrib: { jamah: "8:06", begin: "8:11" }, isha: { jamah: "9:30", begin: "9:17" } },
-                25: { fajr: { jamah: "5:15", begin: "4:22" }, zuhr: { jamah: "1:30", begin: "1:08" }, asr: { jamah: "6:30", begin: "5:52" }, maghrib: { jamah: "8:04", begin: "8:09" }, isha: { jamah: "9:30", begin: "9:15" } },
-                26: { fajr: { jamah: "5:15", begin: "4:24" }, zuhr: { jamah: "1:30", begin: "1:07" }, asr: { jamah: "6:30", begin: "5:51" }, maghrib: { jamah: "8:02", begin: "8:07" }, isha: { jamah: "9:30", begin: "9:13" } },
-                27: { fajr: { jamah: "5:15", begin: "4:26" }, zuhr: { jamah: "1:30", begin: "1:07" }, asr: { jamah: "6:30", begin: "5:49" }, maghrib: { jamah: "8:00", begin: "8:05" }, isha: { jamah: "9:30", begin: "9:11" } },
-                28: { fajr: { jamah: "5:15", begin: "4:27" }, zuhr: { jamah: "1:30", begin: "1:07" }, asr: { jamah: "6:30", begin: "5:47" }, maghrib: { jamah: "7:58", begin: "8:03" }, isha: { jamah: "9:30", begin: "9:09" } },
-                29: { fajr: { jamah: "5:15", begin: "4:29" }, zuhr: { jamah: "1:30", begin: "1:07" }, asr: { jamah: "6:30", begin: "5:46" }, maghrib: { jamah: "7:55", begin: "8:00" }, isha: { jamah: "9:30", begin: "9:07" } },
-                30: { fajr: { jamah: "5:15", begin: "4:31" }, zuhr: { jamah: "1:30", begin: "1:06" }, asr: { jamah: "6:30", begin: "5:44" }, maghrib: { jamah: "7:53", begin: "7:58" }, isha: { jamah: "9:30", begin: "9:05" } },
-                31: { fajr: { jamah: "5:15", begin: "4:33" }, zuhr: { jamah: "1:30", begin: "1:06" }, asr: { jamah: "6:30", begin: "5:42" }, maghrib: { jamah: "7:51", begin: "7:56" }, isha: { jamah: "9:30", begin: "9:03" } }
-            },
-            9: {
-                1: { fajr: { jamah: "5:30", begin: "4:35" }, zuhr: { jamah: "1:30", begin: "1:06" }, asr: { jamah: "6:15", begin: "5:41" }, maghrib: { jamah: "7:49", begin: "7:54" }, isha: { jamah: "9:15", begin: "9:01" } },
-                2: { fajr: { jamah: "5:30", begin: "4:37" }, zuhr: { jamah: "1:30", begin: "1:05" }, asr: { jamah: "6:15", begin: "5:39" }, maghrib: { jamah: "7:47", begin: "7:52" }, isha: { jamah: "9:15", begin: "8:59" } },
-                3: { fajr: { jamah: "5:30", begin: "4:39" }, zuhr: { jamah: "1:30", begin: "1:05" }, asr: { jamah: "6:15", begin: "5:37" }, maghrib: { jamah: "7:44", begin: "7:49" }, isha: { jamah: "9:15", begin: "8:57" } },
-                4: { fajr: { jamah: "5:30", begin: "4:41" }, zuhr: { jamah: "1:30", begin: "1:05" }, asr: { jamah: "6:15", begin: "5:35" }, maghrib: { jamah: "7:42", begin: "7:47" }, isha: { jamah: "9:15", begin: "8:55" } },
-                5: { fajr: { jamah: "5:30", begin: "4:43" }, zuhr: { jamah: "1:30", begin: "1:04" }, asr: { jamah: "6:15", begin: "5:34" }, maghrib: { jamah: "7:40", begin: "7:45" }, isha: { jamah: "9:15", begin: "8:53" } },
-                6: { fajr: { jamah: "5:30", begin: "4:44" }, zuhr: { jamah: "1:30", begin: "1:04" }, asr: { jamah: "6:15", begin: "5:32" }, maghrib: { jamah: "7:38", begin: "7:43" }, isha: { jamah: "9:15", begin: "8:51" } },
-                7: { fajr: { jamah: "5:45", begin: "4:46" }, zuhr: { jamah: "1:30", begin: "1:04" }, asr: { jamah: "6:00", begin: "5:30" }, maghrib: { jamah: "7:35", begin: "7:40" }, isha: { jamah: "9:00", begin: "8:49" } },
-                8: { fajr: { jamah: "5:45", begin: "4:48" }, zuhr: { jamah: "1:30", begin: "1:03" }, asr: { jamah: "6:00", begin: "5:28" }, maghrib: { jamah: "7:33", begin: "7:38" }, isha: { jamah: "9:00", begin: "8:47" } },
-                9: { fajr: { jamah: "5:45", begin: "4:50" }, zuhr: { jamah: "1:30", begin: "1:03" }, asr: { jamah: "6:00", begin: "5:26" }, maghrib: { jamah: "7:31", begin: "7:36" }, isha: { jamah: "9:00", begin: "8:45" } },
-                10: { fajr: { jamah: "5:45", begin: "4:52" }, zuhr: { jamah: "1:30", begin: "1:03" }, asr: { jamah: "6:00", begin: "5:25" }, maghrib: { jamah: "7:28", begin: "7:33" }, isha: { jamah: "9:00", begin: "8:43" } },
-                11: { fajr: { jamah: "5:45", begin: "4:54" }, zuhr: { jamah: "1:30", begin: "1:02" }, asr: { jamah: "6:00", begin: "5:23" }, maghrib: { jamah: "7:26", begin: "7:31" }, isha: { jamah: "9:00", begin: "8:41" } },
-                12: { fajr: { jamah: "5:45", begin: "4:56" }, zuhr: { jamah: "1:30", begin: "1:02" }, asr: { jamah: "6:00", begin: "5:21" }, maghrib: { jamah: "7:24", begin: "7:29" }, isha: { jamah: "9:00", begin: "8:39" } },
-                13: { fajr: { jamah: "5:45", begin: "4:58" }, zuhr: { jamah: "1:30", begin: "1:02" }, asr: { jamah: "6:00", begin: "5:19" }, maghrib: { jamah: "7:21", begin: "7:26" }, isha: { jamah: "9:00", begin: "8:37" } },
-                14: { fajr: { jamah: "5:45", begin: "4:59" }, zuhr: { jamah: "1:30", begin: "1:01" }, asr: { jamah: "5:45", begin: "5:17" }, maghrib: { jamah: "7:19", begin: "7:24" }, isha: { jamah: "9:00", begin: "8:35" } },
-                15: { fajr: { jamah: "5:45", begin: "5:01" }, zuhr: { jamah: "1:30", begin: "1:01" }, asr: { jamah: "5:45", begin: "5:15" }, maghrib: { jamah: "7:17", begin: "7:22" }, isha: { jamah: "9:00", begin: "8:33" } },
-                16: { fajr: { jamah: "5:45", begin: "5:03" }, zuhr: { jamah: "1:30", begin: "1:00" }, asr: { jamah: "5:45", begin: "5:13" }, maghrib: { jamah: "7:15", begin: "7:20" }, isha: { jamah: "9:00", begin: "8:31" } },
-                17: { fajr: { jamah: "5:45", begin: "5:05" }, zuhr: { jamah: "1:30", begin: "1:00" }, asr: { jamah: "5:45", begin: "5:11" }, maghrib: { jamah: "7:12", begin: "7:17" }, isha: { jamah: "9:00", begin: "8:29" } },
-                18: { fajr: { jamah: "5:45", begin: "5:07" }, zuhr: { jamah: "1:30", begin: "1:00" }, asr: { jamah: "5:45", begin: "5:09" }, maghrib: { jamah: "7:10", begin: "7:15" }, isha: { jamah: "9:00", begin: "8:27" } },
-                19: { fajr: { jamah: "5:45", begin: "5:09" }, zuhr: { jamah: "1:30", begin: "12:59" }, asr: { jamah: "5:45", begin: "5:07" }, maghrib: { jamah: "7:08", begin: "7:13" }, isha: { jamah: "9:00", begin: "8:25" } },
-                20: { fajr: { jamah: "5:45", begin: "5:11" }, zuhr: { jamah: "1:30", begin: "12:59" }, asr: { jamah: "5:45", begin: "5:05" }, maghrib: { jamah: "7:05", begin: "7:10" }, isha: { jamah: "9:00", begin: "8:22" } },
-                21: { fajr: { jamah: "6:00", begin: "5:13" }, zuhr: { jamah: "1:30", begin: "12:59" }, asr: { jamah: "5:30", begin: "5:04" }, maghrib: { jamah: "7:03", begin: "7:08" }, isha: { jamah: "8:45", begin: "8:20" } },
-                22: { fajr: { jamah: "6:00", begin: "5:14" }, zuhr: { jamah: "1:30", begin: "12:58" }, asr: { jamah: "5:30", begin: "5:02" }, maghrib: { jamah: "7:01", begin: "7:06" }, isha: { jamah: "8:45", begin: "8:18" } },
-                23: { fajr: { jamah: "6:00", begin: "5:16" }, zuhr: { jamah: "1:30", begin: "12:58" }, asr: { jamah: "5:30", begin: "5:00" }, maghrib: { jamah: "6:58", begin: "7:03" }, isha: { jamah: "8:45", begin: "8:16" } },
-                24: { fajr: { jamah: "6:00", begin: "5:17" }, zuhr: { jamah: "1:30", begin: "12:58" }, asr: { jamah: "5:30", begin: "4:58" }, maghrib: { jamah: "6:56", begin: "7:01" }, isha: { jamah: "8:45", begin: "8:14" } },
-                25: { fajr: { jamah: "6:00", begin: "5:19" }, zuhr: { jamah: "1:30", begin: "12:57" }, asr: { jamah: "5:30", begin: "4:56" }, maghrib: { jamah: "6:54", begin: "6:59" }, isha: { jamah: "8:45", begin: "8:12" } },
-                26: { fajr: { jamah: "6:00", begin: "5:20" }, zuhr: { jamah: "1:30", begin: "12:57" }, asr: { jamah: "5:30", begin: "4:54" }, maghrib: { jamah: "6:52", begin: "6:57" }, isha: { jamah: "8:45", begin: "8:10" } },
-                27: { fajr: { jamah: "6:00", begin: "5:22" }, zuhr: { jamah: "1:30", begin: "12:57" }, asr: { jamah: "5:30", begin: "4:52" }, maghrib: { jamah: "6:49", begin: "6:54" }, isha: { jamah: "8:45", begin: "8:08" } },
-                28: { fajr: { jamah: "6:00", begin: "5:23" }, zuhr: { jamah: "1:30", begin: "12:56" }, asr: { jamah: "5:15", begin: "4:50" }, maghrib: { jamah: "6:47", begin: "6:52" }, isha: { jamah: "8:30", begin: "8:06" } },
-                29: { fajr: { jamah: "6:15", begin: "5:25" }, zuhr: { jamah: "1:30", begin: "12:56" }, asr: { jamah: "5:15", begin: "4:48" }, maghrib: { jamah: "6:45", begin: "6:50" }, isha: { jamah: "8:30", begin: "8:04" } },
-                30: { fajr: { jamah: "6:15", begin: "5:26" }, zuhr: { jamah: "1:30", begin: "12:56" }, asr: { jamah: "5:15", begin: "4:46" }, maghrib: { jamah: "6:42", begin: "6:47" }, isha: { jamah: "8:30", begin: "8:02" } }
-            },
-            10: {
-                1: { fajr: { jamah: "6:15", begin: "5:28" }, zuhr: { jamah: "1:30", begin: "12:55" }, asr: { jamah: "5:15", begin: "4:44" }, maghrib: { jamah: "6:40", begin: "6:45" }, isha: { jamah: "8:30", begin: "8:00" } },
-                2: { fajr: { jamah: "6:15", begin: "5:30" }, zuhr: { jamah: "1:30", begin: "12:55" }, asr: { jamah: "5:15", begin: "4:42" }, maghrib: { jamah: "6:38", begin: "6:43" }, isha: { jamah: "8:30", begin: "7:58" } },
-                3: { fajr: { jamah: "6:15", begin: "5:31" }, zuhr: { jamah: "1:30", begin: "12:55" }, asr: { jamah: "5:15", begin: "4:40" }, maghrib: { jamah: "6:36", begin: "6:41" }, isha: { jamah: "8:30", begin: "7:56" } },
-                4: { fajr: { jamah: "6:15", begin: "5:33" }, zuhr: { jamah: "1:30", begin: "12:54" }, asr: { jamah: "5:15", begin: "4:38" }, maghrib: { jamah: "6:33", begin: "6:38" }, isha: { jamah: "8:30", begin: "7:54" } },
-                5: { fajr: { jamah: "6:00", begin: "5:34" }, zuhr: { jamah: "1:30", begin: "12:54" }, asr: { jamah: "5:00", begin: "4:36" }, maghrib: { jamah: "6:31", begin: "6:36" }, isha: { jamah: "8:15", begin: "7:52" } },
-                6: { fajr: { jamah: "6:30", begin: "5:36" }, zuhr: { jamah: "1:30", begin: "12:54" }, asr: { jamah: "5:00", begin: "4:34" }, maghrib: { jamah: "6:29", begin: "6:34" }, isha: { jamah: "8:15", begin: "7:50" } },
-                7: { fajr: { jamah: "6:30", begin: "5:37" }, zuhr: { jamah: "1:30", begin: "12:53" }, asr: { jamah: "5:00", begin: "4:32" }, maghrib: { jamah: "6:27", begin: "6:32" }, isha: { jamah: "8:15", begin: "7:48" } },
-                8: { fajr: { jamah: "6:30", begin: "5:39" }, zuhr: { jamah: "1:30", begin: "12:53" }, asr: { jamah: "5:00", begin: "4:30" }, maghrib: { jamah: "6:24", begin: "6:29" }, isha: { jamah: "8:15", begin: "7:46" } },
-                9: { fajr: { jamah: "6:30", begin: "5:40" }, zuhr: { jamah: "1:30", begin: "12:53" }, asr: { jamah: "5:00", begin: "4:28" }, maghrib: { jamah: "6:22", begin: "6:27" }, isha: { jamah: "8:15", begin: "7:44" } },
-                10: { fajr: { jamah: "6:30", begin: "5:42" }, zuhr: { jamah: "1:30", begin: "12:53" }, asr: { jamah: "5:00", begin: "4:26" }, maghrib: { jamah: "6:20", begin: "6:25" }, isha: { jamah: "8:15", begin: "7:42" } },
-                11: { fajr: { jamah: "6:30", begin: "5:44" }, zuhr: { jamah: "1:30", begin: "12:52" }, asr: { jamah: "5:00", begin: "4:24" }, maghrib: { jamah: "6:18", begin: "6:23" }, isha: { jamah: "8:15", begin: "7:40" } },
-                12: { fajr: { jamah: "6:30", begin: "5:45" }, zuhr: { jamah: "1:30", begin: "12:52" }, asr: { jamah: "4:45", begin: "4:22" }, maghrib: { jamah: "6:16", begin: "6:21" }, isha: { jamah: "8:00", begin: "7:38" } },
-                13: { fajr: { jamah: "6:30", begin: "5:47" }, zuhr: { jamah: "1:30", begin: "12:52" }, asr: { jamah: "4:45", begin: "4:20" }, maghrib: { jamah: "6:13", begin: "6:18" }, isha: { jamah: "8:00", begin: "7:36" } },
-                14: { fajr: { jamah: "6:30", begin: "5:48" }, zuhr: { jamah: "1:30", begin: "12:52" }, asr: { jamah: "4:45", begin: "4:18" }, maghrib: { jamah: "6:11", begin: "6:16" }, isha: { jamah: "8:00", begin: "7:34" } },
-                15: { fajr: { jamah: "6:30", begin: "5:50" }, zuhr: { jamah: "1:30", begin: "12:51" }, asr: { jamah: "4:45", begin: "4:16" }, maghrib: { jamah: "6:09", begin: "6:14" }, isha: { jamah: "8:00", begin: "7:32" } },
-                16: { fajr: { jamah: "6:30", begin: "5:52" }, zuhr: { jamah: "1:30", begin: "12:51" }, asr: { jamah: "4:45", begin: "4:14" }, maghrib: { jamah: "6:07", begin: "6:12" }, isha: { jamah: "8:00", begin: "7:30" } },
-                17: { fajr: { jamah: "6:30", begin: "5:53" }, zuhr: { jamah: "1:30", begin: "12:51" }, asr: { jamah: "4:45", begin: "4:12" }, maghrib: { jamah: "6:05", begin: "6:10" }, isha: { jamah: "8:00", begin: "7:28" } },
-                18: { fajr: { jamah: "6:30", begin: "5:55" }, zuhr: { jamah: "1:30", begin: "12:51" }, asr: { jamah: "4:45", begin: "4:10" }, maghrib: { jamah: "6:03", begin: "6:08" }, isha: { jamah: "8:00", begin: "7:27" } },
-                19: { fajr: { jamah: "6:45", begin: "5:57" }, zuhr: { jamah: "1:30", begin: "12:51" }, asr: { jamah: "4:30", begin: "4:08" }, maghrib: { jamah: "6:01", begin: "6:06" }, isha: { jamah: "7:45", begin: "7:25" } },
-                20: { fajr: { jamah: "6:45", begin: "5:58" }, zuhr: { jamah: "1:30", begin: "12:50" }, asr: { jamah: "4:30", begin: "4:06" }, maghrib: { jamah: "5:59", begin: "6:04" }, isha: { jamah: "7:45", begin: "7:23" } },
-                21: { fajr: { jamah: "6:45", begin: "6:00" }, zuhr: { jamah: "1:30", begin: "12:50" }, asr: { jamah: "4:30", begin: "4:04" }, maghrib: { jamah: "5:57", begin: "6:02" }, isha: { jamah: "7:45", begin: "7:21" } },
-                22: { fajr: { jamah: "6:45", begin: "6:01" }, zuhr: { jamah: "1:30", begin: "12:50" }, asr: { jamah: "4:30", begin: "4:02" }, maghrib: { jamah: "5:55", begin: "6:00" }, isha: { jamah: "7:45", begin: "7:19" } },
-                23: { fajr: { jamah: "6:45", begin: "6:03" }, zuhr: { jamah: "1:30", begin: "12:50" }, asr: { jamah: "4:30", begin: "4:01" }, maghrib: { jamah: "5:53", begin: "5:58" }, isha: { jamah: "7:45", begin: "7:18" } },
-                24: { fajr: { jamah: "6:45", begin: "6:05" }, zuhr: { jamah: "1:30", begin: "12:50" }, asr: { jamah: "4:30", begin: "3:59" }, maghrib: { jamah: "5:51", begin: "5:56" }, isha: { jamah: "7:45", begin: "7:16" } },
-                25: { fajr: { jamah: "6:45", begin: "6:06" }, zuhr: { jamah: "1:30", begin: "12:50" }, asr: { jamah: "4:30", begin: "3:57" }, maghrib: { jamah: "5:49", begin: "5:54" }, isha: { jamah: "7:45", begin: "7:14" } },
-                26: { fajr: { jamah: "6:00", begin: "5:08" }, zuhr: { jamah: "1:00", begin: "11:50" }, asr: { jamah: "3:15", begin: "2:55" }, maghrib: { jamah: "4:47", begin: "4:52" }, isha: { jamah: "7:30", begin: "6:12" } },
-                27: { fajr: { jamah: "6:00", begin: "5:10" }, zuhr: { jamah: "1:00", begin: "11:50" }, asr: { jamah: "3:15", begin: "2:53" }, maghrib: { jamah: "4:45", begin: "4:50" }, isha: { jamah: "7:30", begin: "6:11" } },
-                28: { fajr: { jamah: "6:00", begin: "5:11" }, zuhr: { jamah: "1:00", begin: "11:49" }, asr: { jamah: "3:15", begin: "2:51" }, maghrib: { jamah: "4:43", begin: "4:48" }, isha: { jamah: "7:30", begin: "6:09" } },
-                29: { fajr: { jamah: "6:00", begin: "5:13" }, zuhr: { jamah: "1:00", begin: "11:49" }, asr: { jamah: "3:15", begin: "2:50" }, maghrib: { jamah: "4:41", begin: "4:46" }, isha: { jamah: "7:30", begin: "6:07" } },
-                30: { fajr: { jamah: "6:00", begin: "5:15" }, zuhr: { jamah: "1:00", begin: "11:49" }, asr: { jamah: "3:15", begin: "2:48" }, maghrib: { jamah: "4:39", begin: "4:44" }, isha: { jamah: "7:30", begin: "6:06" } },
-                31: { fajr: { jamah: "6:00", begin: "5:16" }, zuhr: { jamah: "1:00", begin: "11:49" }, asr: { jamah: "3:15", begin: "2:46" }, maghrib: { jamah: "4:37", begin: "4:42" }, isha: { jamah: "7:30", begin: "6:04" } }
-            },
-            11: {
-                1: { fajr: { jamah: "6:00", begin: "5:18" }, zuhr: { jamah: "1:00", begin: "11:49" }, asr: { jamah: "3:15", begin: "2:44" }, maghrib: { jamah: "4:36", begin: "4:41" }, isha: { jamah: "7:30", begin: "6:03" } },
-                2: { fajr: { jamah: "6:15", begin: "5:20" }, zuhr: { jamah: "1:00", begin: "11:49" }, asr: { jamah: "3:00", begin: "2:43" }, maghrib: { jamah: "4:34", begin: "4:39" }, isha: { jamah: "7:30", begin: "6:01" } },
-                3: { fajr: { jamah: "6:15", begin: "5:21" }, zuhr: { jamah: "1:00", begin: "11:49" }, asr: { jamah: "3:00", begin: "2:41" }, maghrib: { jamah: "4:32", begin: "4:37" }, isha: { jamah: "7:30", begin: "6:00" } },
-                4: { fajr: { jamah: "6:15", begin: "5:23" }, zuhr: { jamah: "1:00", begin: "11:49" }, asr: { jamah: "3:00", begin: "2:40" }, maghrib: { jamah: "4:30", begin: "4:35" }, isha: { jamah: "7:30", begin: "5:58" } },
-                5: { fajr: { jamah: "6:15", begin: "5:25" }, zuhr: { jamah: "1:00", begin: "11:49" }, asr: { jamah: "3:00", begin: "2:38" }, maghrib: { jamah: "4:29", begin: "4:34" }, isha: { jamah: "7:30", begin: "5:57" } },
-                6: { fajr: { jamah: "6:15", begin: "5:26" }, zuhr: { jamah: "1:00", begin: "11:49" }, asr: { jamah: "3:00", begin: "2:36" }, maghrib: { jamah: "4:27", begin: "4:32" }, isha: { jamah: "7:30", begin: "5:55" } },
-                7: { fajr: { jamah: "6:15", begin: "5:28" }, zuhr: { jamah: "1:00", begin: "11:49" }, asr: { jamah: "3:00", begin: "2:35" }, maghrib: { jamah: "4:25", begin: "4:30" }, isha: { jamah: "7:30", begin: "5:54" } },
-                8: { fajr: { jamah: "6:30", begin: "5:30" }, zuhr: { jamah: "1:00", begin: "11:50" }, asr: { jamah: "2:45", begin: "2:33" }, maghrib: { jamah: "4:24", begin: "4:29" }, isha: { jamah: "7:30", begin: "5:53" } },
-                9: { fajr: { jamah: "6:30", begin: "5:31" }, zuhr: { jamah: "1:00", begin: "11:50" }, asr: { jamah: "2:45", begin: "2:32" }, maghrib: { jamah: "4:22", begin: "4:27" }, isha: { jamah: "7:30", begin: "5:51" } },
-                10: { fajr: { jamah: "6:30", begin: "5:33" }, zuhr: { jamah: "1:00", begin: "11:50" }, asr: { jamah: "2:45", begin: "2:30" }, maghrib: { jamah: "4:21", begin: "4:26" }, isha: { jamah: "7:30", begin: "5:50" } },
-                11: { fajr: { jamah: "6:30", begin: "5:35" }, zuhr: { jamah: "1:00", begin: "11:50" }, asr: { jamah: "2:45", begin: "2:29" }, maghrib: { jamah: "4:19", begin: "4:24" }, isha: { jamah: "7:30", begin: "5:49" } },
-                12: { fajr: { jamah: "6:30", begin: "5:36" }, zuhr: { jamah: "1:00", begin: "11:50" }, asr: { jamah: "2:45", begin: "2:27" }, maghrib: { jamah: "4:18", begin: "4:23" }, isha: { jamah: "7:30", begin: "5:47" } },
-                13: { fajr: { jamah: "6:30", begin: "5:38" }, zuhr: { jamah: "1:00", begin: "11:50" }, asr: { jamah: "2:45", begin: "2:26" }, maghrib: { jamah: "4:16", begin: "4:21" }, isha: { jamah: "7:30", begin: "5:46" } },
-                14: { fajr: { jamah: "6:30", begin: "5:40" }, zuhr: { jamah: "1:00", begin: "11:50" }, asr: { jamah: "2:45", begin: "2:25" }, maghrib: { jamah: "4:15", begin: "4:20" }, isha: { jamah: "7:30", begin: "5:45" } },
-                15: { fajr: { jamah: "6:30", begin: "5:41" }, zuhr: { jamah: "1:00", begin: "11:50" }, asr: { jamah: "2:45", begin: "2:23" }, maghrib: { jamah: "4:14", begin: "4:19" }, isha: { jamah: "7:30", begin: "5:44" } },
-                16: { fajr: { jamah: "6:30", begin: "5:43" }, zuhr: { jamah: "1:00", begin: "11:51" }, asr: { jamah: "2:45", begin: "2:22" }, maghrib: { jamah: "4:12", begin: "4:17" }, isha: { jamah: "7:30", begin: "5:43" } },
-                17: { fajr: { jamah: "6:30", begin: "5:44" }, zuhr: { jamah: "1:00", begin: "11:51" }, asr: { jamah: "2:45", begin: "2:21" }, maghrib: { jamah: "4:11", begin: "4:16" }, isha: { jamah: "7:30", begin: "5:42" } },
-                18: { fajr: { jamah: "6:30", begin: "5:46" }, zuhr: { jamah: "1:00", begin: "11:51" }, asr: { jamah: "2:45", begin: "2:20" }, maghrib: { jamah: "4:10", begin: "4:15" }, isha: { jamah: "7:30", begin: "5:41" } },
-                19: { fajr: { jamah: "6:30", begin: "5:48" }, zuhr: { jamah: "1:00", begin: "11:51" }, asr: { jamah: "2:45", begin: "2:19" }, maghrib: { jamah: "4:09", begin: "4:14" }, isha: { jamah: "7:30", begin: "5:40" } },
-                20: { fajr: { jamah: "6:30", begin: "5:49" }, zuhr: { jamah: "1:00", begin: "11:51" }, asr: { jamah: "2:45", begin: "2:18" }, maghrib: { jamah: "4:07", begin: "4:12" }, isha: { jamah: "7:30", begin: "5:39" } },
-                21: { fajr: { jamah: "6:30", begin: "5:51" }, zuhr: { jamah: "1:00", begin: "11:52" }, asr: { jamah: "2:45", begin: "2:17" }, maghrib: { jamah: "4:06", begin: "4:11" }, isha: { jamah: "7:30", begin: "5:38" } },
-                22: { fajr: { jamah: "6:30", begin: "5:52" }, zuhr: { jamah: "1:00", begin: "11:52" }, asr: { jamah: "2:45", begin: "2:15" }, maghrib: { jamah: "4:05", begin: "4:10" }, isha: { jamah: "7:30", begin: "5:37" } },
-                23: { fajr: { jamah: "6:45", begin: "5:54" }, zuhr: { jamah: "1:00", begin: "11:52" }, asr: { jamah: "2:45", begin: "2:15" }, maghrib: { jamah: "4:04", begin: "4:09" }, isha: { jamah: "7:30", begin: "5:37" } },
-                24: { fajr: { jamah: "6:45", begin: "5:55" }, zuhr: { jamah: "1:00", begin: "11:52" }, asr: { jamah: "2:45", begin: "2:14" }, maghrib: { jamah: "4:03", begin: "4:08" }, isha: { jamah: "7:30", begin: "5:36" } },
-                25: { fajr: { jamah: "6:45", begin: "5:57" }, zuhr: { jamah: "1:00", begin: "11:53" }, asr: { jamah: "2:45", begin: "2:13" }, maghrib: { jamah: "4:02", begin: "4:07" }, isha: { jamah: "7:30", begin: "5:35" } },
-                26: { fajr: { jamah: "6:45", begin: "5:58" }, zuhr: { jamah: "1:00", begin: "11:53" }, asr: { jamah: "2:45", begin: "2:12" }, maghrib: { jamah: "4:01", begin: "4:06" }, isha: { jamah: "7:30", begin: "5:34" } },
-                27: { fajr: { jamah: "6:45", begin: "5:59" }, zuhr: { jamah: "1:00", begin: "11:53" }, asr: { jamah: "2:45", begin: "2:11" }, maghrib: { jamah: "4:01", begin: "4:06" }, isha: { jamah: "7:30", begin: "5:34" } },
-                28: { fajr: { jamah: "6:45", begin: "6:00" }, zuhr: { jamah: "1:00", begin: "11:54" }, asr: { jamah: "2:45", begin: "2:10" }, maghrib: { jamah: "4:00", begin: "4:05" }, isha: { jamah: "7:30", begin: "5:33" } },
-                29: { fajr: { jamah: "6:45", begin: "6:00" }, zuhr: { jamah: "1:00", begin: "11:54" }, asr: { jamah: "2:45", begin: "2:10" }, maghrib: { jamah: "3:59", begin: "4:04" }, isha: { jamah: "7:30", begin: "5:33" } },
-                30: { fajr: { jamah: "6:45", begin: "6:00" }, zuhr: { jamah: "1:00", begin: "11:54" }, asr: { jamah: "2:45", begin: "2:09" }, maghrib: { jamah: "3:58", begin: "4:03" }, isha: { jamah: "7:30", begin: "5:32" } }
-            },
-            12: {
-                1: { fajr: { jamah: "7:00", begin: "6:00" }, zuhr: { jamah: "1:00", begin: "11:55" }, asr: { jamah: "2:45", begin: "2:08" }, maghrib: { jamah: "3:58", begin: "4:03" }, isha: { jamah: "7:30", begin: "5:32" } },
-                2: { fajr: { jamah: "7:00", begin: "6:01" }, zuhr: { jamah: "1:00", begin: "11:55" }, asr: { jamah: "2:45", begin: "2:08" }, maghrib: { jamah: "3:57", begin: "4:02" }, isha: { jamah: "7:30", begin: "5:32" } },
-                3: { fajr: { jamah: "7:00", begin: "6:02" }, zuhr: { jamah: "1:00", begin: "11:56" }, asr: { jamah: "2:45", begin: "2:07" }, maghrib: { jamah: "3:57", begin: "4:02" }, isha: { jamah: "7:30", begin: "5:31" } },
-                4: { fajr: { jamah: "7:00", begin: "6:04" }, zuhr: { jamah: "1:00", begin: "11:56" }, asr: { jamah: "2:45", begin: "2:07" }, maghrib: { jamah: "3:56", begin: "4:01" }, isha: { jamah: "7:30", begin: "5:31" } },
-                5: { fajr: { jamah: "7:00", begin: "6:05" }, zuhr: { jamah: "1:00", begin: "11:56" }, asr: { jamah: "2:45", begin: "2:07" }, maghrib: { jamah: "3:56", begin: "4:01" }, isha: { jamah: "7:30", begin: "5:31" } },
-                6: { fajr: { jamah: "7:00", begin: "6:06" }, zuhr: { jamah: "1:00", begin: "11:57" }, asr: { jamah: "2:45", begin: "2:06" }, maghrib: { jamah: "3:56", begin: "4:01" }, isha: { jamah: "7:30", begin: "5:31" } },
-                7: { fajr: { jamah: "7:15", begin: "6:07" }, zuhr: { jamah: "1:00", begin: "11:57" }, asr: { jamah: "2:45", begin: "2:06" }, maghrib: { jamah: "3:55", begin: "4:00" }, isha: { jamah: "7:30", begin: "5:31" } },
-                8: { fajr: { jamah: "7:15", begin: "6:08" }, zuhr: { jamah: "1:00", begin: "11:58" }, asr: { jamah: "2:45", begin: "2:06" }, maghrib: { jamah: "3:55", begin: "4:00" }, isha: { jamah: "7:30", begin: "5:31" } },
-                9: { fajr: { jamah: "7:15", begin: "6:10" }, zuhr: { jamah: "1:00", begin: "11:58" }, asr: { jamah: "2:45", begin: "2:05" }, maghrib: { jamah: "3:55", begin: "4:00" }, isha: { jamah: "7:30", begin: "5:31" } },
-                10: { fajr: { jamah: "7:15", begin: "6:11" }, zuhr: { jamah: "1:00", begin: "11:59" }, asr: { jamah: "2:45", begin: "2:05" }, maghrib: { jamah: "3:55", begin: "4:00" }, isha: { jamah: "7:30", begin: "5:31" } },
-                11: { fajr: { jamah: "7:15", begin: "6:12" }, zuhr: { jamah: "1:00", begin: "11:59" }, asr: { jamah: "2:45", begin: "2:05" }, maghrib: { jamah: "3:55", begin: "4:00" }, isha: { jamah: "7:30", begin: "5:31" } },
-                12: { fajr: { jamah: "7:15", begin: "6:13" }, zuhr: { jamah: "1:00", begin: "11:59" }, asr: { jamah: "2:45", begin: "2:05" }, maghrib: { jamah: "3:55", begin: "4:00" }, isha: { jamah: "7:30", begin: "5:31" } },
-                13: { fajr: { jamah: "7:15", begin: "6:13" }, zuhr: { jamah: "1:00", begin: "12:00" }, asr: { jamah: "2:45", begin: "2:05" }, maghrib: { jamah: "3:55", begin: "4:00" }, isha: { jamah: "7:30", begin: "5:32" } },
-                14: { fajr: { jamah: "7:15", begin: "6:14" }, zuhr: { jamah: "1:00", begin: "12:00" }, asr: { jamah: "2:45", begin: "2:05" }, maghrib: { jamah: "3:55", begin: "4:00" }, isha: { jamah: "7:30", begin: "5:32" } },
-                15: { fajr: { jamah: "7:15", begin: "6:16" }, zuhr: { jamah: "1:00", begin: "12:01" }, asr: { jamah: "2:45", begin: "2:05" }, maghrib: { jamah: "3:55", begin: "4:00" }, isha: { jamah: "7:30", begin: "5:32" } },
-                16: { fajr: { jamah: "7:15", begin: "6:17" }, zuhr: { jamah: "1:00", begin: "12:01" }, asr: { jamah: "2:45", begin: "2:06" }, maghrib: { jamah: "3:55", begin: "4:00" }, isha: { jamah: "7:30", begin: "5:33" } },
-                17: { fajr: { jamah: "7:15", begin: "6:18" }, zuhr: { jamah: "1:00", begin: "12:02" }, asr: { jamah: "2:45", begin: "2:06" }, maghrib: { jamah: "3:55", begin: "4:00" }, isha: { jamah: "7:30", begin: "5:33" } },
-                18: { fajr: { jamah: "7:15", begin: "6:18" }, zuhr: { jamah: "1:00", begin: "12:02" }, asr: { jamah: "2:45", begin: "2:06" }, maghrib: { jamah: "3:56", begin: "4:01" }, isha: { jamah: "7:30", begin: "5:33" } },
-                19: { fajr: { jamah: "7:15", begin: "6:20" }, zuhr: { jamah: "1:00", begin: "12:03" }, asr: { jamah: "2:45", begin: "2:07" }, maghrib: { jamah: "3:56", begin: "4:01" }, isha: { jamah: "7:30", begin: "5:34" } },
-                20: { fajr: { jamah: "7:15", begin: "6:21" }, zuhr: { jamah: "1:00", begin: "12:03" }, asr: { jamah: "2:45", begin: "2:07" }, maghrib: { jamah: "3:57", begin: "4:02" }, isha: { jamah: "7:30", begin: "5:34" } },
-                21: { fajr: { jamah: "7:15", begin: "6:21" }, zuhr: { jamah: "1:00", begin: "12:04" }, asr: { jamah: "2:45", begin: "2:07" }, maghrib: { jamah: "3:57", begin: "4:02" }, isha: { jamah: "7:30", begin: "5:35" } },
-                22: { fajr: { jamah: "7:15", begin: "6:21" }, zuhr: { jamah: "1:00", begin: "12:04" }, asr: { jamah: "2:45", begin: "2:08" }, maghrib: { jamah: "3:58", begin: "4:03" }, isha: { jamah: "7:30", begin: "5:35" } },
-                23: { fajr: { jamah: "7:15", begin: "6:22" }, zuhr: { jamah: "1:00", begin: "12:05" }, asr: { jamah: "2:45", begin: "2:09" }, maghrib: { jamah: "3:58", begin: "4:03" }, isha: { jamah: "7:30", begin: "5:36" } },
-                24: { fajr: { jamah: "7:15", begin: "6:22" }, zuhr: { jamah: "1:00", begin: "12:05" }, asr: { jamah: "2:45", begin: "2:09" }, maghrib: { jamah: "3:59", begin: "4:04" }, isha: { jamah: "7:30", begin: "5:36" } },
-                25: { fajr: { jamah: "7:15", begin: "6:25" }, zuhr: { jamah: "1:00", begin: "12:06" }, asr: { jamah: "2:45", begin: "2:10" }, maghrib: { jamah: "4:00", begin: "4:05" }, isha: { jamah: "7:30", begin: "5:37" } },
-                26: { fajr: { jamah: "7:15", begin: "6:25" }, zuhr: { jamah: "1:00", begin: "12:06" }, asr: { jamah: "2:45", begin: "2:11" }, maghrib: { jamah: "4:00", begin: "4:05" }, isha: { jamah: "7:30", begin: "5:38" } },
-                27: { fajr: { jamah: "7:15", begin: "6:25" }, zuhr: { jamah: "1:00", begin: "12:07" }, asr: { jamah: "2:45", begin: "2:11" }, maghrib: { jamah: "4:01", begin: "4:06" }, isha: { jamah: "7:30", begin: "5:39" } },
-                28: { fajr: { jamah: "7:15", begin: "6:26" }, zuhr: { jamah: "1:00", begin: "12:07" }, asr: { jamah: "2:45", begin: "2:12" }, maghrib: { jamah: "4:02", begin: "4:07" }, isha: { jamah: "7:30", begin: "5:39" } },
-                29: { fajr: { jamah: "7:15", begin: "6:26" }, zuhr: { jamah: "1:00", begin: "12:08" }, asr: { jamah: "2:45", begin: "2:13" }, maghrib: { jamah: "4:03", begin: "4:08" }, isha: { jamah: "7:30", begin: "5:40" } },
-                30: { fajr: { jamah: "7:15", begin: "6:26" }, zuhr: { jamah: "1:00", begin: "12:08" }, asr: { jamah: "2:45", begin: "2:14" }, maghrib: { jamah: "4:04", begin: "4:09" }, isha: { jamah: "7:30", begin: "5:41" } },
-                31: { fajr: { jamah: "7:15", begin: "6:26" }, zuhr: { jamah: "1:00", begin: "12:09" }, asr: { jamah: "2:45", begin: "2:15" }, maghrib: { jamah: "4:05", begin: "4:10" }, isha: { jamah: "7:30", begin: "5:42" } }
+                1: { fajr: { jamah: "4:30", begin: "3:37" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:24" }, maghrib: { jamah: "8:56", begin: "8:51" }, isha: { jamah: "10:25", begin: "9:59" } },
+                2: { fajr: { jamah: "4:30", begin: "3:39" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:30", begin: "6:23" }, maghrib: { jamah: "8:54", begin: "8:49" }, isha: { jamah: "10:25", begin: "9:57" } },
+                3: { fajr: { jamah: "4:45", begin: "3:41" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:15", begin: "6:22" }, maghrib: { jamah: "8:52", begin: "8:47" }, isha: { jamah: "10:15", begin: "9:55" } },
+                4: { fajr: { jamah: "4:45", begin: "3:43" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:15", begin: "6:21" }, maghrib: { jamah: "8:51", begin: "8:46" }, isha: { jamah: "10:15", begin: "9:53" } },
+                5: { fajr: { jamah: "4:45", begin: "3:44" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:15", begin: "6:20" }, maghrib: { jamah: "8:49", begin: "8:44" }, isha: { jamah: "10:15", begin: "9:51" } },
+                6: { fajr: { jamah: "4:45", begin: "3:46" }, zuhr: { jamah: "1:30", begin: "1:12" }, asr: { jamah: "7:15", begin: "6:19" }, maghrib: { jamah: "8:47", begin: "8:42" }, isha: { jamah: "10:15", begin: "9:48" } },
+                7: { fajr: { jamah: "4:45", begin: "3:48" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:15", begin: "6:17" }, maghrib: { jamah: "8:45", begin: "8:40" }, isha: { jamah: "10:15", begin: "9:47" } },
+                8: { fajr: { jamah: "4:45", begin: "3:50" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:15", begin: "6:16" }, maghrib: { jamah: "8:43", begin: "8:38" }, isha: { jamah: "10:15", begin: "9:45" } },
+                9: { fajr: { jamah: "4:45", begin: "3:52" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:15", begin: "6:15" }, maghrib: { jamah: "8:42", begin: "8:37" }, isha: { jamah: "10:15", begin: "9:44" } },
+                10: { fajr: { jamah: "5:00", begin: "3:54" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:00", begin: "6:14" }, maghrib: { jamah: "8:40", begin: "8:35" }, isha: { jamah: "10:00", begin: "9:42" } },
+                11: { fajr: { jamah: "5:00", begin: "3:55" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:00", begin: "6:12" }, maghrib: { jamah: "8:38", begin: "8:33" }, isha: { jamah: "10:00", begin: "9:40" } },
+                12: { fajr: { jamah: "5:00", begin: "3:57" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:00", begin: "6:11" }, maghrib: { jamah: "8:36", begin: "8:31" }, isha: { jamah: "10:00", begin: "9:39" } },
+                13: { fajr: { jamah: "5:00", begin: "3:59" }, zuhr: { jamah: "1:30", begin: "1:11" }, asr: { jamah: "7:00", begin: "6:10" }, maghrib: { jamah: "8:34", begin: "8:29" }, isha: { jamah: "10:00", begin: "9:37" } },
+                14: { fajr: { jamah: "5:00", begin: "4:01" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:00", begin: "6:09" }, maghrib: { jamah: "8:32", begin: "8:27" }, isha: { jamah: "10:00", begin: "9:35" } },
+                15: { fajr: { jamah: "5:00", begin: "4:03" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:00", begin: "6:07" }, maghrib: { jamah: "8:30", begin: "8:25" }, isha: { jamah: "10:00", begin: "9:33" } },
+                16: { fajr: { jamah: "5:00", begin: "4:05" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "7:00", begin: "6:06" }, maghrib: { jamah: "8:28", begin: "8:23" }, isha: { jamah: "10:00", begin: "9:32" } },
+                17: { fajr: { jamah: "5:15", begin: "4:07" }, zuhr: { jamah: "1:30", begin: "1:10" }, asr: { jamah: "6:45", begin: "6:04" }, maghrib: { jamah: "8:26", begin: "8:21" }, isha: { jamah: "9:45", begin: "9:30" } },
+                18: { fajr: { jamah: "5:15", begin: "4:09" }, zuhr: { jamah: "1:30", begin: "1:09" }, asr: { jamah: "6:45", begin: "6:03" }, maghrib: { jamah: "8:24", begin: "8:19" }, isha: { jamah: "9:45", begin: "9:28" } },
+                19: { fajr: { jamah: "5:15", begin: "4:11" }, zuhr: { jamah: "1:30", begin: "1:09" }, asr: { jamah: "6:45", begin: "6:01" }, maghrib: { jamah: "8:22", begin: "8:17" }, isha: { jamah: "9:45", begin: "9:26" } },
+                20: { fajr: { jamah: "5:15", begin: "4:12" }, zuhr: { jamah: "1:30", begin: "1:09" }, asr: { jamah: "6:45", begin: "6:00" }, maghrib: { jamah: "8:20", begin: "8:15" }, isha: { jamah: "9:45", begin: "9:24" } },
+                21: { fajr: { jamah: "5:15", begin: "4:14" }, zuhr: { jamah: "1:30", begin: "1:09" }, asr: { jamah: "6:45", begin: "5:58" }, maghrib: { jamah: "8:18", begin: "8:13" }, isha: { jamah: "9:45", begin: "9:23" } },
+                22: { fajr: { jamah: "5:15", begin: "4:16" }, zuhr: { jamah: "1:30", begin: "1:09" }, asr: { jamah: "6:45", begin: "5:57" }, maghrib: { jamah: "8:16", begin: "8:11" }, isha: { jamah: "9:45", begin: "9:21" } },
+                23: { fajr: { jamah: "5:15", begin: "4:18" }, zuhr: { jamah: "1:30", begin: "1:08" }, asr: { jamah: "6:45", begin: "5:55" }, maghrib: { jamah: "8:13", begin: "8:08" }, isha: { jamah: "9:45", begin: "9:19" } },
+                24: { fajr: { jamah: "5:15", begin: "4:20" }, zuhr: { jamah: "1:30", begin: "1:08" }, asr: { jamah: "6:30", begin: "5:54" }, maghrib: { jamah: "8:11", begin: "8:06" }, isha: { jamah: "9:30", begin: "9:17" } },
+                25: { fajr: { jamah: "5:15", begin: "4:22" }, zuhr: { jamah: "1:30", begin: "1:08" }, asr: { jamah: "6:30", begin: "5:52" }, maghrib: { jamah: "8:09", begin: "8:04" }, isha: { jamah: "9:30", begin: "9:15" } },
+                26: { fajr: { jamah: "5:15", begin: "4:24" }, zuhr: { jamah: "1:30", begin: "1:07" }, asr: { jamah: "6:30", begin: "5:51" }, maghrib: { jamah: "8:07", begin: "8:02" }, isha: { jamah: "9:30", begin: "9:13" } },
+                27: { fajr: { jamah: "5:15", begin: "4:26" }, zuhr: { jamah: "1:30", begin: "1:07" }, asr: { jamah: "6:30", begin: "5:49" }, maghrib: { jamah: "8:05", begin: "8:00" }, isha: { jamah: "9:30", begin: "9:11" } },
+                28: { fajr: { jamah: "5:15", begin: "4:27" }, zuhr: { jamah: "1:30", begin: "1:07" }, asr: { jamah: "6:30", begin: "5:47" }, maghrib: { jamah: "8:03", begin: "7:58" }, isha: { jamah: "9:30", begin: "9:09" } }
             }
         };
 
@@ -1212,86 +1183,6 @@
 
         function hideInstallPrompt() {
             document.getElementById('installPrompt').classList.remove('show');
-        }
-
-        // Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(function(registration) {
-                        console.log('ServiceWorker registration successful');
-                        
-                        // Check for updates periodically
-                        setInterval(() => {
-                            registration.update();
-                        }, 60000); // Check every minute
-                        
-                        // Handle updates
-                        registration.addEventListener('updatefound', () => {
-                            const newWorker = registration.installing;
-                            newWorker.addEventListener('statechange', () => {
-                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    showUpdateNotification();
-                                }
-                            });
-                        });
-                    }, function(err) {
-                        console.log('ServiceWorker registration failed: ', err);
-                    });
-            });
-        }
-
-        function showUpdateNotification() {
-            const notification = document.getElementById('updateNotification');
-            notification.classList.add('show');
-            
-            notification.addEventListener('click', () => {
-                if (navigator.serviceWorker.controller) {
-                    navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
-                    window.location.reload();
-                }
-            });
-            
-            // Auto-hide after 10 seconds
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 10000);
-        }
-
-        // Handle online/offline status
-        window.addEventListener('online', () => {
-            updatePWAStatus();
-            console.log('App is online');
-        });
-
-        window.addEventListener('offline', () => {
-            updatePWAStatus();
-            console.log('App is offline');
-        });
-
-        // Handle URL shortcuts
-        function handleUrlShortcuts() {
-            const hash = window.location.hash;
-            if (hash === '#today') {
-                // Scroll to today's prayers
-                setTimeout(() => {
-                    document.querySelector('.today-prayers').scrollIntoView({ behavior: 'smooth' });
-                }, 500);
-            } else if (hash === '#weekly') {
-                // Show weekly view
-                setTimeout(() => {
-                    showChart('weekly');
-                }, 500);
-            } else if (hash === '#monthly') {
-                // Show monthly view
-                setTimeout(() => {
-                    showChart('monthly');
-                }, 500);
-            }
-            // Clear the hash
-            if (hash) {
-                window.history.replaceState(null, null, window.location.pathname);
-            }
         }
 
         function showChart(type) {
@@ -1775,58 +1666,3 @@
                 // All other prayers are PM
                 // Convert to 24-hour format if needed
                 if (hours >= 1 && hours <= 11) {
-                    date.setHours(hours + 12, minutes, 0, 0);
-                } else {
-                    date.setHours(hours, minutes, 0, 0);
-                }
-            }
-            
-            return date;
-        }
-
-        // Initialize the app
-        function init() {
-            // Update current date
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                month: 'long', 
-                day: 'numeric',
-                year: 'numeric'
-            });
-            document.getElementById('currentDate').textContent = dateStr;
-            
-            // Set current display month to current month
-            currentDisplayMonth = now.getMonth() + 1;
-            currentDisplayYear = now.getFullYear();
-            
-            // Initialize PWA status
-            updatePWAStatus();
-            
-            // Generate dynamic monthly and weekly views
-            generateMonthlyView();
-            generateWeeklyView();
-            updateNavigationButtons();
-            
-            // Start countdown and update functions
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-            
-            // Handle URL shortcuts
-            handleUrlShortcuts();
-        }
-
-        // Start the app when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            init();
-        });
-        
-        // Also call init if DOMContentLoaded already fired
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
-    </script>
-</body>
-</html>
