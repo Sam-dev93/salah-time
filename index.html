@@ -141,7 +141,7 @@
         }
 
         .prayer-name {
-            font-size: 18px;
+            font-size: 22px;
             font-weight: 600;
             color: #F5F5F5;
             margin-bottom: 16px;
@@ -156,7 +156,7 @@
 
         .countdown-box {
             flex: 1;
-            padding: 12px 8px;
+            padding: 16px 8px;
             text-align: center;
         }
 
@@ -177,7 +177,7 @@
         }
 
         .countdown {
-            font-size: 20px;
+            font-size: 28px;
             font-weight: 700;
             line-height: 1.2;
         }
@@ -191,7 +191,7 @@
         }
 
         .countdown-time {
-            font-size: 12px;
+            font-size: 14px;
             margin-top: 2px;
             opacity: 0.8;
             font-weight: 500;
@@ -1612,22 +1612,63 @@
             const currentMinute = now.getMinutes();
             const currentTimeInMinutes = currentHour * 60 + currentMinute;
 
-            // Convert begin times to minutes for comparison with proper AM/PM handling
-            const beginTimes = [
-                { name: 'Fajr', time: prayerTimeToMinutes(todayTimes.fajr.begin, 'fajr'), beginStr: todayTimes.fajr.begin, jamahStr: todayTimes.fajr.jamah },
-                { name: 'Zuhr', time: prayerTimeToMinutes(todayTimes.zuhr.begin, 'zuhr'), beginStr: todayTimes.zuhr.begin, jamahStr: todayTimes.zuhr.jamah },
-                { name: 'Asr', time: prayerTimeToMinutes(todayTimes.asr.begin, 'asr'), beginStr: todayTimes.asr.begin, jamahStr: todayTimes.asr.jamah },
-                { name: 'Maghrib', time: prayerTimeToMinutes(todayTimes.maghrib.begin, 'maghrib'), beginStr: todayTimes.maghrib.begin, jamahStr: todayTimes.maghrib.jamah },
-                { name: 'Isha', time: prayerTimeToMinutes(todayTimes.isha.begin, 'isha'), beginStr: todayTimes.isha.begin, jamahStr: todayTimes.isha.jamah }
+            // Convert prayer times to minutes for comparison with proper AM/PM handling
+            const prayerTimes = [
+                { 
+                    name: 'Fajr', 
+                    beginTime: prayerTimeToMinutes(todayTimes.fajr.begin, 'fajr'), 
+                    jamahTime: prayerTimeToMinutes(todayTimes.fajr.jamah, 'fajr'),
+                    beginStr: todayTimes.fajr.begin, 
+                    jamahStr: todayTimes.fajr.jamah 
+                },
+                { 
+                    name: 'Zuhr', 
+                    beginTime: prayerTimeToMinutes(todayTimes.zuhr.begin, 'zuhr'), 
+                    jamahTime: prayerTimeToMinutes(todayTimes.zuhr.jamah, 'zuhr'),
+                    beginStr: todayTimes.zuhr.begin, 
+                    jamahStr: todayTimes.zuhr.jamah 
+                },
+                { 
+                    name: 'Asr', 
+                    beginTime: prayerTimeToMinutes(todayTimes.asr.begin, 'asr'), 
+                    jamahTime: prayerTimeToMinutes(todayTimes.asr.jamah, 'asr'),
+                    beginStr: todayTimes.asr.begin, 
+                    jamahStr: todayTimes.asr.jamah 
+                },
+                { 
+                    name: 'Maghrib', 
+                    beginTime: prayerTimeToMinutes(todayTimes.maghrib.begin, 'maghrib'), 
+                    jamahTime: prayerTimeToMinutes(todayTimes.maghrib.jamah, 'maghrib'),
+                    beginStr: todayTimes.maghrib.begin, 
+                    jamahStr: todayTimes.maghrib.jamah 
+                },
+                { 
+                    name: 'Isha', 
+                    beginTime: prayerTimeToMinutes(todayTimes.isha.begin, 'isha'), 
+                    jamahTime: prayerTimeToMinutes(todayTimes.isha.jamah, 'isha'),
+                    beginStr: todayTimes.isha.begin, 
+                    jamahStr: todayTimes.isha.jamah 
+                }
             ];
 
             let nextPrayer = null;
 
-            // Find next begin time today
-            for (let begin of beginTimes) {
-                if (currentTimeInMinutes < begin.time) {
-                    nextPrayer = begin;
+            // First, check if we're currently in a prayer period (between begin and jamah time)
+            for (let prayer of prayerTimes) {
+                if (currentTimeInMinutes >= prayer.beginTime && currentTimeInMinutes < prayer.jamahTime) {
+                    // We're in this prayer period, show this prayer
+                    nextPrayer = prayer;
                     break;
+                }
+            }
+
+            // If not in a prayer period, find the next prayer that hasn't had its jamah time yet
+            if (!nextPrayer) {
+                for (let prayer of prayerTimes) {
+                    if (currentTimeInMinutes < prayer.jamahTime) {
+                        nextPrayer = prayer;
+                        break;
+                    }
                 }
             }
 
@@ -1717,34 +1758,47 @@
             const currentMinute = now.getMinutes();
             const currentTimeInMinutes = currentHour * 60 + currentMinute;
 
-            // Convert prayer begin times to minutes with proper AM/PM handling
-            const fajrBeginMinutes = prayerTimeToMinutes(todayTimes.fajr.begin, 'fajr');
-            const zuhrBeginMinutes = prayerTimeToMinutes(todayTimes.zuhr.begin, 'zuhr');
-            const asrBeginMinutes = prayerTimeToMinutes(todayTimes.asr.begin, 'asr');
-            const maghribBeginMinutes = prayerTimeToMinutes(todayTimes.maghrib.begin, 'maghrib');
-            const ishaBeginMinutes = prayerTimeToMinutes(todayTimes.isha.begin, 'isha');
+            // Convert prayer times to minutes with proper AM/PM handling
+            const prayerTimes = [
+                { 
+                    name: 'fajr', 
+                    beginMinutes: prayerTimeToMinutes(todayTimes.fajr.begin, 'fajr'),
+                    jamahMinutes: prayerTimeToMinutes(todayTimes.fajr.jamah, 'fajr')
+                },
+                { 
+                    name: 'zuhr', 
+                    beginMinutes: prayerTimeToMinutes(todayTimes.zuhr.begin, 'zuhr'),
+                    jamahMinutes: prayerTimeToMinutes(todayTimes.zuhr.jamah, 'zuhr')
+                },
+                { 
+                    name: 'asr', 
+                    beginMinutes: prayerTimeToMinutes(todayTimes.asr.begin, 'asr'),
+                    jamahMinutes: prayerTimeToMinutes(todayTimes.asr.jamah, 'asr')
+                },
+                { 
+                    name: 'maghrib', 
+                    beginMinutes: prayerTimeToMinutes(todayTimes.maghrib.begin, 'maghrib'),
+                    jamahMinutes: prayerTimeToMinutes(todayTimes.maghrib.jamah, 'maghrib')
+                },
+                { 
+                    name: 'isha', 
+                    beginMinutes: prayerTimeToMinutes(todayTimes.isha.begin, 'isha'),
+                    jamahMinutes: prayerTimeToMinutes(todayTimes.isha.jamah, 'isha')
+                }
+            ];
             
             // Get sunrise time and convert to minutes
             const sunriseTime = sunriseData[month] && sunriseData[month][today] ? sunriseData[month][today] : "6:00";
-            const sunriseMinutes = prayerTimeToMinutes(sunriseTime, 'fajr'); // Use 'fajr' logic for AM time
 
-            // Determine current prayer based on time
+            // Determine current prayer based on time - a prayer is current from its begin time until its jamah time
             let currentPrayer = null;
 
-            if (currentTimeInMinutes >= fajrBeginMinutes && currentTimeInMinutes < sunriseMinutes) {
-                // Fajr is current only until sunrise (not until Zuhr)
-                currentPrayer = 'Fajr';
-            } else if (currentTimeInMinutes >= zuhrBeginMinutes && currentTimeInMinutes < asrBeginMinutes) {
-                currentPrayer = 'Zuhr';
-            } else if (currentTimeInMinutes >= asrBeginMinutes && currentTimeInMinutes < maghribBeginMinutes) {
-                currentPrayer = 'Asr';
-            } else if (currentTimeInMinutes >= maghribBeginMinutes && currentTimeInMinutes < ishaBeginMinutes) {
-                currentPrayer = 'Maghrib';
-            } else if (currentTimeInMinutes >= ishaBeginMinutes || currentTimeInMinutes < fajrBeginMinutes) {
-                // Isha continues until next day's Fajr
-                currentPrayer = 'Isha';
+            for (let prayer of prayerTimes) {
+                if (currentTimeInMinutes >= prayer.beginMinutes && currentTimeInMinutes < prayer.jamahMinutes) {
+                    currentPrayer = prayer.name;
+                    break;
+                }
             }
-            // Note: Between sunrise and Zuhr begin, there is no current prayer
 
             // Remove existing classes
             document.querySelectorAll('.prayer-row').forEach(row => {
@@ -1755,11 +1809,11 @@
 
             // Add current prayer highlighting (green) only
             if (currentPrayer) {
-                const currentRow = document.querySelector(`[data-prayer="${currentPrayer.toLowerCase()}"]`);
+                const currentRow = document.querySelector(`[data-prayer="${currentPrayer}"]`);
                 if (currentRow) {
                     currentRow.classList.add('current');
                     const statusElement = currentRow.querySelector('.prayer-details p');
-                    if (currentPrayer === 'Fajr') {
+                    if (currentPrayer === 'fajr') {
                         statusElement.textContent = `Current Prayer | Sunrise: ${sunriseTime}`;
                     } else {
                         statusElement.textContent = 'Current Prayer';
@@ -1797,12 +1851,12 @@
                     const jamahTime = row.querySelector('.jamah-time');
                     const beginTime = row.querySelector('.begin-time');
                     
-                    // Check if this prayer time has passed
-                    const todayPrayerBeginMinutes = prayerTimeToMinutes(todayTimes[prayer].begin, prayer);
-                    const hasPrayerPassed = currentTimeInMinutes > todayPrayerBeginMinutes;
+                    // Check if this prayer's jamah time has passed (not just begin time)
+                    const todayPrayerJamahMinutes = prayerTimeToMinutes(todayTimes[prayer].jamah, prayer);
+                    const hasJamahPassed = currentTimeInMinutes > todayPrayerJamahMinutes;
                     
-                    // If prayer has passed and we have tomorrow's data, show tomorrow's time
-                    if (hasPrayerPassed && tomorrowTimes && tomorrowTimes[prayer]) {
+                    // If jamah has passed and we have tomorrow's data, show tomorrow's time
+                    if (hasJamahPassed && tomorrowTimes && tomorrowTimes[prayer]) {
                         jamahTime.textContent = tomorrowTimes[prayer].jamah;
                         beginTime.textContent = tomorrowTimes[prayer].begin;
                         
@@ -1847,13 +1901,13 @@
                 const zuhrRow = document.querySelector('[data-prayer="zuhr"]');
                 if (zuhrRow) {
                     const prayerNameElement = zuhrRow.querySelector('.prayer-details h4');
-                    const zuhrBeginMinutes = prayerTimeToMinutes(todayTimes.zuhr.begin, 'zuhr');
-                    const hasZuhrPassed = currentTimeInMinutes > zuhrBeginMinutes;
+                    const zuhrJamahMinutes = prayerTimeToMinutes(todayTimes.zuhr.jamah, 'zuhr');
+                    const hasZuhrJamahPassed = currentTimeInMinutes > zuhrJamahMinutes;
                     
                     // If showing today's Zuhr and it's Friday, show Jumu'ah
-                    if (!hasZuhrPassed && dayOfWeek === 5) {
+                    if (!hasZuhrJamahPassed && dayOfWeek === 5) {
                         prayerNameElement.textContent = "Jumu'ah";
-                    } else if (hasZuhrPassed && tomorrowTimes) {
+                    } else if (hasZuhrJamahPassed && tomorrowTimes) {
                         // If showing tomorrow's Zuhr, check if tomorrow is Friday
                         const tomorrowDayOfWeek = tomorrow.getDay();
                         if (tomorrowDayOfWeek === 5) {
