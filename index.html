@@ -1653,11 +1653,22 @@
 
             let nextPrayer = null;
 
-            // Find the next prayer that hasn't started yet
+            // First, check if we're currently in a prayer period (between begin and jamah time)
             for (let prayer of prayerTimes) {
-                if (currentTimeInMinutes < prayer.beginTime) {
+                if (currentTimeInMinutes >= prayer.beginTime && currentTimeInMinutes < prayer.jamahTime) {
+                    // We're in this prayer period, show countdown to THIS prayer's jamah
                     nextPrayer = prayer;
                     break;
+                }
+            }
+
+            // If not in a prayer period, find the next prayer that hasn't started yet
+            if (!nextPrayer) {
+                for (let prayer of prayerTimes) {
+                    if (currentTimeInMinutes < prayer.beginTime) {
+                        nextPrayer = prayer;
+                        break;
+                    }
                 }
             }
 
