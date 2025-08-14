@@ -1653,22 +1653,11 @@
 
             let nextPrayer = null;
 
-            // First, check if we're currently in a prayer period (between begin and jamah time)
+            // Find the next prayer that hasn't started yet
             for (let prayer of prayerTimes) {
-                if (currentTimeInMinutes >= prayer.beginTime && currentTimeInMinutes < prayer.jamahTime) {
-                    // We're in this prayer period, show this prayer
+                if (currentTimeInMinutes < prayer.beginTime) {
                     nextPrayer = prayer;
                     break;
-                }
-            }
-
-            // If not in a prayer period, find the next prayer that hasn't had its jamah time yet
-            if (!nextPrayer) {
-                for (let prayer of prayerTimes) {
-                    if (currentTimeInMinutes < prayer.jamahTime) {
-                        nextPrayer = prayer;
-                        break;
-                    }
                 }
             }
 
@@ -1789,14 +1778,33 @@
             
             // Get sunrise time and convert to minutes
             const sunriseTime = sunriseData[month] && sunriseData[month][today] ? sunriseData[month][today] : "6:00";
+            const sunriseMinutes = prayerTimeToMinutes(sunriseTime, 'fajr'); // Use fajr logic for sunrise
 
-            // Determine current prayer based on time - a prayer is current from its begin time until its jamah time
+            // Determine current prayer based on time - a prayer is current from its begin time until the next prayer's begin time
             let currentPrayer = null;
 
-            for (let prayer of prayerTimes) {
-                if (currentTimeInMinutes >= prayer.beginMinutes && currentTimeInMinutes < prayer.jamahMinutes) {
-                    currentPrayer = prayer.name;
-                    break;
+            for (let i = 0; i < prayerTimes.length; i++) {
+                const prayer = prayerTimes[i];
+                const nextPrayer = prayerTimes[i + 1];
+                
+                if (prayer.name === 'fajr') {
+                    // Fajr is current from its begin time until sunrise
+                    if (currentTimeInMinutes >= prayer.beginMinutes && currentTimeInMinutes < sunriseMinutes) {
+                        currentPrayer = prayer.name;
+                        break;
+                    }
+                } else if (nextPrayer) {
+                    // Other prayers are current from their begin time until next prayer's begin time
+                    if (currentTimeInMinutes >= prayer.beginMinutes && currentTimeInMinutes < nextPrayer.beginMinutes) {
+                        currentPrayer = prayer.name;
+                        break;
+                    }
+                } else {
+                    // Isha is current from its begin time until tomorrow's Fajr begin time (handled by next day rollover)
+                    if (currentTimeInMinutes >= prayer.beginMinutes) {
+                        currentPrayer = prayer.name;
+                        break;
+                    }
                 }
             }
 
@@ -1833,7 +1841,7 @@
             const currentMinute = now.getMinutes();
             const currentTimeInMinutes = currentHour * 60 + currentMinute;
             
-            // Get tomorrow's date for prayers that have passed
+            // Get tomorrow's date for Fajr when sunrise has passed
             const tomorrow = new Date(now);
             tomorrow.setDate(tomorrow.getDate() + 1);
             const tomorrowDay = tomorrow.getDate();
@@ -1846,25 +1854,27 @@
                 const prayerRows = document.querySelectorAll('.prayer-row');
                 const prayers = ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'];
                 
+                // Get sunrise time for sunrise logic
+                const sunriseTime = sunriseData[month] && sunriseData[month][today] ? sunriseData[month][today] : "6:00";
+                const sunriseMinutes = prayerTimeToMinutes(sunriseTime, 'fajr');
+                
                 prayers.forEach((prayer, index) => {
                     const row = prayerRows[index];
                     const jamahTime = row.querySelector('.jamah-time');
                     const beginTime = row.querySelector('.begin-time');
                     
-                    // Check if this prayer's jamah time has passed (not just begin time)
-                    const todayPrayerJamahMinutes = prayerTimeToMinutes(todayTimes[prayer].jamah, prayer);
-                    const hasJamahPassed = currentTimeInMinutes > todayPrayerJamahMinutes;
-                    
-                    // If jamah has passed and we have tomorrow's data, show tomorrow's time
-                    if (hasJamahPassed && tomorrowTimes && tomorrowTimes[prayer]) {
-                        jamahTime.textContent = tomorrowTimes[prayer].jamah;
-                        beginTime.textContent = tomorrowTimes[prayer].begin;
+                    if (prayer === 'fajr') {
+                        // Fajr: Show tomorrow's time only after sunrise has passed
+                        const hasSunrisePassed = currentTimeInMinutes > sunriseMinutes;
                         
-                        // Add subtle indicator that this is tomorrow's time
-                        row.style.opacity = '0.8';
-                        
-                        // Special handling for Fajr sunrise time
-                        if (prayer === 'fajr') {
+                        if (hasSunrisePassed && tomorrowTimes && tomorrowTimes[prayer]) {
+                            jamahTime.textContent = tomorrowTimes[prayer].jamah;
+                            beginTime.textContent = tomorrowTimes[prayer].begin;
+                            
+                            // Add subtle indicator that this is tomorrow's time
+                            row.style.opacity = '0.8';
+                            
+                            // Show tomorrow's sunrise time
                             const statusElement = row.querySelector('.prayer-details p');
                             const tomorrowSunriseTime = sunriseData[tomorrowMonth] && sunriseData[tomorrowMonth][tomorrowDay] ? 
                                 sunriseData[tomorrowMonth][tomorrowDay] : "06:00";
@@ -1874,40 +1884,73 @@
                             } else {
                                 statusElement.textContent = `Sunrise: ${tomorrowSunriseTime}`;
                             }
+                        } else {
+                            // Show today's Fajr time
+                            jamahTime.textContent = todayTimes[prayer].jamah;
+                            beginTime.textContent = todayTimes[prayer].begin;
+                            row.style.opacity = '1';
+                            
+                            // Show today's sunrise time
+                            const statusElement = row.querySelector('.prayer-details p');
+                            if (row.classList.contains('current')) {
+                                statusElement.textContent = `Current Prayer | Sunrise: ${sunriseTime}`;
+                            } else {
+                                statusElement.textContent = `Sunrise: ${sunriseTime}`;
+                            }
                         }
                     } else {
-                        // Show today's time
-                        jamahTime.textContent = todayTimes[prayer].jamah;
-                        beginTime.textContent = todayTimes[prayer].begin;
-                        row.style.opacity = '1';
+                        // All other prayers: Keep showing today's times until next prayer begins
+                        const todayPrayerBeginMinutes = prayerTimeToMinutes(todayTimes[prayer].begin, prayer);
                         
-                        // Handle Fajr sunrise time for today
-                        if (prayer === 'fajr') {
-                            const statusElement = row.querySelector('.prayer-details p');
-                            const todaySunriseTime = sunriseData[month] && sunriseData[month][today] ? 
-                                sunriseData[month][today] : "06:00";
-                            
-                            if (row.classList.contains('current')) {
-                                statusElement.textContent = `Current Prayer | Sunrise: ${todaySunriseTime}`;
-                            } else {
-                                statusElement.textContent = `Sunrise: ${todaySunriseTime}`;
+                        // Find the next prayer after this one
+                        let nextPrayerBeginMinutes = null;
+                        if (index < prayers.length - 1) {
+                            // Next prayer is the following prayer today
+                            const nextPrayer = prayers[index + 1];
+                            nextPrayerBeginMinutes = prayerTimeToMinutes(todayTimes[nextPrayer].begin, nextPrayer);
+                        } else {
+                            // This is Isha, next prayer is tomorrow's Fajr
+                            if (tomorrowTimes && tomorrowTimes.fajr) {
+                                nextPrayerBeginMinutes = prayerTimeToMinutes(tomorrowTimes.fajr.begin, 'fajr') + (24 * 60); // Add 24 hours
                             }
+                        }
+                        
+                        // Show tomorrow's time only if current time has passed next prayer's begin time
+                        let shouldShowTomorrow = false;
+                        if (nextPrayerBeginMinutes !== null) {
+                            if (index === prayers.length - 1) { // Isha case
+                                shouldShowTomorrow = currentTimeInMinutes >= nextPrayerBeginMinutes - (24 * 60); // Tomorrow's fajr begin
+                            } else {
+                                shouldShowTomorrow = currentTimeInMinutes >= nextPrayerBeginMinutes;
+                            }
+                        }
+                        
+                        if (shouldShowTomorrow && tomorrowTimes && tomorrowTimes[prayer]) {
+                            jamahTime.textContent = tomorrowTimes[prayer].jamah;
+                            beginTime.textContent = tomorrowTimes[prayer].begin;
+                            row.style.opacity = '0.8';
+                        } else {
+                            // Show today's time
+                            jamahTime.textContent = todayTimes[prayer].jamah;
+                            beginTime.textContent = todayTimes[prayer].begin;
+                            row.style.opacity = '1';
                         }
                     }
                 });
                 
-                // Check if today is Friday and update Zuhr to Jumu'ah (only for today's time)
+                // Check if today is Friday and update Zuhr to Jumu'ah (only when showing today's time)
                 const dayOfWeek = now.getDay(); // 0 = Sunday, 5 = Friday
                 const zuhrRow = document.querySelector('[data-prayer="zuhr"]');
                 if (zuhrRow) {
                     const prayerNameElement = zuhrRow.querySelector('.prayer-details h4');
-                    const zuhrJamahMinutes = prayerTimeToMinutes(todayTimes.zuhr.jamah, 'zuhr');
-                    const hasZuhrJamahPassed = currentTimeInMinutes > zuhrJamahMinutes;
+                    const zuhrBeginMinutes = prayerTimeToMinutes(todayTimes.zuhr.begin, 'zuhr');
+                    const asrBeginMinutes = prayerTimeToMinutes(todayTimes.asr.begin, 'asr');
+                    const isShowingTodaysZuhr = currentTimeInMinutes < asrBeginMinutes; // Show today's until Asr begins
                     
-                    // If showing today's Zuhr and it's Friday, show Jumu'ah
-                    if (!hasZuhrJamahPassed && dayOfWeek === 5) {
+                    // Show Jumu'ah only if showing today's Zuhr and it's Friday
+                    if (isShowingTodaysZuhr && dayOfWeek === 5) {
                         prayerNameElement.textContent = "Jumu'ah";
-                    } else if (hasZuhrJamahPassed && tomorrowTimes) {
+                    } else if (!isShowingTodaysZuhr && tomorrowTimes) {
                         // If showing tomorrow's Zuhr, check if tomorrow is Friday
                         const tomorrowDayOfWeek = tomorrow.getDay();
                         if (tomorrowDayOfWeek === 5) {
