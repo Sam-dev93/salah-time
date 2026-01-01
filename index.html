@@ -521,26 +521,31 @@
             color: #F5F5F5;
         }
 
-        .modal-prayer-time {
-            font-size: 16px;
-            font-weight: 700;
-            color: #10A37F;
+        .modal-prayer-times {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
         }
 
-        .modal-jamah-time {
-            font-size: 16px;
+        .modal-jamah {
+            font-size: 19px;
             font-weight: 700;
+            color: #F5F5F5;
         }
 
-        .modal-begin-time {
-            font-size: 11px;
+        .modal-begin {
+            font-size: 13px;
             opacity: 0.6;
             font-weight: 400;
-            margin-top: 3px;
+            margin-top: 2px;
             color: #B8B8B8;
+        }
+
+        .modal-prayer-item.sunrise .modal-begin {
+            font-size: 17px;
+            font-weight: 600;
+            opacity: 1;
+            color: #FFB347;
         }
 
         .footer {
@@ -1680,43 +1685,42 @@
                 <div class="modal-prayer-item">
                     <span class="modal-prayer-name">🌅 Fajr</span>
                     <span class="modal-prayer-times">
-                        <span class="modal-begin">${times.fajr.begin}</span>
                         <span class="modal-jamah">${times.fajr.jamah}</span>
+                        <span class="modal-begin">${times.fajr.begin}</span>
                     </span>
                 </div>
                 <div class="modal-prayer-item sunrise">
                     <span class="modal-prayer-name">☀️ Sunrise</span>
                     <span class="modal-prayer-times">
                         <span class="modal-begin">${sunrise || 'N/A'}</span>
-                        <span class="modal-jamah">-</span>
                     </span>
                 </div>
                 <div class="modal-prayer-item">
                     <span class="modal-prayer-name">☀️ ${zuhrLabel}</span>
                     <span class="modal-prayer-times">
-                        <span class="modal-begin">${times.zuhr.begin}</span>
                         <span class="modal-jamah">${times.zuhr.jamah}</span>
+                        <span class="modal-begin">${times.zuhr.begin}</span>
                     </span>
                 </div>
                 <div class="modal-prayer-item">
                     <span class="modal-prayer-name">🌤️ Asr</span>
                     <span class="modal-prayer-times">
-                        <span class="modal-begin">${times.asr.begin}</span>
                         <span class="modal-jamah">${times.asr.jamah}</span>
+                        <span class="modal-begin">${times.asr.begin}</span>
                     </span>
                 </div>
                 <div class="modal-prayer-item">
                     <span class="modal-prayer-name">🌆 Maghrib</span>
                     <span class="modal-prayer-times">
-                        <span class="modal-begin">${times.maghrib.begin}</span>
                         <span class="modal-jamah">${times.maghrib.jamah}</span>
+                        <span class="modal-begin">${times.maghrib.begin}</span>
                     </span>
                 </div>
                 <div class="modal-prayer-item">
                     <span class="modal-prayer-name">🌙 Isha</span>
                     <span class="modal-prayer-times">
-                        <span class="modal-begin">${times.isha.begin}</span>
                         <span class="modal-jamah">${times.isha.jamah}</span>
+                        <span class="modal-begin">${times.isha.begin}</span>
                     </span>
                 </div>
             `;
