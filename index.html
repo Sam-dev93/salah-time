@@ -56,6 +56,13 @@ html.short-vp { --bottom-inset: 0px; }
     radial-gradient(120% 60% at 100% 110%, #0E2A36 0%, rgba(14, 42, 54, 0) 60%),
     linear-gradient(180deg, #0B1E27 0%, var(--bg) 45%, var(--bg-deep) 100%);
 }
+/* The status bar above the app is solid black: start the app black too and fade into the
+   teal, so there's no hard edge where the status bar ends. Sits above the glow layers. */
+#shell::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 190px; z-index: 0; pointer-events: none;
+  background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.82) 22%, rgba(0, 0, 0, 0.45) 55%, rgba(0, 0, 0, 0) 100%);
+}
+html.short-vp #shell::after { display: none; }
 body {
   color: var(--text);
   font-family: var(--font);
@@ -1687,7 +1694,7 @@ fitBottom();
 window.addEventListener('resize', fitBottom);
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') fitBottom(); });
 
-const APP_VERSION = '2026.09.24-9';
+const APP_VERSION = '2026.09.24-10';
 function showVersion() {
   const probe = document.createElement('div');
   probe.style.cssText = 'position:absolute;visibility:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)';
