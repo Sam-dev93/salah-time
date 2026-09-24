@@ -16,6 +16,20 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="manifest" href="manifest.json">
+<!-- iPhone launch screens (read when the app is added to the Home Screen) -->
+<link rel="apple-touch-startup-image" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1320x2868.png">
+<link rel="apple-touch-startup-image" media="(device-width: 420px) and (device-height: 912px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1260x2736.png">
+<link rel="apple-touch-startup-image" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1206x2622.png">
+<link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1290x2796.png">
+<link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1179x2556.png">
+<link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1170x2532.png">
+<link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1284x2778.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1125x2436.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1242x2688.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="splash/launch-828x1792.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="splash/launch-750x1334.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash/launch-1242x2208.png">
+<link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="splash/launch-640x1136.png">
 <style>
 :root {
   --bg: #08151C;
@@ -1580,31 +1594,7 @@ window.addEventListener('offline', updateOnline);
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
-// iOS shows a white screen while an installed web app starts unless a launch image
-// is provided. Draw one for this exact screen size when the page is opened in Safari,
-// so it's in place when the user taps "Add to Home Screen".
-async function addLaunchImage() {
-  const w = screen.width, h = screen.height, dpr = window.devicePixelRatio || 1;
-  const c = document.createElement('canvas');
-  c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
-  const x = c.getContext('2d'); x.scale(dpr, dpr);
-  x.fillStyle = '#08151C'; x.fillRect(0, 0, w, h);
-  const g = x.createRadialGradient(w * 0.25, -h * 0.05, 0, w * 0.25, -h * 0.05, h * 0.75);
-  g.addColorStop(0, 'rgba(31,77,92,0.95)'); g.addColorStop(1, 'rgba(31,77,92,0)');
-  x.fillStyle = g; x.fillRect(0, 0, w, h);
-  const icon = await loadImage('icon-512.png');
-  const s = 108, cx = w / 2, cy = h / 2 - 30;
-  if (icon) { x.save(); roundRect(x, cx - s / 2, cy - s / 2, s, s, 24); x.clip(); x.drawImage(icon, cx - s / 2, cy - s / 2, s, s); x.restore(); }
-  const F = '-apple-system, BlinkMacSystemFont, system-ui, sans-serif';
-  x.textAlign = 'center';
-  x.fillStyle = '#F7F4EC'; x.font = `700 26px ${F}`; x.fillText('Salah Times', cx, cy + s / 2 + 44);
-  x.fillStyle = '#B7C6CD'; x.font = `400 14px ${F}`; x.fillText('Shahjalal Masjid · Manor Park', cx, cy + s / 2 + 68);
-  const link = document.createElement('link');
-  link.rel = 'apple-touch-startup-image';
-  link.href = c.toDataURL('image/png');
-  document.head.appendChild(link);
-}
-if (isIOS && !isStandalone) window.addEventListener('load', () => { addLaunchImage().catch(() => {}); });
+// Launch screens are static images in /splash, linked in <head>.
 
 (() => {
   if (isStandalone || store.get('installDismissed') === '1') return;
@@ -1695,7 +1685,7 @@ fitBottom();
 window.addEventListener('resize', fitBottom);
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') fitBottom(); });
 
-const APP_VERSION = '2026.09.24-11';
+const APP_VERSION = '2026.09.24-12';
 function showVersion() {
   const probe = document.createElement('div');
   probe.style.cssText = 'position:absolute;visibility:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)';
