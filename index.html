@@ -1,990 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>🕌 Salah Times 2026</title>
-    <meta name="theme-color" content="#181818">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="🕌 Salah Times">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="viewport-fit" content="cover">
-    <meta name="application-name" content="Salah Times">
-    <meta name="msapplication-TileColor" content="#181818">
-    <meta name="msapplication-tap-highlight" content="no">
-    <link rel="apple-touch-icon" sizes="180x180" href="icon-192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
-    <link rel="manifest" href="manifest.json">
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #181818;
-            color: #E6E6E6;
-            line-height: 1.47;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            /* PWA specific */
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-            overscroll-behavior: none;
-            -webkit-overflow-scrolling: touch;
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
-            /* Support for notch devices */
-            padding-top: env(safe-area-inset-top);
-            padding-bottom: env(safe-area-inset-bottom);
-            padding-left: env(safe-area-inset-left);
-            padding-right: env(safe-area-inset-right);
-        }
-
-        .container {
-            max-width: 414px;
-            margin: 0 auto;
-            height: 100vh;
-            background: #181818;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            padding: 0 12px;
-        }
-        
-        .top-spacer {
-            height: 5px;
-            flex-shrink: 0;
-            background: #181818;
-        }
-        
-        .bottom-spacer {
-            height: 5px;
-            flex-shrink: 0;
-            background: #181818;
-        }
-        
-        .scrollable-content {
-            flex: 1;
-            overflow-y: auto;
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
-            padding-top: 0;
-            padding-bottom: 0;
-        }
-
-        .status-info {
-            padding: 15px 20px 20px 20px;
-            text-align: center;
-        }
-
-        .mosque-name {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: #F5F5F5;
-        }
-
-        .current-date {
-            font-size: 16px;
-            font-weight: 600;
-            color: #B8B8B8;
-        }
-
-        /* PWA Status Indicator */
-        .pwa-status {
-            margin-top: 10px;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .pwa-status.online {
-            background: rgba(16, 163, 127, 0.2);
-            color: #10A37F;
-        }
-
-        .pwa-status.offline {
-            background: rgba(255, 149, 0, 0.2);
-            color: #FF9500;
-        }
-
-        .next-prayer {
-            background: #1F1F1F;
-            margin: 4px 4px;
-            padding: 12px;
-            border-radius: 14px;
-            border: 1px solid #2E2E2E;
-            text-align: center;
-        }
-
-        .next-prayer h3 {
-            font-size: 15px;
-            color: #B8B8B8;
-            margin-bottom: 8px;
-        }
-
-        .prayer-name {
-            font-size: 24px;
-            font-weight: 600;
-            color: #F5F5F5;
-            margin-bottom: 16px;
-        }
-
-        .countdown-container {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .countdown-box {
-            flex: 1;
-            padding: 16px 8px;
-            text-align: center;
-        }
-
-        .countdown-label {
-            font-size: 11px;
-            font-weight: 600;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .countdown-box.begin .countdown-label {
-            color: #10A37F;
-        }
-
-        .countdown-box.jamah .countdown-label {
-            color: #FF4444;
-        }
-
-        .countdown {
-            font-size: 30px;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .countdown-box.begin .countdown {
-            color: #10A37F;
-        }
-
-        .countdown-box.jamah .countdown {
-            color: #FF4444;
-        }
-
-        .countdown-time {
-            font-size: 14px;
-            margin-top: 2px;
-            opacity: 0.8;
-            font-weight: 500;
-        }
-
-        .countdown-box.begin .countdown-time {
-            color: #10A37F;
-        }
-
-        .countdown-box.jamah .countdown-time {
-            color: #FF4444;
-        }
-
-        .today-prayers {
-            margin: 20px 12px 15px;
-        }
-
-        .section-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #F5F5F5;
-            margin-bottom: 12px;
-            padding-left: 5px;
-            text-align: center;
-        }
-
-        .prayer-times {
-            background: #1F1F1F;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid #2E2E2E;
-        }
-
-        .prayer-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            border-bottom: 1px solid #2E2E2E;
-            transition: all 0.3s ease;
-        }
-
-        .prayer-row:last-child {
-            border-bottom: none;
-        }
-
-        .prayer-row:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .prayer-row.current {
-            background: linear-gradient(135deg, #10A37F, #0D8B6F);
-            color: white;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .prayer-info {
-            display: flex;
-            align-items: center;
-        }
-
-        .prayer-icon {
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 12px;
-            font-size: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .prayer-row.current .prayer-icon {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .prayer-details h4 {
-            font-size: 19px;
-            font-weight: 600;
-            margin-bottom: 2px;
-            color: inherit;
-        }
-
-        .prayer-details p {
-            font-size: 14px;
-            opacity: 0.7;
-        }
-
-        .prayer-time {
-            font-size: 17px;
-            font-weight: 700;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        .jamah-time {
-            font-size: 19px;
-            font-weight: 700;
-        }
-
-        .begin-time {
-            font-size: 14px;
-            opacity: 0.6;
-            font-weight: 400;
-            margin-top: 2px;
-        }
-
-        .tabs {
-            display: flex;
-            background: #1F1F1F;
-            margin: 15px 12px;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid #2E2E2E;
-        }
-
-        .tab {
-            flex: 1;
-            padding: 12px;
-            text-align: center;
-            background: transparent;
-            border: none;
-            font-size: 13px;
-            font-weight: 600;
-            color: #B8B8B8;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .tab.active {
-            background: #2E2E2E;
-            color: #F5F5F5;
-        }
-
-        .tab:hover:not(.active) {
-            background: rgba(255, 255, 255, 0.05);
-            color: #E6E6E6;
-        }
-
-        .chart-container {
-            background: #1F1F1F;
-            margin: 0 8px 25px;
-            padding: 28px 16px;
-            border-radius: 16px;
-            border: 1px solid #2E2E2E;
-            display: none;
-        }
-
-        .chart-container.active {
-            display: block;
-        }
-
-        .chart-container h3 {
-            color: #F5F5F5;
-            margin-bottom: 18px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .week-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 6px;
-            margin-top: 12px;
-        }
-
-        .day-item {
-            text-align: center;
-            padding: 8px 2px;
-            background: #2A2A2A;
-            border-radius: 8px;
-            font-size: 7px;
-            border: 1px solid #3A3A3A;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .day-item:hover {
-            background: #353535;
-        }
-
-        .day-item.today {
-            background: linear-gradient(135deg, #10A37F, #0D8B6F);
-            color: white;
-            border: 1px solid #10A37F;
-        }
-
-        .day-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #F5F5F5;
-            font-size: 10px;
-        }
-
-        .prayer-times-mini {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            margin-top: 4px;
-        }
-
-        .prayer-time-mini {
-            font-size: 8px;
-            color: #B8B8B8;
-            line-height: 1.3;
-        }
-
-        .day-item.today .prayer-time-mini {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .monthly-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-            margin-top: 12px;
-        }
-
-        .month-day {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #2A2A2A;
-            border-radius: 5px;
-            font-size: 11px;
-            font-weight: 600;
-            border: 1px solid #3A3A3A;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .month-day:hover {
-            background: #353535;
-        }
-
-        .month-day.today {
-            background: linear-gradient(135deg, #10A37F, #0D8B6F);
-            color: white;
-            border: 1px solid #10A37F;
-        }
-
-        .month-day.has-data:hover {
-            background: #404040;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0);
-            backdrop-filter: blur(0px);
-            transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
-        }
-
-        .modal.show {
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background: #1F1F1F;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 0;
-            border: 1px solid #2E2E2E;
-            border-bottom: none;
-            border-radius: 20px 20px 0 0;
-            max-height: 80vh;
-            overflow-y: auto;
-            transform: translateY(100%);
-            transition: transform 0.3s ease-out;
-        }
-
-        .modal.show .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-handle {
-            width: 36px;
-            height: 5px;
-            background: #4A4A4A;
-            border-radius: 3px;
-            margin: 12px auto 8px;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 20px 16px;
-            border-bottom: 1px solid #2E2E2E;
-            position: sticky;
-            top: 0;
-            background: #1F1F1F;
-            z-index: 1;
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #F5F5F5;
-        }
-
-        .close {
-            color: #B8B8B8;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            padding: 8px;
-            line-height: 1;
-            background: #2A2A2A;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close:hover {
-            color: #F5F5F5;
-            background: #3A3A3A;
-        }
-
-        .modal-prayer-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding: 16px 20px 30px;
-        }
-
-        .modal-prayer-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background: #2A2A2A;
-            border-radius: 12px;
-            border: 1px solid #3A3A3A;
-        }
-
-        .modal-prayer-info {
-            display: flex;
-            align-items: center;
-        }
-
-        .modal-prayer-icon {
-            font-size: 20px;
-            margin-right: 14px;
-        }
-
-        .modal-prayer-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: #F5F5F5;
-        }
-
-        .modal-prayer-times {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        .modal-jamah {
-            font-size: 19px;
-            font-weight: 700;
-            color: #F5F5F5;
-        }
-
-        .modal-begin {
-            font-size: 13px;
-            opacity: 0.6;
-            font-weight: 400;
-            margin-top: 2px;
-            color: #B8B8B8;
-        }
-
-        .modal-prayer-item.sunrise .modal-begin {
-            font-size: 17px;
-            font-weight: 600;
-            opacity: 1;
-            color: #FFB347;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 12px;
-            color: #B8B8B8;
-            font-size: 11px;
-            border-top: 1px solid #2E2E2E;
-            margin-bottom: 0;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        .day-header {
-            font-weight: 600;
-            text-align: center;
-            padding: 10px;
-            color: #B8B8B8;
-            font-size: 12px;
-        }
-
-        .month-navigation {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 18px;
-        }
-
-        .nav-arrow {
-            background: #2A2A2A;
-            border: 1px solid #3A3A3A;
-            color: #E6E6E6;
-            padding: 10px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .nav-arrow:hover {
-            background: #353535;
-            color: #F5F5F5;
-        }
-
-        .nav-arrow:disabled {
-            background: #1A1A1A;
-            color: #666;
-            cursor: not-allowed;
-            border-color: #2A2A2A;
-        }
-
-        .nav-arrow:disabled:hover {
-            background: #1A1A1A;
-            color: #666;
-        }
-
-        .month-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #F5F5F5;
-            text-align: center;
-            flex: 1;
-            margin: 0 12px;
-        }
-
-        /* Install prompt styles */
-        .install-prompt {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #10A37F;
-            color: white;
-            padding: 16px 24px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            display: none;
-            z-index: 2000;
-            max-width: 90%;
-            text-align: center;
-            animation: slideUp 0.3s ease;
-        }
-
-        .install-prompt.show {
-            display: block;
-        }
-
-        .install-prompt-text {
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        .install-buttons {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-        }
-
-        .install-btn {
-            background: white;
-            color: #10A37F;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .install-btn.dismiss {
-            background: transparent;
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateX(-50%) translateY(100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(-50%) translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Update notification */
-        .update-notification {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #FF9500;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            display: none;
-            z-index: 2000;
-            font-size: 14px;
-            font-weight: 600;
-            animation: slideDown 0.3s ease;
-        }
-
-        .update-notification.show {
-            display: block;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateX(-50%) translateY(-100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(-50%) translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* PWA specific styles */
-        @media (display-mode: fullscreen) {
-            body {
-                padding-top: env(safe-area-inset-top);
-            }
-            
-            .top-spacer {
-                height: 5px;
-            }
-        }
-
-        @media (display-mode: standalone) {
-            body {
-                padding-top: env(safe-area-inset-top);
-            }
-            
-            .top-spacer {
-                height: 5px;
-            }
-            
-            .pwa-status {
-                display: none;
-            }
-        }
-
-        /* Enhanced mobile styles */
-        @media (max-width: 767px) {
-            .container {
-                padding: 0 12px;
-            }
-            
-            .top-spacer {
-                height: 5px;
-            }
-            
-            .bottom-spacer {
-                height: 5px;
-            }
-        }
-        
-        /* Tablet styles */
-        @media (min-width: 768px) {
-            .container {
-                max-width: 768px;
-                margin: 0 auto;
-                padding: 0 24px;
-            }
-            
-            .bottom-spacer {
-                height: 5px;
-            }
-        }
-        
-        /* Desktop styles */
-        @media (min-width: 1024px) {
-            .container {
-                max-width: 1024px;
-                padding: 0 32px;
-            }
-            
-            .bottom-spacer {
-                height: 5px;
-            }
-        }
-        </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Salah Times</title>
+<meta name="description" content="Prayer times for Shahjalal Masjid, Manor Park">
+<meta name="theme-color" content="#141413">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Salah Times">
+<meta name="application-name" content="Salah Times">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<style>
+:root {
+  --bg: #141413;
+  --text: #FAF9F5;
+  --sec: #C2C0B6;
+  --ter: #8A8880;
+  --glass: rgba(250, 249, 245, 0.06);
+  --border: rgba(250, 249, 245, 0.12);
+  --fill: rgba(250, 249, 245, 0.08);
+  --sep: rgba(250, 249, 245, 0.08);
+  --track: rgba(250, 249, 245, 0.10);
+  --clay: #D97757;
+  --clay-bg: rgba(217, 119, 87, 0.16);
+  --on-clay: #141413;
+  --green: #00A884;
+  --green-bg: rgba(0, 168, 132, 0.16);
+  --sheet: rgba(38, 38, 36, 0.86);
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI", sans-serif;
+  --rounded: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  color-scheme: dark;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { background: var(--bg); }
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  overscroll-behavior-y: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+button:focus-visible { outline: 2px solid var(--clay); outline-offset: 2px; }
+
+/* Warm glow behind the glass (fixed so it doesn't scroll) */
+.glow {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(110% 55% at 88% -8%, rgba(217, 119, 87, 0.26) 0%, rgba(217, 119, 87, 0) 55%),
+    radial-gradient(80% 45% at -5% 2%, rgba(0, 168, 132, 0.14) 0%, rgba(0, 168, 132, 0) 60%);
+}
+
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), inset 0 -1px 0 rgba(0, 0, 0, 0.25), 0 18px 40px rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(30px) saturate(170%);
+  backdrop-filter: blur(30px) saturate(170%);
+}
+
+.app {
+  position: relative; z-index: 1;
+  max-width: 480px; margin: 0 auto;
+  padding: calc(var(--safe-top) + 22px) 16px calc(var(--safe-bottom) + 130px);
+}
+.view { display: none; flex-direction: column; gap: 16px; }
+.view.active { display: flex; animation: fadeIn .25s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* Header */
+.header { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 0 4px; }
+.header h1 { font-size: 34px; font-weight: 700; letter-spacing: 0.2px; line-height: 1.15; }
+.header .sub { font-size: 15px; color: var(--sec); margin-top: 3px; }
+.offline-pill { display: none; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--fill); color: var(--sec); margin-bottom: 6px; }
+body.offline .offline-pill { display: inline-block; }
+
+/* Hero */
+.hero { border-radius: 32px; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.hero-top { display: flex; align-items: center; gap: 12px; padding: 0 2px; }
+.hero-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: var(--clay-bg); color: var(--clay); flex-shrink: 0; }
+.hero-label { font-size: 12px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--sec); }
+.hero-name { font-size: 24px; font-weight: 700; letter-spacing: -0.2px; }
+.chip { font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: 999px; background: var(--fill); color: var(--sec); white-space: nowrap; }
+.chip:empty { display: none; }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.tile { border-radius: 22px; padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 4px; border: 1px solid var(--border); min-width: 0; }
+.tile.begin { background: var(--clay-bg); }
+.tile.jamah { background: var(--green-bg); }
+.tile-label { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+.tile.begin .tile-label { color: var(--clay); }
+.tile.jamah .tile-label { color: var(--green); }
+.tile-value { font-family: var(--rounded); font-size: 31px; font-weight: 600; letter-spacing: -0.8px; line-height: 1.1; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tile-sub { font-size: 13px; color: var(--sec); }
+.tile-sub b { font-weight: 600; color: var(--text); }
+.bar { height: 5px; border-radius: 999px; background: var(--track); overflow: hidden; margin-top: 6px; }
+.bar i { display: block; height: 100%; width: 0; border-radius: 999px; transition: width 1s linear; }
+.tile.begin .bar i { background: var(--clay); }
+.tile.jamah .bar i { background: var(--green); }
+
+/* Section heading */
+.section-head { display: flex; align-items: baseline; justify-content: space-between; padding: 4px 4px 0; }
+.section-head h2 { font-size: 20px; font-weight: 700; }
+.section-head span { font-size: 13px; color: var(--ter); }
+
+/* Grouped list */
+.list { border-radius: 26px; overflow: hidden; }
+.row { display: flex; align-items: center; gap: 12px; padding: 0 16px; min-height: 58px; border-bottom: 1px solid var(--sep); }
+.row:last-child { border-bottom: none; }
+.row-icon { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: var(--fill); color: var(--sec); flex-shrink: 0; }
+.row-main { flex-grow: 1; display: flex; flex-direction: column; gap: 1px; min-width: 0; padding: 8px 0; }
+.row-title { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 600; }
+.row-sub { font-size: 13px; color: var(--sec); }
+.row-time { font-size: 19px; font-weight: 600; letter-spacing: -0.2px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pill { font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+.pill.next { background: var(--clay); color: var(--on-clay); }
+.pill.now { background: var(--fill); color: var(--sec); font-weight: 600; }
+.row.is-next { background: var(--clay-bg); }
+.row.is-next .row-icon, .row.is-next .row-title { color: var(--clay); }
+.row.is-next .row-time { color: var(--green); }
+.row.is-now .row-icon { color: var(--text); }
+.row.is-past .row-icon { color: var(--ter); }
+.row.is-past .row-title, .row.is-past .row-time { color: var(--sec); }
+.row.is-past .row-sub { color: var(--ter); }
+
+/* Week table */
+.week-head, .week-row { display: flex; align-items: center; padding: 0 8px 0 14px; }
+.week-head { padding-top: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--sep); font-size: 11px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; color: var(--ter); }
+.week-row { width: 100%; text-align: left; border-bottom: 1px solid var(--sep); }
+.week-row:last-child { border-bottom: none; }
+.week-row.today { background: var(--clay-bg); }
+.week-day { flex-grow: 1; display: flex; flex-direction: column; gap: 1px; min-width: 0; padding: 8px 0; }
+.week-day b { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+.week-row.today .week-day b, .week-row.today .week-day span { color: var(--clay); }
+.week-day span { font-size: 11px; color: var(--ter); }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 999px; background: var(--clay); color: var(--on-clay); }
+.wcol { width: 46px; flex-shrink: 0; text-align: center; }
+.wcell { position: relative; height: 58px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.wcell.changed { color: var(--green); font-weight: 700; }
+.wcell.changed::after { content: ""; position: absolute; top: 7px; right: 5px; width: 5px; height: 5px; border-radius: 999px; background: var(--green); }
+.wcell small { font-size: 8.5px; font-weight: 700; letter-spacing: 0.3px; color: var(--clay); }
+
+.changes { border-radius: 26px; padding: 14px 16px 4px; }
+.changes-title { display: flex; align-items: center; gap: 8px; padding-bottom: 4px; font-size: 16px; font-weight: 700; }
+.changes-title::before { content: ""; width: 8px; height: 8px; border-radius: 999px; background: var(--green); }
+.change-row { display: flex; align-items: center; gap: 12px; height: 48px; border-bottom: 1px solid var(--sep); }
+.change-row:last-child { border-bottom: none; }
+.change-row .name { flex-grow: 1; font-size: 16px; font-weight: 600; }
+.change-row s { font-size: 15px; color: var(--ter); font-variant-numeric: tabular-nums; }
+.change-row .new { min-width: 40px; text-align: right; font-size: 16px; font-weight: 700; color: var(--green); font-variant-numeric: tabular-nums; }
+
+/* Month */
+.month-nav { display: flex; border-radius: 999px; margin-bottom: 4px; flex-shrink: 0; }
+.month-nav button { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+.month-nav button:disabled { opacity: 0.3; cursor: default; }
+.calendar { border-radius: 28px; padding: 14px 10px 8px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); row-gap: 2px; }
+.cal-dow { text-align: center; font-size: 12px; font-weight: 600; color: var(--ter); padding-bottom: 4px; }
+.cal-day { height: 50px; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; color: var(--text); }
+.cal-day.past { color: var(--ter); }
+.cal-day .n { font-size: 16px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.cal-day.fri .n { font-weight: 700; }
+.cal-day .h { font-size: 9px; color: var(--ter); }
+.cal-day .d { width: 4px; height: 4px; border-radius: 999px; }
+.cal-day.changed .d { background: var(--green); }
+.cal-day.today { box-shadow: inset 0 0 0 1.5px var(--clay); color: var(--clay); }
+.cal-day.today .h { color: var(--clay); }
+.cal-day:disabled { opacity: 0.35; cursor: default; }
+.legend { display: flex; gap: 16px; justify-content: center; padding: 8px 0 2px; font-size: 12px; color: var(--sec); flex-wrap: wrap; }
+.legend span { display: flex; align-items: center; gap: 6px; }
+.legend .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--green); }
+
+/* Empty state */
+.empty { border-radius: 26px; padding: 22px 18px; text-align: center; color: var(--sec); font-size: 15px; line-height: 1.5; }
+
+/* Tab bar */
+.fade { position: fixed; left: 0; right: 0; bottom: 0; height: calc(130px + var(--safe-bottom)); z-index: 5; pointer-events: none; background: linear-gradient(to bottom, rgba(20, 20, 19, 0), var(--bg) 72%); }
+.tabbar {
+  position: fixed; z-index: 10; left: 50%; transform: translateX(-50%);
+  bottom: calc(var(--safe-bottom) + 18px);
+  width: min(calc(100% - 40px), 420px); height: 64px; border-radius: 999px;
+  display: flex; align-items: center; padding: 0 5px;
+}
+.tab { flex: 1; height: 54px; border-radius: 999px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; font-weight: 600; color: var(--text); transition: background .2s, color .2s; }
+.tab[aria-selected="true"] { background: var(--fill); color: var(--clay); }
+
+/* Bottom sheet */
+.backdrop { position: fixed; inset: 0; z-index: 20; background: rgba(0, 0, 0, 0.45); opacity: 0; pointer-events: none; transition: opacity .25s; }
+.backdrop.open { opacity: 1; pointer-events: auto; }
+.sheet {
+  position: fixed; z-index: 21; left: 50%; bottom: calc(var(--safe-bottom) + 8px);
+  width: min(calc(100% - 16px), 464px); transform: translate(-50%, 110%);
+  border-radius: 40px; padding: 8px 20px 20px;
+  background: var(--sheet); border: 1px solid var(--border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 -12px 40px rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(40px) saturate(170%); backdrop-filter: blur(40px) saturate(170%);
+  transition: transform .32s cubic-bezier(.2, .9, .3, 1), visibility 0s linear .32s;
+  visibility: hidden;
+}
+.sheet.open { transform: translate(-50%, 0); visibility: visible; transition: transform .32s cubic-bezier(.2, .9, .3, 1); }
+.grabber { width: 38px; height: 5px; border-radius: 999px; background: rgba(250, 249, 245, 0.28); margin: 0 auto 12px; }
+.sheet-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.sheet-head h2 { font-size: 22px; font-weight: 700; }
+.sheet-head p { font-size: 14px; color: var(--sec); margin-top: 2px; }
+.close { width: 36px; height: 36px; border-radius: 999px; background: var(--fill); display: flex; align-items: center; justify-content: center; color: var(--sec); flex-shrink: 0; }
+.sheet-cols { display: flex; justify-content: flex-end; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--ter); }
+.sheet-cols span, .srow .b, .srow .j { text-align: right; }
+.sheet-cols span:first-child, .srow .b { width: 80px; }
+.sheet-cols span:last-child, .srow .j { width: 80px; }
+.srow { display: flex; align-items: center; gap: 12px; height: 46px; border-bottom: 1px solid var(--sep); }
+.srow:last-child { border-bottom: none; }
+.srow .ic { color: var(--sec); display: flex; }
+.srow .nm { flex-grow: 1; font-size: 16px; font-weight: 600; }
+.srow .b { font-size: 14px; color: var(--sec); font-variant-numeric: tabular-nums; }
+.srow .j { font-size: 16px; font-weight: 600; color: var(--green); font-variant-numeric: tabular-nums; }
+.srow.jum .ic, .srow.jum .nm { color: var(--clay); }
+.srow.muted .j { color: var(--ter); }
+
+/* Install hint */
+.install { position: fixed; z-index: 15; left: 50%; transform: translateX(-50%); bottom: calc(var(--safe-bottom) + 96px); width: min(calc(100% - 32px), 440px); border-radius: 22px; padding: 12px 12px 12px 16px; display: none; align-items: center; gap: 12px; }
+.install.show { display: flex; }
+.install p { flex-grow: 1; font-size: 13px; color: var(--sec); line-height: 1.4; }
+.install p b { color: var(--text); }
+.install .go { font-size: 14px; font-weight: 700; padding: 8px 14px; border-radius: 999px; background: var(--clay); color: var(--on-clay); }
+.install .x { width: 32px; height: 32px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: var(--ter); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
 </head>
 <body>
+<div class="glow" aria-hidden="true"></div>
 
-    <div class="container">
-        <!-- Top Spacer to push content below status bar -->
-        <div class="top-spacer"></div>
-        
-        <!-- Scrollable Content -->
-        <div class="scrollable-content">
-            <div class="status-info">
-                <h1 class="mosque-name">Shahjalal Salah Times</h1>
-                <div class="current-date" id="currentDate">Sunday, July 6, 2025</div>
-                <div class="pwa-status offline" id="pwaStatus">📱 Loading...</div>
-            </div>
+<main class="app">
+  <!-- TODAY -->
+  <section class="view" id="view-today" aria-label="Today">
+    <header class="header">
+      <div>
+        <h1>Today</h1>
+        <p class="sub" id="todaySub">&nbsp;</p>
+      </div>
+      <span class="offline-pill">Offline</span>
+    </header>
 
-            <div class="next-prayer">
-                <h3>Next Prayer</h3>
-                <div class="prayer-name" id="nextPrayerName">Fajr</div>
-                <div class="countdown-container">
-                    <div class="countdown-box begin">
-                        <div class="countdown-label">Begins</div>
-                        <div class="countdown pulse" id="countdownBegin">16:32:45</div>
-                        <div class="countdown-time" id="beginTime">2:57 AM</div>
-                    </div>
-                    <div class="countdown-box jamah">
-                        <div class="countdown-label">Jama'ah</div>
-                        <div class="countdown pulse" id="countdownJamah">16:50:45</div>
-                        <div class="countdown-time" id="jamahTime">4:15 AM</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="today-prayers">
-                <h2 class="section-title">Today's Prayer Times</h2>
-                <div class="prayer-times" id="todayPrayers">
-                    <div class="prayer-row" data-prayer="fajr">
-                        <div class="prayer-info">
-                            <div class="prayer-icon">🌅</div>
-                            <div class="prayer-details">
-                                <h4>Fajr</h4>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="prayer-time">
-                            <div class="jamah-time">4:15</div>
-                            <div class="begin-time">2:57</div>
-                        </div>
-                    </div>
-                    <div class="prayer-row" data-prayer="zuhr">
-                        <div class="prayer-info">
-                            <div class="prayer-icon">☀️</div>
-                            <div class="prayer-details">
-                                <h4>Zuhr</h4>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="prayer-time">
-                            <div class="jamah-time">1:30</div>
-                            <div class="begin-time">1:10</div>
-                        </div>
-                    </div>
-                    <div class="prayer-row" data-prayer="asr">
-                        <div class="prayer-info">
-                            <div class="prayer-icon">🌤️</div>
-                            <div class="prayer-details">
-                                <h4>Asr</h4>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="prayer-time">
-                            <div class="jamah-time">7:30</div>
-                            <div class="begin-time">6:40</div>
-                        </div>
-                    </div>
-                    <div class="prayer-row" data-prayer="maghrib">
-                        <div class="prayer-info">
-                            <div class="prayer-icon">🌆</div>
-                            <div class="prayer-details">
-                                <h4>Maghrib</h4>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="prayer-time">
-                            <div class="jamah-time">9:26</div>
-                            <div class="begin-time">9:21</div>
-                        </div>
-                    </div>
-                    <div class="prayer-row" data-prayer="isha">
-                        <div class="prayer-info">
-                            <div class="prayer-icon">🌙</div>
-                            <div class="prayer-details">
-                                <h4>Isha</h4>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="prayer-time">
-                            <div class="jamah-time">10:50</div>
-                            <div class="begin-time">10:37</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tabs">
-                <button class="tab active" onclick="showChart('weekly')">Weekly</button>
-                <button class="tab" onclick="showChart('monthly')">Monthly</button>
-            </div>
-
-            <div class="chart-container active" id="weeklyChart">
-                <h3>This Week | 6 - 12 July</h3>
-                <div class="week-grid" id="weekGrid">
-                    <!-- Weekly prayer times will be dynamically generated here -->
-                </div>
-            </div>
-
-            <div class="chart-container" id="monthlyChart">
-                <div class="month-navigation">
-                    <button class="nav-arrow" id="prevMonth" onclick="changeMonth(-1)">‹</button>
-                    <h3 class="month-title" id="monthTitle">This Month | July 2025</h3>
-                    <button class="nav-arrow" id="nextMonth" onclick="changeMonth(1)">›</button>
-                </div>
-                <div class="monthly-grid" id="monthGrid">
-                    <!-- Monthly calendar will be dynamically generated here -->
-                </div>
-            </div>
-
-            <div class="footer">
-                Manor Park Islamic Cultural Centre<br>
-                722-726 Romford Road, London E12 6BT
-            </div>
+    <div class="hero glass" id="hero">
+      <div class="hero-top">
+        <div class="hero-icon" id="heroIcon"></div>
+        <div style="flex-grow:1;min-width:0">
+          <div class="hero-label" id="heroLabel">Next prayer</div>
+          <div class="hero-name" id="heroName">&nbsp;</div>
         </div>
-        
-        <!-- Bottom Spacer to push content up from bottom -->
-        <div class="bottom-spacer"></div>
+        <span class="chip" id="heroChip"></span>
+      </div>
+      <div class="tiles">
+        <div class="tile begin">
+          <span class="tile-label" id="beginLabel">Begins in</span>
+          <span class="tile-value" id="beginValue">–:––:––</span>
+          <span class="tile-sub" id="beginSub">&nbsp;</span>
+          <div class="bar"><i id="beginBar"></i></div>
+        </div>
+        <div class="tile jamah">
+          <span class="tile-label">Jama'ah in</span>
+          <span class="tile-value" id="jamahValue">–:––:––</span>
+          <span class="tile-sub" id="jamahSub">&nbsp;</span>
+          <div class="bar"><i id="jamahBar"></i></div>
+        </div>
+      </div>
     </div>
 
-    <!-- Install Prompt -->
-    <div id="installPrompt" class="install-prompt">
-        <div class="install-prompt-text">
-            📱 Install Salah Times as an app for quick access!
-        </div>
-        <div class="install-buttons">
-            <button class="install-btn" onclick="installApp()">Install</button>
-            <button class="install-btn dismiss" onclick="dismissInstall()">Maybe Later</button>
-        </div>
+    <div class="section-head"><h2>Prayer times</h2><span>Jama'ah</span></div>
+    <div class="list glass" id="todayList"></div>
+  </section>
+
+  <!-- WEEK -->
+  <section class="view" id="view-week" aria-label="Week">
+    <header class="header">
+      <div>
+        <h1>This Week</h1>
+        <p class="sub" id="weekSub">&nbsp;</p>
+      </div>
+      <span class="offline-pill">Offline</span>
+    </header>
+    <div class="list glass" id="weekTable"></div>
+    <div id="weekChanges" style="display:flex;flex-direction:column;gap:16px"></div>
+  </section>
+
+  <!-- MONTH -->
+  <section class="view" id="view-month" aria-label="Month">
+    <header class="header">
+      <div style="min-width:0">
+        <h1 id="monthTitle">&nbsp;</h1>
+        <p class="sub" id="monthSub">&nbsp;</p>
+      </div>
+      <div class="month-nav glass">
+        <button id="prevMonth" aria-label="Previous month"></button>
+        <button id="nextMonth" aria-label="Next month"></button>
+      </div>
+    </header>
+    <div class="calendar glass">
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="legend">
+        <span><i class="dot"></i>Jama'ah times change</span>
+        <span><b style="color:var(--text)">F</b>Bold = Friday</span>
+      </div>
     </div>
+  </section>
+</main>
 
-    <!-- Update Notification -->
-    <div id="updateNotification" class="update-notification">
-        📱 New version available! Tap to update.
+<div class="fade" aria-hidden="true"></div>
+
+<nav class="tabbar glass" role="tablist" aria-label="Views">
+  <button class="tab" role="tab" data-view="today" aria-selected="true"></button>
+  <button class="tab" role="tab" data-view="week" aria-selected="false"></button>
+  <button class="tab" role="tab" data-view="month" aria-selected="false"></button>
+</nav>
+
+<!-- Day sheet -->
+<div class="backdrop" id="backdrop"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" aria-hidden="true">
+  <div class="grabber"></div>
+  <div class="sheet-head">
+    <div>
+      <h2 id="sheetTitle">&nbsp;</h2>
+      <p id="sheetSub">&nbsp;</p>
     </div>
+    <button class="close" id="sheetClose" aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <div class="sheet-cols"><span>Begins</span><span>Jama'ah</span></div>
+  <div id="sheetRows"></div>
+</div>
 
-    <!-- Modal for Day Details -->
-    <div id="dayModal" class="modal" onclick="handleModalBackdropClick(event)">
-        <div class="modal-content">
-            <div class="modal-handle"></div>
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Prayer Times</h2>
-                <span class="close" onclick="closeModal()">&times;</span>
-            </div>
-            <div class="modal-prayer-list" id="modalPrayerList">
-                <!-- Prayer times will be populated here -->
-            </div>
-        </div>
-    </div>
+<!-- Install hint -->
+<div class="install glass" id="install">
+  <p id="installText"><b>Install Salah Times</b><br>Add it to your Home Screen for quick access.</p>
+  <button class="go" id="installGo">Install</button>
+  <button class="x" id="installX" aria-label="Dismiss">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+</div>
 
-        <script>
-
-        // PWA Variables
-        let deferredPrompt;
-        let installPromptShown = false;
-        let isOnline = navigator.onLine;
-
-        // Sunrise data for 2026
-        const sunriseData = {
+<script>
+/* ===================== Timetable (Shahjalal Masjid, 2026) ===================== */
+const DATA_YEAR = 2026;
+// Sunrise times
+const sunriseData = {
     1: {
         1: "8:06", 2: "8:06", 3: "8:06", 4: "8:06", 5: "8:06", 6: "8:05", 7: "8:05",
         8: "8:04", 9: "8:04", 10: "8:03", 11: "8:03", 12: "8:02", 13: "8:01", 14: "8:01",
@@ -1069,9 +444,8 @@
         29: "8:06", 30: "8:06", 31: "8:06"
     }
 };
-
-        // Prayer times data for 2026
-        const prayerData = {
+// Begin / jama'ah times
+const prayerData = {
     1: {
         1: { fajr: { jamah: "7:15", begin: "6:25" }, zuhr: { jamah: "1:00", begin: "12:09" }, asr: { jamah: "2:45", begin: "2:15" }, maghrib: { jamah: "4:11", begin: "4:06" }, isha: { jamah: "7:30", begin: "5:42" } },
         2: { fajr: { jamah: "7:15", begin: "6:25" }, zuhr: { jamah: "1:00", begin: "12:09" }, asr: { jamah: "2:45", begin: "2:16" }, maghrib: { jamah: "4:12", begin: "4:07" }, isha: { jamah: "7:30", begin: "5:43" } },
@@ -1463,786 +837,457 @@
     }
 };
 
-        // Variables for monthly view navigation
-        let currentDisplayMonth = new Date().getMonth() + 1;
-        let currentDisplayYear = new Date().getFullYear();
+/* ===================== Helpers ===================== */
+const PRAYERS = ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'];
+const NAMES = { fajr: 'Fajr', zuhr: 'Zuhr', asr: 'Asr', maghrib: 'Maghrib', isha: 'Isha', sunrise: 'Sunrise' };
+const SHORT = { fajr: 'Fajr', zuhr: 'Zuhr', asr: 'Asr', maghrib: 'Mgrb', isha: 'Isha' };
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const DAYS_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-        // Check if app is installed
-        function isAppInstalled() {
-            return window.matchMedia('(display-mode: standalone)').matches ||
-                   window.navigator.standalone === true;
-        }
+const ICONS = {
+  fajr: '<path d="M3 17h18"/><path d="M6 17a6 6 0 0 1 12 0"/><path d="M12 3v4"/><path d="M9.5 5.5 12 3l2.5 2.5"/>',
+  sunrise: '<path d="M3 18h18"/><path d="M7 18a5 5 0 0 1 10 0"/><path d="M12 9v1M5.6 11.6l.7.7M18.4 11.6l-.7.7"/>',
+  zuhr: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  asr: '<path d="M12 2v2M4.9 4.9l1.4 1.4M2 12h2M19.1 4.9l-1.4 1.4"/><path d="M15.9 13A4 4 0 1 0 8 12"/><path d="M17 20H9a3.5 3.5 0 1 1 .6-6.95A4.5 4.5 0 0 1 17.9 15 2.5 2.5 0 0 1 17 20z"/>',
+  maghrib: '<path d="M3 17h18"/><path d="M6 17a6 6 0 0 1 12 0"/><path d="M12 3v4"/><path d="M9.5 4.5 12 7l2.5-2.5"/>',
+  isha: '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
+  today: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  week: '<rect x="3" y="4.5" width="18" height="16.5" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M7 14h2M11 14h2M15 14h2"/>',
+  month: '<rect x="3" y="4.5" width="18" height="16.5" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/>',
+  chevl: '<path d="m15 6-6 6 6 6"/>',
+  chevr: '<path d="m9 6 6 6-6 6"/>'
+};
+function svg(name, size = 20, sw = 1.8) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
+}
+const $ = (id) => document.getElementById(id);
+const pad = (n) => String(n).padStart(2, '0');
 
-        // PWA install prompt
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            
-            // Only show install prompt if not already installed and not shown recently
-            if (!isAppInstalled() && !localStorage.getItem('installPromptDismissed')) {
-                setTimeout(() => {
-                    document.getElementById('installPrompt').classList.add('show');
-                    installPromptShown = true;
-                }, 3000);
-            }
-        });
+// Timetable strings are 12-hour without AM/PM. Work out the half of day per prayer.
+function toMinutes(str, prayer) {
+  const [h, m] = str.split(':').map(Number);
+  if (prayer === 'fajr' || prayer === 'sunrise') return (h % 12) * 60 + m;           // always AM
+  if (prayer === 'zuhr') return ((h >= 10 && h <= 12) ? h : h + 12) * 60 + m;       // 11:50 AM, 12:xx noon, 1:xx PM
+  return (h === 12 ? 12 : h + 12) * 60 + m;                                         // Asr, Maghrib, Isha: PM
+}
+function atMinutes(date, mins) {
+  const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  d.setMinutes(mins);
+  return d;
+}
+function addDays(date, n) { const d = new Date(date.getFullYear(), date.getMonth(), date.getDate() + n); return d; }
+function sameDay(a, b) { return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
+function fmtTime(d) { const h = d.getHours(); return `${h % 12 || 12}:${pad(d.getMinutes())} ${h < 12 ? 'AM' : 'PM'}`; }
+function fmtShort(d) { const h = d.getHours(); return `${h % 12 || 12}:${pad(d.getMinutes())}`; }
+function fmtCountdown(ms) {
+  const s = Math.max(0, Math.floor(ms / 1000));
+  return `${Math.floor(s / 3600)}:${pad(Math.floor((s % 3600) / 60))}:${pad(s % 60)}`;
+}
+function fmtAgo(ms) {
+  const m = Math.floor(ms / 60000);
+  if (m < 1) return 'just now';
+  if (m < 60) return `${m} min ago`;
+  return `${Math.floor(m / 60)}h ${m % 60}m ago`;
+}
 
-        function installApp() {
-            const installPrompt = document.getElementById('installPrompt');
-            installPrompt.classList.remove('show');
-            
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the install prompt');
-                    }
-                    deferredPrompt = null;
-                });
-            }
-        }
+const dayCache = new Map();
+function getDay(date) {
+  const key = date.toDateString();
+  if (dayCache.has(key)) return dayCache.get(key);
+  let out = null;
+  const m = date.getMonth() + 1, d = date.getDate();
+  const t = date.getFullYear() === DATA_YEAR && prayerData[m] && prayerData[m][d];
+  if (t) {
+    const sr = sunriseData[m] && sunriseData[m][d];
+    const isFriday = date.getDay() === 5;
+    out = {
+      date, isFriday,
+      sunrise: sr ? atMinutes(date, toMinutes(sr, 'sunrise')) : null,
+      prayers: PRAYERS.map((p) => ({
+        key: p,
+        name: p === 'zuhr' && isFriday ? "Jumu'ah" : NAMES[p],
+        begin: atMinutes(date, toMinutes(t[p].begin, p)),
+        jamah: atMinutes(date, toMinutes(t[p].jamah, p))
+      }))
+    };
+  }
+  dayCache.set(key, out);
+  return out;
+}
 
-        function dismissInstall() {
-            document.getElementById('installPrompt').classList.remove('show');
-            localStorage.setItem('installPromptDismissed', Date.now());
-        }
+// Hijri (Umm al-Qura) via the browser — no extra data needed
+function makeFmt(opts) {
+  for (const cal of ['islamic-umalqura', 'islamic']) {
+    try {
+      const f = new Intl.DateTimeFormat(`en-GB-u-ca-${cal}`, opts);
+      if (/islamic/.test(f.resolvedOptions().calendar)) return f;
+    } catch (e) { /* unsupported */ }
+  }
+  return null;
+}
+const hijriFull = makeFmt({ day: 'numeric', month: 'long', year: 'numeric' });
+const hijriParts = makeFmt({ day: 'numeric', month: 'short', year: 'numeric' });
+const hijriMonthYear = makeFmt({ month: 'long', year: 'numeric' });
+function hijri(d) { return hijriFull ? hijriFull.format(d).replace(/\s*AH$/, '') : ''; }
+function hijriBits(d) {
+  if (!hijriParts) return null;
+  const p = {};
+  hijriParts.formatToParts(d).forEach((x) => { p[x.type] = x.value; });
+  return p;
+}
+function hijriMY(d) {
+  if (!hijriMonthYear) return { month: '', year: '' };
+  const p = {};
+  hijriMonthYear.formatToParts(d).forEach((x) => { p[x.type] = x.value; });
+  return { month: p.month || '', year: (p.year || '').replace(/\s*AH$/, '') };
+}
 
-        // Update PWA status
-        function updatePWAStatus() {
-            const statusElement = document.getElementById('pwaStatus');
-            isOnline = navigator.onLine;
-            
-            if (isAppInstalled()) {
-                statusElement.textContent = isOnline ? '✓ App Online' : '📴 Offline Mode';
-                statusElement.className = 'pwa-status ' + (isOnline ? 'online' : 'offline');
-            } else {
-                statusElement.textContent = isOnline ? '🌐 Online' : '📴 Offline';
-                statusElement.className = 'pwa-status ' + (isOnline ? 'online' : 'offline');
-            }
-        }
+// Did any jama'ah time (except Maghrib, which moves daily) change from the day before?
+function jamahChanges(date) {
+  const today = getDay(date), prev = getDay(addDays(date, -1));
+  if (!today || !prev) return [];
+  const out = [];
+  today.prayers.forEach((p, i) => {
+    if (p.key === 'maghrib') return;
+    const a = fmtShort(prev.prayers[i].jamah), b = fmtShort(p.jamah);
+    if (a !== b) out.push({ key: p.key, name: NAMES[p.key], from: a, to: b });
+  });
+  return out;
+}
 
-        // Tab and chart functions
-        function showChart(type) {
-            const tabs = document.querySelectorAll('.tab');
-            const weeklyChart = document.getElementById('weeklyChart');
-            const monthlyChart = document.getElementById('monthlyChart');
-            
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            if (type === 'weekly') {
-                tabs[0].classList.add('active');
-                weeklyChart.classList.add('active');
-                monthlyChart.classList.remove('active');
-            } else {
-                tabs[1].classList.add('active');
-                monthlyChart.classList.add('active');
-                weeklyChart.classList.remove('active');
-            }
-        }
+/* ===================== Today ===================== */
+let lastListKey = '';
+function currentPrayerKey(day, now) {
+  if (!day) return null;
+  const [f, z, a, m, i] = day.prayers;
+  if (now >= f.begin && (!day.sunrise || now < day.sunrise)) return 'fajr';   // Fajr ends at sunrise
+  if (now >= i.begin) return 'isha';
+  if (now >= m.begin) return 'maghrib';
+  if (now >= a.begin) return 'asr';
+  if (now >= z.begin) return 'zuhr';
+  return null;
+}
 
-        // Generate weekly view
-        function generateWeeklyView() {
-            const weekGrid = document.getElementById('weekGrid');
-            const today = new Date();
-            const dayOfWeek = today.getDay();
-            
-            // Calculate start of week (Sunday)
-            const startOfWeek = new Date(today);
-            startOfWeek.setDate(today.getDate() - dayOfWeek);
-            
-            weekGrid.innerHTML = '';
-            
-            for (let i = 0; i < 7; i++) {
-                const date = new Date(startOfWeek);
-                date.setDate(startOfWeek.getDate() + i);
-                
-                const month = date.getMonth() + 1;
-                const day = date.getDate();
-                const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
-                const isToday = date.toDateString() === today.toDateString();
-                
-                // Get prayer times for this day
-                const times = prayerData[month] && prayerData[month][day] ? prayerData[month][day] : null;
-                
-                const dayItem = document.createElement('div');
-                dayItem.className = 'day-item' + (isToday ? ' today' : '');
-                
-                if (times) {
-                    dayItem.innerHTML = `
-                        <div class="day-name">${dayName}</div>
-                        <div style="font-weight: 600; margin-bottom: 4px;">${day}</div>
-                        <div class="prayer-times-mini">
-                            <div class="prayer-time-mini">F ${times.fajr.jamah}</div>
-                            <div class="prayer-time-mini">Z ${times.zuhr.jamah}</div>
-                            <div class="prayer-time-mini">A ${times.asr.jamah}</div>
-                            <div class="prayer-time-mini">M ${times.maghrib.jamah}</div>
-                            <div class="prayer-time-mini">I ${times.isha.jamah}</div>
-                        </div>
-                    `;
-                    dayItem.onclick = () => showDayDetails(date);
-                }
-                
-                weekGrid.appendChild(dayItem);
-            }
-            
-            // Update week title
-            const weekTitle = document.querySelector('#weeklyChart h3');
-            const startDay = startOfWeek.getDate();
-            const endDay = new Date(startOfWeek);
-            endDay.setDate(startOfWeek.getDate() + 6);
-            const monthName = today.toLocaleDateString('en-US', { month: 'short' });
-            weekTitle.textContent = `This Week | ${startDay} - ${endDay.getDate()} ${monthName}`;
-        }
+function renderToday() {
+  const now = new Date();
+  const today = getDay(now);
+  $('todaySub').textContent = `${DAYS_SHORT[now.getDay()]} ${now.getDate()} ${MONTHS_SHORT[now.getMonth()]}${hijri(now) ? ' · ' + hijri(now) : ''} · Shahjalal`;
 
-        // Generate monthly view
-        function generateMonthlyView() {
-            const monthGrid = document.getElementById('monthGrid');
-            const today = new Date();
-            
-            const currentMonth = currentDisplayMonth;
-            const currentYear = currentDisplayYear;
-            
-            const firstDayOfMonth = new Date(currentYear, currentMonth - 1, 1);
-            const lastDayOfMonth = new Date(currentYear, currentMonth, 0);
-            const daysInMonth = lastDayOfMonth.getDate();
-            const startDayOfWeek = firstDayOfMonth.getDay();
-            
-            monthGrid.innerHTML = '';
-            
-            // Add day headers
-            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            dayNames.forEach(name => {
-                const header = document.createElement('div');
-                header.style.cssText = 'font-size: 10px; color: #888; text-align: center; padding: 4px;';
-                header.textContent = name;
-                monthGrid.appendChild(header);
-            });
-            
-            // Add empty cells for days before the first day
-            for (let i = 0; i < startDayOfWeek; i++) {
-                const emptyCell = document.createElement('div');
-                emptyCell.className = 'month-day';
-                emptyCell.style.background = 'transparent';
-                emptyCell.style.border = 'none';
-                monthGrid.appendChild(emptyCell);
-            }
-            
-            // Add days of the month
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dateObj = new Date(currentYear, currentMonth - 1, day);
-                const isToday = dateObj.toDateString() === today.toDateString();
-                const hasTimes = prayerData[currentMonth] && prayerData[currentMonth][day];
-                
-                const dayCell = document.createElement('div');
-                dayCell.className = 'month-day' + (isToday ? ' today' : '') + (hasTimes ? ' has-data' : '');
-                dayCell.textContent = day;
-                
-                if (hasTimes) {
-                    dayCell.onclick = () => showDayDetails(dateObj);
-                    dayCell.style.cursor = 'pointer';
-                }
-                
-                monthGrid.appendChild(dayCell);
-            }
-            
-            // Update month title
-            const monthTitle = document.getElementById('monthTitle');
-            const monthName = new Date(currentYear, currentMonth - 1).toLocaleDateString('en-US', { month: 'long' });
-            monthTitle.textContent = `${monthName} ${currentYear}`;
-        }
+  if (!today) {
+    $('hero').innerHTML = `<div class="empty">No timetable loaded for ${now.getFullYear()}.<br>Add this year's times to update the app.</div>`;
+    $('todayList').innerHTML = '';
+    return;
+  }
 
-        // Change month for navigation
-        function changeMonth(delta) {
-            currentDisplayMonth += delta;
-            
-            if (currentDisplayMonth > 12) {
-                currentDisplayMonth = 1;
-                currentDisplayYear++;
-            } else if (currentDisplayMonth < 1) {
-                currentDisplayMonth = 12;
-                currentDisplayYear--;
-            }
-            
-            generateMonthlyView();
-            updateNavigationButtons();
-        }
+  // Flatten yesterday / today / tomorrow so progress and "tomorrow's Fajr" just work
+  const flat = [];
+  [addDays(now, -1), now, addDays(now, 1)].forEach((d, di) => {
+    const day = getDay(d);
+    if (day) day.prayers.forEach((p) => flat.push(Object.assign({ dayIndex: di }, p)));
+  });
+  const idx = flat.findIndex((p) => p.jamah > now);
+  const next = flat[idx];
+  const prev = idx > 0 ? flat[idx - 1] : null;
+  const current = currentPrayerKey(today, now);
 
-        // Update navigation button states
-        function updateNavigationButtons() {
-            const prevBtn = document.getElementById('prevMonth');
-            const nextBtn = document.getElementById('nextMonth');
-            
-            // Only allow navigation within available data (2026)
-            if (currentDisplayYear === 2026 && currentDisplayMonth === 1) {
-                prevBtn.style.opacity = '0.3';
-                prevBtn.disabled = true;
-            } else {
-                prevBtn.style.opacity = '1';
-                prevBtn.disabled = false;
-            }
-            
-            if (currentDisplayYear === 2026 && currentDisplayMonth === 12) {
-                nextBtn.style.opacity = '0.3';
-                nextBtn.disabled = true;
-            } else {
-                nextBtn.style.opacity = '1';
-                nextBtn.disabled = false;
-            }
-        }
+  if (next) {
+    const begun = now >= next.begin;
+    const isTomorrow = next.dayIndex === 2;
+    $('heroIcon').innerHTML = svg(next.key, 24);
+    $('heroLabel').textContent = isTomorrow ? 'Next prayer · Tomorrow' : 'Next prayer';
+    $('heroName').textContent = next.name;
+    $('heroChip').textContent = isTomorrow ? '' : (current && current !== next.key ? `${NAMES[current]} now` : (begun ? 'Time has begun' : ''));
 
-        // Show day details modal
-        function showDayDetails(date) {
-            const modal = document.getElementById('dayModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalPrayerList = document.getElementById('modalPrayerList');
-            
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-            const times = prayerData[month] && prayerData[month][day] ? prayerData[month][day] : null;
-            const sunrise = sunriseData[month] && sunriseData[month][day] ? sunriseData[month][day] : null;
-            
-            if (!times) return;
-            
-            const dateStr = date.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                month: 'long', 
-                day: 'numeric',
-                year: 'numeric'
-            });
-            
-            // Check if Friday for Jumu'ah
-            const isFriday = date.getDay() === 5;
-            const zuhrLabel = isFriday ? "Jumu'ah" : "Zuhr";
-            
-            modalTitle.textContent = dateStr;
-            modalPrayerList.innerHTML = `
-                <div class="modal-prayer-item">
-                    <span class="modal-prayer-name">🌅 Fajr</span>
-                    <span class="modal-prayer-times">
-                        <span class="modal-jamah">${times.fajr.jamah}</span>
-                        <span class="modal-begin">${times.fajr.begin}</span>
-                    </span>
-                </div>
-                <div class="modal-prayer-item sunrise">
-                    <span class="modal-prayer-name">☀️ Sunrise</span>
-                    <span class="modal-prayer-times">
-                        <span class="modal-begin">${sunrise || 'N/A'}</span>
-                    </span>
-                </div>
-                <div class="modal-prayer-item">
-                    <span class="modal-prayer-name">☀️ ${zuhrLabel}</span>
-                    <span class="modal-prayer-times">
-                        <span class="modal-jamah">${times.zuhr.jamah}</span>
-                        <span class="modal-begin">${times.zuhr.begin}</span>
-                    </span>
-                </div>
-                <div class="modal-prayer-item">
-                    <span class="modal-prayer-name">🌤️ Asr</span>
-                    <span class="modal-prayer-times">
-                        <span class="modal-jamah">${times.asr.jamah}</span>
-                        <span class="modal-begin">${times.asr.begin}</span>
-                    </span>
-                </div>
-                <div class="modal-prayer-item">
-                    <span class="modal-prayer-name">🌆 Maghrib</span>
-                    <span class="modal-prayer-times">
-                        <span class="modal-jamah">${times.maghrib.jamah}</span>
-                        <span class="modal-begin">${times.maghrib.begin}</span>
-                    </span>
-                </div>
-                <div class="modal-prayer-item">
-                    <span class="modal-prayer-name">🌙 Isha</span>
-                    <span class="modal-prayer-times">
-                        <span class="modal-jamah">${times.isha.jamah}</span>
-                        <span class="modal-begin">${times.isha.begin}</span>
-                    </span>
-                </div>
-            `;
-            
-            modal.style.display = 'block';
-            // Trigger animation after display is set
-            requestAnimationFrame(() => {
-                modal.classList.add('show');
-            });
-        }
+    const pct = (from, to) => {
+      if (!from) return 0;
+      return Math.min(100, Math.max(0, ((now - from) / (to - from)) * 100));
+    };
+    if (!begun) {
+      $('beginLabel').textContent = 'Begins in';
+      $('beginValue').textContent = fmtCountdown(next.begin - now);
+      $('beginSub').innerHTML = `at <b>${fmtTime(next.begin)}</b>`;
+      $('beginBar').style.width = pct(prev && prev.begin, next.begin) + '%';
+    } else {
+      $('beginLabel').textContent = 'Began';
+      $('beginValue').textContent = fmtTime(next.begin);
+      $('beginSub').textContent = fmtAgo(now - next.begin);
+      $('beginBar').style.width = '100%';
+    }
+    $('jamahValue').textContent = fmtCountdown(next.jamah - now);
+    $('jamahSub').innerHTML = `at <b>${fmtTime(next.jamah)}</b>`;
+    $('jamahBar').style.width = pct(prev && prev.jamah, next.jamah) + '%';
+  }
 
-        // Close modal with animation
-        function closeModal() {
-            const modal = document.getElementById('dayModal');
-            modal.classList.remove('show');
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 300);
-        }
+  // Rebuild the list only when something visible in it changes
+  const nextKey = next && next.dayIndex === 1 ? next.key : '';
+  const listKey = `${today.date.toDateString()}|${current}|${nextKey}|${now.getHours()}:${now.getMinutes()}`;
+  if (listKey === lastListKey) return;
+  lastListKey = listKey;
 
-        // Handle backdrop click
-        function handleModalBackdropClick(event) {
-            if (event.target.classList.contains('modal')) {
-                closeModal();
-            }
-        }
+  $('todayList').innerHTML = today.prayers.map((p) => {
+    const isNow = p.key === current;
+    const isNext = p.key === nextKey;
+    const isPast = !isNow && !isNext && p.jamah <= now;
+    const cls = isNext ? 'is-next' : isNow ? 'is-now' : isPast ? 'is-past' : '';
+    const pill = isNext ? '<span class="pill next">Next</span>' : isNow ? '<span class="pill now">Now</span>' : '';
+    const sub = `Begins ${fmtTime(p.begin)}${p.key === 'fajr' && today.sunrise ? ' · Sunrise ' + fmtTime(today.sunrise) : ''}`;
+    return `<div class="row ${cls}">
+      <div class="row-icon">${svg(p.key, 19)}</div>
+      <div class="row-main"><div class="row-title">${p.name}${pill}</div><div class="row-sub">${sub}</div></div>
+      <div class="row-time">${fmtTime(p.jamah)}</div>
+    </div>`;
+  }).join('');
+}
 
-        // FIXED: Convert prayer time to minutes since midnight with proper AM/PM handling
-        function prayerTimeToMinutes(timeStr, prayerName) {
-            const [hours, minutes] = timeStr.split(':').map(Number);
-            
-            // Fajr and sunrise times are always AM (early morning)
-            if (prayerName === 'fajr' || prayerName === 'sunrise') {
-                return hours * 60 + minutes;
-            }
-            
-            // Zuhr begin can be 12:XX (noon) - keep as is
-            // Zuhr jamah and all afternoon/evening prayers are PM
-            if (hours === 12) {
-                // 12:XX is 12:XX PM (noon)
-                return hours * 60 + minutes;
-            } else if (hours >= 1 && hours <= 11) {
-                // 1:XX to 11:XX for non-Fajr prayers means PM
-                return (hours + 12) * 60 + minutes;
-            }
-            
-            // Already in 24-hour format
-            return hours * 60 + minutes;
-        }
+/* ===================== Week ===================== */
+function renderWeek() {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const end = addDays(start, 6);
+  $('weekSub').textContent = start.getMonth() === end.getMonth()
+    ? `${start.getDate()} – ${end.getDate()} ${MONTHS[start.getMonth()]} · Jama'ah times`
+    : `${start.getDate()} ${MONTHS_SHORT[start.getMonth()]} – ${end.getDate()} ${MONTHS_SHORT[end.getMonth()]} · Jama'ah times`;
 
-        // Format time for display
-        function formatTimeDisplay(timeStr, prayerName) {
-            const [hours, minutes] = timeStr.split(':').map(Number);
-            
-            if (prayerName === 'fajr' || prayerName === 'sunrise') {
-                return `${hours}:${minutes.toString().padStart(2, '0')} AM`;
-            } else {
-                if (hours === 12) {
-                    return `12:${minutes.toString().padStart(2, '0')} PM`;
-                } else if (hours >= 1 && hours <= 11) {
-                    return `${hours}:${minutes.toString().padStart(2, '0')} PM`;
-                } else if (hours > 12) {
-                    return `${hours - 12}:${minutes.toString().padStart(2, '0')} PM`;
-                }
-            }
-            return timeStr;
-        }
+  let html = `<div class="week-head"><span style="flex-grow:1">Day</span>${PRAYERS.map((p) => `<span class="wcol">${SHORT[p]}</span>`).join('')}</div>`;
+  const changeCards = [];
+  for (let i = 0; i < 7; i++) {
+    const date = addDays(start, i);
+    const day = getDay(date);
+    const changes = jamahChanges(date);
+    const changed = new Set(i > 0 ? changes.map((c) => c.key) : []);
+    if (i > 0 && changes.length) changeCards.push({ date, changes });
+    const hb = hijriBits(date);
+    const hLine = hb ? `${hb.day} ${hb.month}` : '';
+    const cells = day ? day.prayers.map((p) =>
+      `<div class="wcol wcell${changed.has(p.key) ? ' changed' : ''}"><span>${fmtShort(p.jamah)}</span>${p.key === 'zuhr' && day.isFriday ? "<small>JUMU'AH</small>" : ''}</div>`
+    ).join('') : `<div class="wcell" style="flex-grow:1;color:var(--ter)">No data</div>`;
+    html += `<button class="week-row${i === 0 ? ' today' : ''}" data-date="${date.toISOString()}" aria-label="${DAYS[date.getDay()]} ${date.getDate()} ${MONTHS[date.getMonth()]}">
+      <div class="week-day"><b>${DAYS_SHORT[date.getDay()]} ${date.getDate()}</b><span>${i === 0 ? 'Today' + (hLine ? ' · ' + hLine : '') : hLine}</span></div>${cells}
+    </button>`;
+  }
+  $('weekTable').innerHTML = html;
+  $('weekChanges').innerHTML = changeCards.map(({ date, changes }) => `
+    <div class="changes glass">
+      <div class="changes-title">Jama'ah changes from ${DAYS_SHORT[date.getDay()]} ${date.getDate()} ${MONTHS_SHORT[date.getMonth()]}</div>
+      ${changes.map((c) => `<div class="change-row"><span style="color:var(--sec);display:flex">${svg(c.key, 19)}</span><span class="name">${c.name}</span><s>${c.from}</s><span style="color:var(--ter);display:flex">${svg('chevr', 14, 2.2)}</span><span class="new">${c.to}</span></div>`).join('')}
+    </div>`).join('');
+}
 
-        // FIXED: Main countdown update function
-        function updateCountdown() {
-            const now = new Date();
-            const today = now.getDate();
-            const month = now.getMonth() + 1;
-            const year = now.getFullYear();
-            
-            // Get today's prayer times
-            const todayTimes = prayerData[month] && prayerData[month][today] ? prayerData[month][today] : null;
-            
-            if (!todayTimes) {
-                document.getElementById('nextPrayerName').textContent = 'No Data';
-                return;
-            }
+/* ===================== Month ===================== */
+let viewMonth = new Date().getMonth();
+let viewYear = new Date().getFullYear();
+if (viewYear !== DATA_YEAR) { viewYear = DATA_YEAR; viewMonth = new Date().getFullYear() > DATA_YEAR ? 11 : 0; }
 
-            const currentHour = now.getHours();
-            const currentMinute = now.getMinutes();
-            const currentSeconds = now.getSeconds();
-            const currentTimeInMinutes = currentHour * 60 + currentMinute;
+function renderMonth() {
+  const now = new Date();
+  const first = new Date(viewYear, viewMonth, 1);
+  const last = new Date(viewYear, viewMonth + 1, 0);
+  $('monthTitle').textContent = MONTHS[viewMonth];
+  const h1 = hijriMY(first), h2 = hijriMY(last);
+  let hs = '';
+  if (h1.month) hs = h1.year === h2.year
+    ? (h1.month === h2.month ? `${h1.month} ${h1.year}` : `${h1.month} – ${h2.month} ${h2.year}`)
+    : `${h1.month} ${h1.year} – ${h2.month} ${h2.year}`;
+  $('monthSub').textContent = `${viewYear}${hs ? ' · ' + hs : ''}`;
+  $('prevMonth').disabled = viewYear === DATA_YEAR && viewMonth === 0;
+  $('nextMonth').disabled = viewYear === DATA_YEAR && viewMonth === 11;
 
-            // Get sunrise time
-            const sunriseTime = sunriseData[month] && sunriseData[month][today] ? sunriseData[month][today] : "6:00";
-            const sunriseMinutes = prayerTimeToMinutes(sunriseTime, 'sunrise');
+  let html = ['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d) => `<span class="cal-dow">${d}</span>`).join('');
+  const lead = (first.getDay() + 6) % 7; // Monday-first
+  for (let i = 0; i < lead; i++) html += '<span></span>';
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  for (let d = 1; d <= last.getDate(); d++) {
+    const date = new Date(viewYear, viewMonth, d);
+    const has = !!getDay(date);
+    const hb = hijriBits(date);
+    const cls = ['cal-day'];
+    if (date.getDay() === 5) cls.push('fri');
+    if (sameDay(date, now)) cls.push('today');
+    else if (date < todayStart) cls.push('past');
+    if (jamahChanges(date).length) cls.push('changed');
+    html += `<button class="${cls.join(' ')}" data-date="${date.toISOString()}" ${has ? '' : 'disabled'} aria-label="${DAYS[date.getDay()]} ${d} ${MONTHS[viewMonth]}">
+      <span class="n">${d}</span><span class="h">${hb ? hb.day : ''}</span><span class="d"></span></button>`;
+  }
+  $('calGrid').innerHTML = html;
+}
 
-            // Build prayer schedule with proper times
-            const prayerSchedule = [
-                { 
-                    name: 'Fajr', 
-                    beginMinutes: prayerTimeToMinutes(todayTimes.fajr.begin, 'fajr'), 
-                    jamahMinutes: prayerTimeToMinutes(todayTimes.fajr.jamah, 'fajr'),
-                    beginStr: todayTimes.fajr.begin, 
-                    jamahStr: todayTimes.fajr.jamah,
-                    endMinutes: sunriseMinutes // Fajr ends at sunrise
-                },
-                { 
-                    name: 'Zuhr', 
-                    beginMinutes: prayerTimeToMinutes(todayTimes.zuhr.begin, 'zuhr'), 
-                    jamahMinutes: prayerTimeToMinutes(todayTimes.zuhr.jamah, 'zuhr'),
-                    beginStr: todayTimes.zuhr.begin, 
-                    jamahStr: todayTimes.zuhr.jamah 
-                },
-                { 
-                    name: 'Asr', 
-                    beginMinutes: prayerTimeToMinutes(todayTimes.asr.begin, 'asr'), 
-                    jamahMinutes: prayerTimeToMinutes(todayTimes.asr.jamah, 'asr'),
-                    beginStr: todayTimes.asr.begin, 
-                    jamahStr: todayTimes.asr.jamah 
-                },
-                { 
-                    name: 'Maghrib', 
-                    beginMinutes: prayerTimeToMinutes(todayTimes.maghrib.begin, 'maghrib'), 
-                    jamahMinutes: prayerTimeToMinutes(todayTimes.maghrib.jamah, 'maghrib'),
-                    beginStr: todayTimes.maghrib.begin, 
-                    jamahStr: todayTimes.maghrib.jamah 
-                },
-                { 
-                    name: 'Isha', 
-                    beginMinutes: prayerTimeToMinutes(todayTimes.isha.begin, 'isha'), 
-                    jamahMinutes: prayerTimeToMinutes(todayTimes.isha.jamah, 'isha'),
-                    beginStr: todayTimes.isha.begin, 
-                    jamahStr: todayTimes.isha.jamah 
-                }
-            ];
+/* ===================== Day sheet ===================== */
+let lastFocus = null;
+function openSheet(date) {
+  const day = getDay(date);
+  if (!day) return;
+  $('sheetTitle').textContent = `${DAYS[date.getDay()]} ${date.getDate()} ${MONTHS[date.getMonth()]}`;
+  $('sheetSub').textContent = [hijri(date), day.isFriday ? "Jumu'ah" : ''].filter(Boolean).join(' · ') || String(date.getFullYear());
+  const rows = [];
+  day.prayers.forEach((p) => {
+    rows.push(`<div class="srow${p.key === 'zuhr' && day.isFriday ? ' jum' : ''}"><span class="ic">${svg(p.key, 18)}</span><span class="nm">${p.name}</span><span class="b">${fmtTime(p.begin)}</span><span class="j">${fmtTime(p.jamah)}</span></div>`);
+    if (p.key === 'fajr' && day.sunrise) {
+      rows.push(`<div class="srow muted"><span class="ic">${svg('sunrise', 18)}</span><span class="nm">Sunrise</span><span class="b">${fmtTime(day.sunrise)}</span><span class="j">—</span></div>`);
+    }
+  });
+  $('sheetRows').innerHTML = rows.join('');
+  lastFocus = document.activeElement;
+  $('backdrop').classList.add('open');
+  $('sheet').classList.add('open');
+  $('sheet').setAttribute('aria-hidden', 'false');
+  setTimeout(() => $('sheetClose').focus(), 50);
+}
+function closeSheet() {
+  $('backdrop').classList.remove('open');
+  $('sheet').classList.remove('open');
+  $('sheet').setAttribute('aria-hidden', 'true');
+  if (lastFocus && lastFocus.focus) lastFocus.focus();
+}
+$('backdrop').addEventListener('click', closeSheet);
+$('sheetClose').addEventListener('click', closeSheet);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && $('sheet').classList.contains('open')) closeSheet(); });
+// Swipe the sheet down to close
+(() => {
+  let y0 = null;
+  const s = $('sheet');
+  s.addEventListener('touchstart', (e) => { y0 = e.touches[0].clientY; }, { passive: true });
+  s.addEventListener('touchmove', (e) => {
+    if (y0 === null) return;
+    const dy = e.touches[0].clientY - y0;
+    if (dy > 0) { s.style.transition = 'none'; s.style.transform = `translate(-50%, ${dy}px)`; }
+  }, { passive: true });
+  s.addEventListener('touchend', (e) => {
+    if (y0 === null) return;
+    const dy = e.changedTouches[0].clientY - y0;
+    s.style.transition = ''; s.style.transform = '';
+    y0 = null;
+    if (dy > 90) closeSheet();
+  });
+})();
+$('weekTable').addEventListener('click', (e) => { const b = e.target.closest('[data-date]'); if (b) openSheet(new Date(b.dataset.date)); });
+$('calGrid').addEventListener('click', (e) => { const b = e.target.closest('[data-date]'); if (b && !b.disabled) openSheet(new Date(b.dataset.date)); });
+$('prevMonth').innerHTML = svg('chevl', 20, 2);
+$('nextMonth').innerHTML = svg('chevr', 20, 2);
+$('prevMonth').addEventListener('click', () => { if (viewMonth > 0) { viewMonth--; renderMonth(); } });
+$('nextMonth').addEventListener('click', () => { if (viewMonth < 11) { viewMonth++; renderMonth(); } });
 
-            // Set end times for each prayer (next prayer's begin time)
-            for (let i = 0; i < prayerSchedule.length - 1; i++) {
-                if (!prayerSchedule[i].endMinutes) {
-                    prayerSchedule[i].endMinutes = prayerSchedule[i + 1].beginMinutes;
-                }
-            }
-            // Isha ends at midnight (or next Fajr)
-            prayerSchedule[4].endMinutes = 24 * 60; // Midnight
+/* ===================== Tabs ===================== */
+const TAB_ICONS = { today: 'today', week: 'week', month: 'month' };
+document.querySelectorAll('.tab').forEach((t) => {
+  const v = t.dataset.view;
+  t.innerHTML = `${svg(TAB_ICONS[v], 22)}<span>${v[0].toUpperCase() + v.slice(1)}</span>`;
+  t.addEventListener('click', () => showView(v, true));
+});
+function showView(v, push) {
+  if (!['today', 'week', 'month'].includes(v)) v = 'today';
+  document.querySelectorAll('.view').forEach((s) => s.classList.toggle('active', s.id === `view-${v}`));
+  document.querySelectorAll('.tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.view === v)));
+  if (v === 'week') renderWeek();
+  if (v === 'month') renderMonth();
+  if (push) history.replaceState(null, '', v === 'today' ? location.pathname : `#${v}`);
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', () => showView(location.hash.slice(1)));
 
-            let nextPrayer = null;
-            let showingTomorrow = false;
+/* ===================== Clock ===================== */
+let lastDate = new Date().toDateString();
+function tick() {
+  const nowStr = new Date().toDateString();
+  if (nowStr !== lastDate) { // midnight rollover
+    lastDate = nowStr; dayCache.clear(); lastListKey = '';
+    if ($('view-week').classList.contains('active')) renderWeek();
+    if ($('view-month').classList.contains('active')) renderMonth();
+  }
+  renderToday();
+}
+function startClock() {
+  tick();
+  // Align ticks to the start of each second
+  setTimeout(() => { tick(); setInterval(tick, 1000); }, 1000 - (Date.now() % 1000));
+}
 
-            // FIXED LOGIC: Determine next prayer
-            // 1. If before first prayer begins -> next is Fajr
-            // 2. If within a prayer period (begin <= now < end) -> show that prayer's jamah countdown
-            // 3. If after a prayer ends but before next begins -> show next prayer
-            // 4. If after Isha ends -> show tomorrow's Fajr
+/* ===================== Online / offline ===================== */
+function updateOnline() { document.body.classList.toggle('offline', !navigator.onLine); }
+window.addEventListener('online', updateOnline);
+window.addEventListener('offline', updateOnline);
 
-            if (currentTimeInMinutes < prayerSchedule[0].beginMinutes) {
-                // Before Fajr begins - show Fajr
-                nextPrayer = prayerSchedule[0];
-            } else {
-                // Check each prayer period
-                let found = false;
-                for (let i = 0; i < prayerSchedule.length; i++) {
-                    const prayer = prayerSchedule[i];
-                    
-                    // If we're before this prayer's jamah time
-                    if (currentTimeInMinutes < prayer.jamahMinutes) {
-                        nextPrayer = prayer;
-                        found = true;
-                        break;
-                    }
-                    // If we're past this prayer's jamah but before next prayer's begin
-                    else if (i < prayerSchedule.length - 1 && currentTimeInMinutes < prayerSchedule[i + 1].beginMinutes) {
-                        nextPrayer = prayerSchedule[i + 1];
-                        found = true;
-                        break;
-                    }
-                }
-                
-                // If we've passed all prayers, show tomorrow's Fajr
-                if (!found) {
-                    const tomorrow = new Date(now);
-                    tomorrow.setDate(tomorrow.getDate() + 1);
-                    const tomorrowDay = tomorrow.getDate();
-                    const tomorrowMonth = tomorrow.getMonth() + 1;
-                    const tomorrowTimes = prayerData[tomorrowMonth] && prayerData[tomorrowMonth][tomorrowDay];
-                    
-                    if (tomorrowTimes) {
-                        nextPrayer = {
-                            name: 'Fajr',
-                            beginMinutes: prayerTimeToMinutes(tomorrowTimes.fajr.begin, 'fajr'),
-                            jamahMinutes: prayerTimeToMinutes(tomorrowTimes.fajr.jamah, 'fajr'),
-                            beginStr: tomorrowTimes.fajr.begin,
-                            jamahStr: tomorrowTimes.fajr.jamah,
-                            isTomorrow: true
-                        };
-                        showingTomorrow = true;
-                    }
-                }
-            }
+/* ===================== Install hint ===================== */
+(() => {
+  const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  let dismissed = false;
+  try { dismissed = localStorage.getItem('installDismissed') === '1'; } catch (e) {}
+  if (standalone || dismissed) return;
+  const box = $('install');
+  const hide = () => { box.classList.remove('show'); try { localStorage.setItem('installDismissed', '1'); } catch (e) {} };
+  $('installX').addEventListener('click', hide);
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (isIOS) {
+    $('installText').innerHTML = '<b>Install Salah Times</b><br>Tap Share, then “Add to Home Screen”.';
+    $('installGo').style.display = 'none';
+    setTimeout(() => box.classList.add('show'), 2500);
+    return;
+  }
+  let deferred = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault(); deferred = e;
+    setTimeout(() => box.classList.add('show'), 2500);
+  });
+  $('installGo').addEventListener('click', async () => {
+    if (!deferred) return hide();
+    deferred.prompt();
+    try { await deferred.userChoice; } catch (e) {}
+    deferred = null; hide();
+  });
+  window.addEventListener('appinstalled', hide);
+})();
 
-            if (!nextPrayer) return;
+/* ===================== Auto-update ===================== */
+// 1) sw.js is re-checked every time the app is opened or brought back to the front.
+//    If it changed, the new worker takes over and the page reloads itself once.
+// 2) index.html is fetched network-first by the service worker, and when the app is
+//    resumed from the background we also compare the server's ETag / Last-Modified,
+//    so HTML-only edits show up without touching sw.js.
+if ('serviceWorker' in navigator) {
+  let hasController = !!navigator.serviceWorker.controller;
+  let reloading = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hasController) { hasController = true; return; } // first install: no reload needed
+    if (reloading) return;
+    reloading = true;
+    location.reload();
+  });
 
-            // Check if today is Friday and if showing Zuhr
-            const dayOfWeek = now.getDay();
-            let displayName = nextPrayer.name;
-            if (nextPrayer.name === 'Zuhr' && dayOfWeek === 5) {
-                displayName = "Jumu'ah";
-            }
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).then((reg) => {
+      const activate = (w) => { if (w && navigator.serviceWorker.controller) w.postMessage({ type: 'SKIP_WAITING' }); };
+      if (reg.waiting) activate(reg.waiting);
+      reg.addEventListener('updatefound', () => {
+        const w = reg.installing;
+        if (w) w.addEventListener('statechange', () => { if (w.state === 'installed') activate(w); });
+      });
+      const check = () => { if (navigator.onLine) reg.update().catch(() => {}); };
+      check();
+      setInterval(check, 15 * 60 * 1000);
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') check(); });
+    }).catch((err) => console.warn('Service worker registration failed:', err));
+  });
+}
 
-            // Update prayer name
-            document.getElementById('nextPrayerName').textContent = displayName;
+(() => {
+  let stamp = null, lastCheck = 0;
+  const readStamp = () => fetch('./index.html', { method: 'HEAD', cache: 'no-store' })
+    .then((r) => r.ok ? (r.headers.get('ETag') || r.headers.get('Last-Modified')) : null)
+    .catch(() => null);
+  window.addEventListener('load', () => { readStamp().then((s) => { stamp = s; }); });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible' || !navigator.onLine || !stamp) return;
+    if (Date.now() - lastCheck < 30000) return;
+    lastCheck = Date.now();
+    readStamp().then((s) => { if (s && s !== stamp) location.reload(); });
+  });
+})();
 
-            // Calculate countdowns
-            let beginTarget = new Date(now);
-            let jamahTarget = new Date(now);
-            
-            if (showingTomorrow) {
-                beginTarget.setDate(beginTarget.getDate() + 1);
-                jamahTarget.setDate(jamahTarget.getDate() + 1);
-            }
-            
-            const beginHours = Math.floor(nextPrayer.beginMinutes / 60);
-            const beginMins = nextPrayer.beginMinutes % 60;
-            beginTarget.setHours(beginHours, beginMins, 0, 0);
-            
-            const jamahHours = Math.floor(nextPrayer.jamahMinutes / 60);
-            const jamahMins = nextPrayer.jamahMinutes % 60;
-            jamahTarget.setHours(jamahHours, jamahMins, 0, 0);
-
-            const beginDiff = beginTarget - now;
-            const jamahDiff = jamahTarget - now;
-
-            // Update begin countdown
-            if (beginDiff > 0) {
-                const hours = Math.floor(beginDiff / (1000 * 60 * 60));
-                const minutes = Math.floor((beginDiff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((beginDiff % (1000 * 60)) / 1000);
-                document.getElementById('countdownBegin').textContent = 
-                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            } else {
-                document.getElementById('countdownBegin').textContent = "00:00:00";
-            }
-
-            // Update jamah countdown
-            if (jamahDiff > 0) {
-                const hours = Math.floor(jamahDiff / (1000 * 60 * 60));
-                const minutes = Math.floor((jamahDiff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((jamahDiff % (1000 * 60)) / 1000);
-                document.getElementById('countdownJamah').textContent = 
-                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            } else {
-                document.getElementById('countdownJamah').textContent = "00:00:00";
-            }
-
-            // Update time displays
-            document.getElementById('beginTime').textContent = formatTimeDisplay(nextPrayer.beginStr, nextPrayer.name.toLowerCase());
-            document.getElementById('jamahTime').textContent = formatTimeDisplay(nextPrayer.jamahStr, nextPrayer.name.toLowerCase());
-
-            // Update prayer highlighting
-            updatePrayerHighlighting();
-        }
-
-        function updatePrayerHighlighting() {
-            const now = new Date();
-            const today = now.getDate();
-            const month = now.getMonth() + 1;
-            
-            const todayTimes = prayerData[month] && prayerData[month][today] ? prayerData[month][today] : null;
-            if (!todayTimes) return;
-
-            const currentHour = now.getHours();
-            const currentMinute = now.getMinutes();
-            const currentTimeInMinutes = currentHour * 60 + currentMinute;
-
-            const sunriseTime = sunriseData[month] && sunriseData[month][today] ? sunriseData[month][today] : "6:00";
-            const sunriseMinutes = prayerTimeToMinutes(sunriseTime, 'sunrise');
-
-            const prayerTimes = [
-                { name: 'fajr', beginMinutes: prayerTimeToMinutes(todayTimes.fajr.begin, 'fajr'), endMinutes: sunriseMinutes },
-                { name: 'zuhr', beginMinutes: prayerTimeToMinutes(todayTimes.zuhr.begin, 'zuhr') },
-                { name: 'asr', beginMinutes: prayerTimeToMinutes(todayTimes.asr.begin, 'asr') },
-                { name: 'maghrib', beginMinutes: prayerTimeToMinutes(todayTimes.maghrib.begin, 'maghrib') },
-                { name: 'isha', beginMinutes: prayerTimeToMinutes(todayTimes.isha.begin, 'isha') }
-            ];
-
-            // Set end times
-            for (let i = 0; i < prayerTimes.length - 1; i++) {
-                if (!prayerTimes[i].endMinutes) {
-                    prayerTimes[i].endMinutes = prayerTimes[i + 1].beginMinutes;
-                }
-            }
-            prayerTimes[4].endMinutes = 24 * 60;
-
-            // Determine current prayer
-            let currentPrayer = null;
-            for (const prayer of prayerTimes) {
-                if (currentTimeInMinutes >= prayer.beginMinutes && currentTimeInMinutes < prayer.endMinutes) {
-                    currentPrayer = prayer.name;
-                    break;
-                }
-            }
-
-            // Remove existing highlights
-            document.querySelectorAll('.prayer-row').forEach(row => {
-                row.classList.remove('current');
-                const statusElement = row.querySelector('.prayer-details p');
-                statusElement.textContent = '';
-            });
-
-            // Add current prayer highlighting
-            if (currentPrayer) {
-                const currentRow = document.querySelector(`[data-prayer="${currentPrayer}"]`);
-                if (currentRow) {
-                    currentRow.classList.add('current');
-                    const statusElement = currentRow.querySelector('.prayer-details p');
-                    if (currentPrayer === 'fajr') {
-                        statusElement.textContent = `Current Prayer | Sunrise: ${sunriseTime}`;
-                    } else {
-                        statusElement.textContent = 'Current Prayer';
-                    }
-                }
-            }
-
-            // Update today's prayer times display
-            updateTodaysPrayerTimes();
-        }
-
-        function updateTodaysPrayerTimes() {
-            const now = new Date();
-            const today = now.getDate();
-            const month = now.getMonth() + 1;
-            const dayOfWeek = now.getDay();
-            
-            const todayTimes = prayerData[month] && prayerData[month][today];
-            if (!todayTimes) return;
-
-            const sunriseTime = sunriseData[month] && sunriseData[month][today] ? sunriseData[month][today] : "6:00";
-
-            // Update each prayer row
-            const prayers = ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'];
-            const prayerRows = document.querySelectorAll('.prayer-row');
-
-            prayers.forEach((prayer, index) => {
-                const row = prayerRows[index];
-                if (!row) return;
-
-                const jamahTimeEl = row.querySelector('.jamah-time');
-                const beginTimeEl = row.querySelector('.begin-time');
-                const prayerNameEl = row.querySelector('.prayer-details h4');
-
-                if (todayTimes[prayer]) {
-                    jamahTimeEl.textContent = todayTimes[prayer].jamah;
-                    beginTimeEl.textContent = todayTimes[prayer].begin;
-                }
-
-                // Show Jumu'ah on Friday for Zuhr
-                if (prayer === 'zuhr') {
-                    prayerNameEl.textContent = dayOfWeek === 5 ? "Jumu'ah" : "Zuhr";
-                }
-
-                // Show sunrise time for Fajr row
-                if (prayer === 'fajr') {
-                    const statusEl = row.querySelector('.prayer-details p');
-                    if (!row.classList.contains('current')) {
-                        statusEl.textContent = `Sunrise: ${sunriseTime}`;
-                    }
-                }
-            });
-        }
-
-        function parseTime(timeStr, prayerName) {
-            const [hours, minutes] = timeStr.split(':').map(Number);
-            const date = new Date();
-            
-            if (prayerName === 'fajr') {
-                date.setHours(hours, minutes, 0, 0);
-            } else {
-                if (hours >= 1 && hours <= 11) {
-                    date.setHours(hours + 12, minutes, 0, 0);
-                } else {
-                    date.setHours(hours, minutes, 0, 0);
-                }
-            }
-            
-            return date;
-        }
-
-        // Initialize the app
-        function init() {
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                month: 'long', 
-                day: 'numeric',
-                year: 'numeric'
-            });
-            document.getElementById('currentDate').textContent = dateStr;
-            
-            currentDisplayMonth = now.getMonth() + 1;
-            currentDisplayYear = now.getFullYear();
-            
-            updatePWAStatus();
-            generateMonthlyView();
-            generateWeeklyView();
-            updateNavigationButtons();
-            
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-            
-            handleUrlShortcuts();
-        }
-
-        // Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(function(registration) {
-                        console.log('ServiceWorker registration successful');
-                        
-                        setInterval(() => {
-                            registration.update();
-                        }, 60000);
-                        
-                        registration.addEventListener('updatefound', () => {
-                            const newWorker = registration.installing;
-                            newWorker.addEventListener('statechange', () => {
-                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    showUpdateNotification();
-                                }
-                            });
-                        });
-                    }, function(err) {
-                        console.log('ServiceWorker registration failed: ', err);
-                    });
-            });
-        }
-
-        function showUpdateNotification() {
-            const notification = document.getElementById('updateNotification');
-            notification.classList.add('show');
-            
-            notification.addEventListener('click', () => {
-                if (navigator.serviceWorker.controller) {
-                    navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
-                    window.location.reload();
-                }
-            });
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 10000);
-        }
-
-        window.addEventListener('online', () => {
-            updatePWAStatus();
-            console.log('App is online');
-        });
-
-        window.addEventListener('offline', () => {
-            updatePWAStatus();
-            console.log('App is offline');
-        });
-
-        function handleUrlShortcuts() {
-            const hash = window.location.hash;
-            if (hash === '#today') {
-                setTimeout(() => {
-                    document.querySelector('.today-prayers').scrollIntoView({ behavior: 'smooth' });
-                }, 500);
-            } else if (hash === '#weekly') {
-                setTimeout(() => {
-                    showChart('weekly');
-                }, 500);
-            } else if (hash === '#monthly') {
-                setTimeout(() => {
-                    showChart('monthly');
-                }, 500);
-            }
-            if (hash) {
-                window.history.replaceState(null, null, window.location.pathname);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            init();
-        });
-        
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
-
-    </script>
+/* ===================== Start ===================== */
+updateOnline();
+showView(location.hash.slice(1) || 'today');
+startClock();
+</script>
 </body>
 </html>
