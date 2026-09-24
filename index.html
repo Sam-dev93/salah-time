@@ -42,8 +42,11 @@
   color-scheme: dark;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-/* The page itself never scrolls — only .scroller does. This keeps the tab bar pinned on iOS. */
+/* The page itself never scrolls — only .scroller does. This keeps the tab bar pinned on iOS.
+   #shell is sized from the real screen height (see fitShell): installed iPhone web apps can
+   report a viewport that's too short, which left an empty band under the tab bar. */
 html, body { height: 100%; overflow: hidden; background: var(--bg); }
+#shell { position: fixed; left: 0; right: 0; top: 0; height: var(--app-h, 100lvh); overflow: hidden; }
 body {
   color: var(--text);
   font-family: var(--font);
@@ -61,7 +64,7 @@ button:focus-visible { outline: 2px solid var(--clay); outline-offset: 2px; }
 .press:active { transform: scale(0.965); opacity: 0.85; }
 
 /* Glow behind the glass — changes with the next prayer */
-.glow { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s ease; }
+.glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s ease; }
 .glow.on { opacity: 1; }
 #g-fajr { background: radial-gradient(120% 60% at 85% -10%, rgba(110, 130, 220, 0.34) 0%, rgba(110, 130, 220, 0) 60%), radial-gradient(90% 40% at 0% 100%, rgba(217, 119, 87, 0.10) 0%, rgba(217, 119, 87, 0) 60%); }
 #g-zuhr { background: radial-gradient(120% 60% at 60% -10%, rgba(245, 220, 160, 0.26) 0%, rgba(245, 220, 160, 0) 60%), radial-gradient(80% 40% at 0% 0%, rgba(0, 168, 132, 0.10) 0%, rgba(0, 168, 132, 0) 60%); }
@@ -78,7 +81,7 @@ button:focus-visible { outline: 2px solid var(--clay); outline-offset: 2px; }
 }
 
 .scroller {
-  position: fixed; inset: 0; z-index: 1;
+  position: absolute; inset: 0; z-index: 1;
   overflow-y: auto; overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
@@ -99,7 +102,7 @@ button:focus-visible { outline: 2px solid var(--clay); outline-offset: 2px; }
 .offline-pill { display: none; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--fill); color: var(--sec); margin-bottom: 6px; }
 body.offline .offline-pill { display: inline-block; }
 .topbar {
-  position: fixed; z-index: 8; left: 0; right: 0; top: 0;
+  position: absolute; z-index: 8; left: 0; right: 0; top: 0;
   padding: calc(var(--safe-top) + 10px) 16px 10px;
   display: flex; flex-direction: column; align-items: center; gap: 2px;
   background: rgba(20, 20, 19, 0.62); border-bottom: 1px solid var(--sep);
@@ -247,9 +250,9 @@ body.offline .offline-pill { display: inline-block; }
 .empty { border-radius: 26px; padding: 22px 18px; text-align: center; color: var(--sec); font-size: 15px; line-height: 1.5; }
 
 /* Tab bar (fixed, outside the scroller) */
-.fade { position: fixed; left: 0; right: 0; bottom: 0; height: calc(130px + var(--safe-bottom)); z-index: 5; pointer-events: none; background: linear-gradient(to bottom, rgba(20, 20, 19, 0), var(--bg) 72%); }
+.fade { position: absolute; left: 0; right: 0; bottom: 0; height: calc(130px + var(--safe-bottom)); z-index: 5; pointer-events: none; background: linear-gradient(to bottom, rgba(20, 20, 19, 0), var(--bg) 72%); }
 .tabbar {
-  position: fixed; z-index: 10; left: 0; right: 0; margin: 0 auto;
+  position: absolute; z-index: 10; left: 0; right: 0; margin: 0 auto;
   bottom: calc(var(--safe-bottom) + 18px);
   width: min(calc(100% - 40px), 420px); height: 64px; border-radius: 999px;
   display: flex; align-items: center; padding: 0 5px;
@@ -264,10 +267,10 @@ body.offline .offline-pill { display: inline-block; }
 .tab[aria-selected="true"] { color: var(--clay); }
 
 /* Bottom sheet */
-.backdrop { position: fixed; inset: 0; z-index: 20; background: rgba(0, 0, 0, 0.45); opacity: 0; pointer-events: none; transition: opacity .25s; }
+.backdrop { position: absolute; inset: 0; z-index: 20; background: rgba(0, 0, 0, 0.45); opacity: 0; pointer-events: none; transition: opacity .25s; }
 .backdrop.open { opacity: 1; pointer-events: auto; }
 .sheet {
-  position: fixed; z-index: 21; left: 0; right: 0; margin: 0 auto; bottom: calc(var(--safe-bottom) + 8px);
+  position: absolute; z-index: 21; left: 0; right: 0; margin: 0 auto; bottom: calc(var(--safe-bottom) + 8px);
   width: min(calc(100% - 16px), 464px); transform: translateY(110%); visibility: hidden;
   border-radius: 40px; padding: 8px 20px 20px;
   background: var(--sheet); border: 1px solid var(--border);
@@ -293,7 +296,7 @@ body.offline .offline-pill { display: inline-block; }
 .srow.muted .j { color: var(--ter); }
 
 /* Install hint */
-.install { position: fixed; z-index: 15; left: 0; right: 0; margin: 0 auto; bottom: calc(var(--safe-bottom) + 96px); width: min(calc(100% - 32px), 440px); border-radius: 22px; padding: 12px 12px 12px 16px; display: none; align-items: center; gap: 12px; }
+.install { position: absolute; z-index: 15; left: 0; right: 0; margin: 0 auto; bottom: calc(var(--safe-bottom) + 96px); width: min(calc(100% - 32px), 440px); border-radius: 22px; padding: 12px 12px 12px 16px; display: none; align-items: center; gap: 12px; }
 .install.show { display: flex; }
 .install p { flex-grow: 1; font-size: 13px; color: var(--sec); line-height: 1.4; }
 .install p b { color: var(--text); }
@@ -301,7 +304,7 @@ body.offline .offline-pill { display: inline-block; }
 .install .x { width: 32px; height: 32px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: var(--ter); }
 
 /* Toast */
-.toast { position: fixed; z-index: 30; left: 0; right: 0; margin: 0 auto; top: calc(var(--safe-top) + 12px); width: max-content; max-width: calc(100% - 32px); padding: 10px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; opacity: 0; transform: translateY(-10px); transition: opacity .2s, transform .2s; pointer-events: none; }
+.toast { position: absolute; z-index: 30; left: 0; right: 0; margin: 0 auto; top: calc(var(--safe-top) + 12px); width: max-content; max-width: calc(100% - 32px); padding: 10px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; opacity: 0; transform: translateY(-10px); transition: opacity .2s, transform .2s; pointer-events: none; }
 .toast.show { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -310,6 +313,7 @@ body.offline .offline-pill { display: inline-block; }
 </style>
 </head>
 <body>
+<div id="shell">
 <div class="glow" id="g-fajr" aria-hidden="true"></div>
 <div class="glow" id="g-zuhr" aria-hidden="true"></div>
 <div class="glow on" id="g-asr" aria-hidden="true"></div>
@@ -464,6 +468,8 @@ body.offline .offline-pill { display: inline-block; }
 </div>
 
 <div class="toast glass" id="toast" role="status" aria-live="polite"></div>
+
+</div><!-- /#shell -->
 
 <script>
 /* ===================== Timetable (Shahjalal Masjid, 2026) ===================== */
@@ -1646,6 +1652,26 @@ if ('serviceWorker' in navigator) {
     readStamp().then((s) => { if (s && s !== stamp) location.reload(); });
   });
 })();
+
+/* ===================== Real screen height ===================== */
+// iOS installed web apps can report a layout viewport shorter than the screen, which
+// pushes bottom-anchored things (tab bar, fade, sheet) up and leaves a gap below them.
+// In standalone mode the app fills the whole screen, so use the screen's own height.
+function fitShell() {
+  const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  let h = window.innerHeight;
+  if (standalone) {
+    const portrait = window.matchMedia('(orientation: portrait)').matches;
+    const screenH = portrait ? Math.max(screen.width, screen.height) : Math.min(screen.width, screen.height);
+    h = Math.max(h, screenH);
+  }
+  document.documentElement.style.setProperty('--app-h', h + 'px');
+}
+fitShell();
+window.addEventListener('resize', fitShell);
+window.addEventListener('orientationchange', () => setTimeout(fitShell, 300));
+if (window.visualViewport) window.visualViewport.addEventListener('resize', fitShell);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') fitShell(); });
 
 /* ===================== Start ===================== */
 updateOnline();
