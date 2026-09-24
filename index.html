@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Salah Times</title>
 <meta name="description" content="Prayer and jama'ah times for Shahjalal Masjid, Manor Park">
-<meta name="theme-color" content="#141413">
+<meta name="theme-color" content="#08151C">
 <meta name="color-scheme" content="dark">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Salah Times">
 <meta name="application-name" content="Salah Times">
 <meta name="format-detection" content="telephone=no">
@@ -18,23 +18,24 @@
 <link rel="manifest" href="manifest.json">
 <style>
 :root {
-  --bg: #141413;
-  --text: #FAF9F5;
-  --sec: #C2C0B6;
-  --ter: #8A8880;
-  --glass: rgba(250, 249, 245, 0.06);
-  --border: rgba(250, 249, 245, 0.12);
-  --fill: rgba(250, 249, 245, 0.08);
-  --sep: rgba(250, 249, 245, 0.08);
-  --track: rgba(250, 249, 245, 0.10);
+  --bg: #08151C;
+  --bg-deep: #050C11;
+  --text: #F7F4EC;
+  --sec: #B7C6CD;
+  --ter: #7F939C;
+  --glass: rgba(214, 236, 246, 0.06);
+  --border: rgba(214, 236, 246, 0.12);
+  --fill: rgba(214, 236, 246, 0.08);
+  --sep: rgba(214, 236, 246, 0.08);
+  --track: rgba(214, 236, 246, 0.10);
   --clay: #D97757;
   --clay-bg: rgba(217, 119, 87, 0.16);
-  --on-clay: #141413;
-  --green: #00A884;
-  --green-bg: rgba(0, 168, 132, 0.16);
+  --on-clay: #08151C;
+  --green: #1FC39A;
+  --green-bg: rgba(31, 195, 154, 0.15);
   --dawn: #9FB0F0;
   --dawn-bg: rgba(110, 130, 220, 0.14);
-  --sheet: rgba(38, 38, 36, 0.86);
+  --sheet: rgba(14, 36, 46, 0.88);
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI", sans-serif;
   --rounded: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --safe-top: env(safe-area-inset-top, 0px);
@@ -42,11 +43,17 @@
   color-scheme: dark;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-/* The page itself never scrolls — only .scroller does. This keeps the tab bar pinned on iOS.
-   #shell is sized from the real screen height (see fitShell): installed iPhone web apps can
-   report a viewport that's too short, which left an empty band under the tab bar. */
-html, body { height: 100%; overflow: hidden; background: var(--bg); }
-#shell { position: fixed; left: 0; right: 0; top: 0; height: var(--app-h, 100lvh); overflow: hidden; }
+/* The page itself never scrolls — only .scroller does, so the tab bar stays pinned.
+   (The status bar is opaque: on iOS 26 a see-through status bar makes the web view stop
+   short of the bottom of the screen.) Zoom is off: no double-tap or pinch zoom. */
+html, body { height: 100%; overflow: hidden; background: var(--bg-deep); touch-action: manipulation; }
+#shell {
+  position: fixed; left: 0; right: 0; top: 0; height: 100%; height: 100dvh; overflow: hidden;
+  background:
+    radial-gradient(130% 75% at 25% -5%, #1A4655 0%, rgba(26, 70, 85, 0) 60%),
+    radial-gradient(120% 60% at 100% 110%, #0E2A36 0%, rgba(14, 42, 54, 0) 60%),
+    linear-gradient(180deg, #0B1E27 0%, var(--bg) 45%, var(--bg-deep) 100%);
+}
 body {
   color: var(--text);
   font-family: var(--font);
@@ -105,7 +112,7 @@ body.offline .offline-pill { display: inline-block; }
   position: absolute; z-index: 8; left: 0; right: 0; top: 0;
   padding: calc(var(--safe-top) + 10px) 16px 10px;
   display: flex; flex-direction: column; align-items: center; gap: 2px;
-  background: rgba(20, 20, 19, 0.62); border-bottom: 1px solid var(--sep);
+  background: rgba(8, 21, 28, 0.62); border-bottom: 1px solid var(--sep);
   -webkit-backdrop-filter: blur(30px) saturate(170%); backdrop-filter: blur(30px) saturate(170%);
   opacity: 0; transform: translateY(-8px); pointer-events: none;
   transition: opacity .2s ease, transform .2s ease;
@@ -250,7 +257,7 @@ body.offline .offline-pill { display: inline-block; }
 .empty { border-radius: 26px; padding: 22px 18px; text-align: center; color: var(--sec); font-size: 15px; line-height: 1.5; }
 
 /* Tab bar (fixed, outside the scroller) */
-.fade { position: absolute; left: 0; right: 0; bottom: 0; height: calc(130px + var(--safe-bottom)); z-index: 5; pointer-events: none; background: linear-gradient(to bottom, rgba(20, 20, 19, 0), var(--bg) 72%); }
+.fade { position: absolute; left: 0; right: 0; bottom: 0; height: calc(130px + var(--safe-bottom)); z-index: 5; pointer-events: none; background: linear-gradient(to bottom, rgba(5, 12, 17, 0), var(--bg-deep) 72%); }
 .tabbar {
   position: absolute; z-index: 10; left: 0; right: 0; margin: 0 auto;
   bottom: calc(var(--safe-bottom) + 18px);
@@ -259,7 +266,7 @@ body.offline .offline-pill { display: inline-block; }
 }
 .tab-pill {
   position: absolute; left: 5px; top: 5px; bottom: 5px; width: calc((100% - 10px) / 3);
-  border-radius: 999px; background: rgba(250, 249, 245, 0.10); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  border-radius: 999px; background: rgba(214, 236, 246, 0.10); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
   transform: translateX(calc(var(--i, 0) * 100%));
   transition: transform .45s cubic-bezier(.3, 1.35, .45, 1);
 }
@@ -279,7 +286,7 @@ body.offline .offline-pill { display: inline-block; }
   transition: transform .32s cubic-bezier(.2, .9, .3, 1), visibility 0s linear .32s;
 }
 .sheet.open { transform: none; visibility: visible; transition: transform .32s cubic-bezier(.2, .9, .3, 1); }
-.grabber { width: 38px; height: 5px; border-radius: 999px; background: rgba(250, 249, 245, 0.28); margin: 0 auto 12px; }
+.grabber { width: 38px; height: 5px; border-radius: 999px; background: rgba(214, 236, 246, 0.28); margin: 0 auto 12px; }
 .sheet-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
 .sheet-head h2 { font-size: 22px; font-weight: 700; }
 .sheet-head p { font-size: 14px; color: var(--sec); margin-top: 2px; }
@@ -1335,9 +1342,12 @@ async function makeWeekImage() {
   const W = 1080, H = 1350, F = '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif';
   const c = document.createElement('canvas'); c.width = W; c.height = H;
   const x = c.getContext('2d');
-  x.fillStyle = '#141413'; x.fillRect(0, 0, W, H);
-  let g = x.createRadialGradient(W * 0.9, -80, 0, W * 0.9, -80, 900);
-  g.addColorStop(0, 'rgba(217,119,87,0.38)'); g.addColorStop(1, 'rgba(217,119,87,0)');
+  x.fillStyle = '#08151C'; x.fillRect(0, 0, W, H);
+  let g = x.createRadialGradient(W * 0.25, -60, 0, W * 0.25, -60, 1100);
+  g.addColorStop(0, 'rgba(31,77,92,0.95)'); g.addColorStop(1, 'rgba(31,77,92,0)');
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  g = x.createRadialGradient(W * 0.95, -80, 0, W * 0.95, -80, 700);
+  g.addColorStop(0, 'rgba(217,119,87,0.22)'); g.addColorStop(1, 'rgba(217,119,87,0)');
   x.fillStyle = g; x.fillRect(0, 0, W, H);
   g = x.createRadialGradient(0, H, 0, 0, H, 700);
   g.addColorStop(0, 'rgba(0,168,132,0.14)'); g.addColorStop(1, 'rgba(0,168,132,0)');
@@ -1346,41 +1356,41 @@ async function makeWeekImage() {
   const icon = await loadImage('icon-512.png');
   if (icon) { x.save(); roundRect(x, 72, 72, 132, 132, 30); x.clip(); x.drawImage(icon, 72, 72, 132, 132); x.restore(); }
   const days = weekDays();
-  x.fillStyle = '#FAF9F5'; x.font = `700 58px ${F}`; x.fillText('Shahjalal Masjid', 236, 132);
-  x.fillStyle = '#C2C0B6'; x.font = `500 34px ${F}`; x.fillText(`Jama'ah times · ${weekRangeText(days)} ${days[0].getFullYear()}`, 236, 184);
+  x.fillStyle = '#F7F4EC'; x.font = `700 58px ${F}`; x.fillText('Shahjalal Masjid', 236, 132);
+  x.fillStyle = '#B7C6CD'; x.font = `500 34px ${F}`; x.fillText(`Jama'ah times · ${weekRangeText(days)} ${days[0].getFullYear()}`, 236, 184);
 
   // Table card
   roundRect(x, 56, 260, W - 112, 940, 44);
-  x.fillStyle = 'rgba(250,249,245,0.06)'; x.fill();
-  x.strokeStyle = 'rgba(250,249,245,0.12)'; x.lineWidth = 2; x.stroke();
+  x.fillStyle = 'rgba(214,236,246,0.06)'; x.fill();
+  x.strokeStyle = 'rgba(214,236,246,0.12)'; x.lineWidth = 2; x.stroke();
 
   const cols = [436, 560, 684, 808, 932];
-  x.textAlign = 'center'; x.fillStyle = '#8A8880'; x.font = `700 26px ${F}`;
+  x.textAlign = 'center'; x.fillStyle = '#7F939C'; x.font = `700 26px ${F}`;
   ['FAJR', 'ZUHR', 'ASR', 'MGRB', 'ISHA'].forEach((h, i) => x.fillText(h, cols[i], 318));
   let y = 346, anyChange = null;
   days.forEach((date, i) => {
     const day = getDay(date);
     const changed = new Set(i > 0 ? jamahChanges(date).map((ch) => ch.key) : []);
     if (i > 0 && changed.size && !anyChange) anyChange = date;
-    x.fillStyle = 'rgba(250,249,245,0.08)'; x.fillRect(96, y, W - 192, 2);
+    x.fillStyle = 'rgba(214,236,246,0.08)'; x.fillRect(96, y, W - 192, 2);
     if (i === 0) { x.fillStyle = 'rgba(217,119,87,0.16)'; x.fillRect(58, y + 2, W - 116, 118); }
     x.textAlign = 'left';
-    x.fillStyle = i === 0 ? '#D97757' : '#FAF9F5'; x.font = `700 40px ${F}`;
+    x.fillStyle = i === 0 ? '#D97757' : '#F7F4EC'; x.font = `700 40px ${F}`;
     x.fillText(`${DAYS_SHORT[date.getDay()]} ${date.getDate()}`, 104, y + 60);
     const hb = hijriBits(date);
-    if (hb) { x.fillStyle = i === 0 ? '#D97757' : '#8A8880'; x.font = `500 24px ${F}`; x.fillText(`${hb.day} ${hb.month}`, 104, y + 94); }
+    if (hb) { x.fillStyle = i === 0 ? '#D97757' : '#7F939C'; x.font = `500 24px ${F}`; x.fillText(`${hb.day} ${hb.month}`, 104, y + 94); }
     x.textAlign = 'center';
     if (day) day.prayers.forEach((p, ci) => {
       const ch = changed.has(p.key);
-      x.fillStyle = ch ? '#00A884' : '#FAF9F5'; x.font = `${ch ? 700 : 500} 40px ${F}`;
+      x.fillStyle = ch ? '#1FC39A' : '#F7F4EC'; x.font = `${ch ? 700 : 500} 40px ${F}`;
       x.fillText(fmtShort(p.jamah), cols[ci], y + (p.key === 'zuhr' && day.isFriday ? 60 : 72));
       if (p.key === 'zuhr' && day.isFriday) { x.fillStyle = '#D97757'; x.font = `700 20px ${F}`; x.fillText("JUMU'AH", cols[ci], y + 94); }
     });
     y += 120;
   });
   x.textAlign = 'left'; x.font = `600 28px ${F}`;
-  if (anyChange) { x.fillStyle = '#00A884'; x.fillText(`●  Jama'ah times change ${DAYS_SHORT[anyChange.getDay()]} ${anyChange.getDate()} ${MONTHS_SHORT[anyChange.getMonth()]}`, 72, 1256); }
-  x.fillStyle = '#8A8880'; x.font = `500 26px ${F}`; x.fillText('722-726 Romford Road, London E12 6BT', 72, 1300);
+  if (anyChange) { x.fillStyle = '#1FC39A'; x.fillText(`●  Jama'ah times change ${DAYS_SHORT[anyChange.getDay()]} ${anyChange.getDate()} ${MONTHS_SHORT[anyChange.getMonth()]}`, 72, 1256); }
+  x.fillStyle = '#7F939C'; x.font = `500 26px ${F}`; x.fillText('722-726 Romford Road, London E12 6BT', 72, 1300);
   return new Promise((res) => c.toBlob(res, 'image/png'));
 }
 async function shareWeek() {
@@ -1566,17 +1576,17 @@ async function addLaunchImage() {
   const c = document.createElement('canvas');
   c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
   const x = c.getContext('2d'); x.scale(dpr, dpr);
-  x.fillStyle = '#141413'; x.fillRect(0, 0, w, h);
-  const g = x.createRadialGradient(w * 0.88, -h * 0.05, 0, w * 0.88, -h * 0.05, h * 0.6);
-  g.addColorStop(0, 'rgba(217,119,87,0.26)'); g.addColorStop(1, 'rgba(217,119,87,0)');
+  x.fillStyle = '#08151C'; x.fillRect(0, 0, w, h);
+  const g = x.createRadialGradient(w * 0.25, -h * 0.05, 0, w * 0.25, -h * 0.05, h * 0.75);
+  g.addColorStop(0, 'rgba(31,77,92,0.95)'); g.addColorStop(1, 'rgba(31,77,92,0)');
   x.fillStyle = g; x.fillRect(0, 0, w, h);
   const icon = await loadImage('icon-512.png');
   const s = 108, cx = w / 2, cy = h / 2 - 30;
   if (icon) { x.save(); roundRect(x, cx - s / 2, cy - s / 2, s, s, 24); x.clip(); x.drawImage(icon, cx - s / 2, cy - s / 2, s, s); x.restore(); }
   const F = '-apple-system, BlinkMacSystemFont, system-ui, sans-serif';
   x.textAlign = 'center';
-  x.fillStyle = '#FAF9F5'; x.font = `700 26px ${F}`; x.fillText('Salah Times', cx, cy + s / 2 + 44);
-  x.fillStyle = '#C2C0B6'; x.font = `400 14px ${F}`; x.fillText('Shahjalal Masjid · Manor Park', cx, cy + s / 2 + 68);
+  x.fillStyle = '#F7F4EC'; x.font = `700 26px ${F}`; x.fillText('Salah Times', cx, cy + s / 2 + 44);
+  x.fillStyle = '#B7C6CD'; x.font = `400 14px ${F}`; x.fillText('Shahjalal Masjid · Manor Park', cx, cy + s / 2 + 68);
   const link = document.createElement('link');
   link.rel = 'apple-touch-startup-image';
   link.href = c.toDataURL('image/png');
@@ -1653,25 +1663,11 @@ if ('serviceWorker' in navigator) {
   });
 })();
 
-/* ===================== Real screen height ===================== */
-// iOS installed web apps can report a layout viewport shorter than the screen, which
-// pushes bottom-anchored things (tab bar, fade, sheet) up and leaves a gap below them.
-// In standalone mode the app fills the whole screen, so use the screen's own height.
-function fitShell() {
-  const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-  let h = window.innerHeight;
-  if (standalone) {
-    const portrait = window.matchMedia('(orientation: portrait)').matches;
-    const screenH = portrait ? Math.max(screen.width, screen.height) : Math.min(screen.width, screen.height);
-    h = Math.max(h, screenH);
-  }
-  document.documentElement.style.setProperty('--app-h', h + 'px');
-}
-fitShell();
-window.addEventListener('resize', fitShell);
-window.addEventListener('orientationchange', () => setTimeout(fitShell, 300));
-if (window.visualViewport) window.visualViewport.addEventListener('resize', fitShell);
-document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') fitShell(); });
+/* ===================== No zoom ===================== */
+// iOS ignores user-scalable=no for pinch, so block Safari's gesture events too.
+['gesturestart', 'gesturechange', 'gestureend'].forEach((ev) => document.addEventListener(ev, (e) => e.preventDefault(), { passive: false }));
+document.addEventListener('dblclick', (e) => e.preventDefault(), { passive: false });
+document.addEventListener('touchmove', (e) => { if (e.touches && e.touches.length > 1) e.preventDefault(); }, { passive: false });
 
 /* ===================== Start ===================== */
 updateOnline();

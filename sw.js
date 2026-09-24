@@ -8,7 +8,7 @@
  *     to the front. Bump VERSION below whenever you deploy — the browser sees the
  *     byte change, installs this worker, and the page reloads itself onto it.
  */
-const VERSION = '2026.09.24-5';
+const VERSION = '2026.09.24-6';
 const CACHE = `salah-times-${VERSION}`;
 const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
 
@@ -64,7 +64,7 @@ self.addEventListener('fetch', (event) => {
         return fresh;
       } catch (e) {
         return (await caches.match('./index.html')) || (await caches.match('./')) ||
-          new Response('<h1 style="font-family:system-ui;color:#FAF9F5;background:#141413">Offline</h1>', { headers: { 'Content-Type': 'text/html' } });
+          new Response('<h1 style="font-family:system-ui;color:#F7F4EC;background:#08151C">Offline</h1>', { headers: { 'Content-Type': 'text/html' } });
       }
     })());
     return;
