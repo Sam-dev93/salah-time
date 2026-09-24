@@ -8,7 +8,7 @@
  *     to the front. Bump VERSION below whenever you deploy — the browser sees the
  *     byte change, installs this worker, and the page reloads itself onto it.
  */
-const VERSION = '2026.09.24-10';
+const VERSION = '2026.09.24-11';
 const CACHE = `salah-times-${VERSION}`;
 const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
 

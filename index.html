@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Salah Times</title>
 <meta name="description" content="Prayer and jama'ah times for Shahjalal Masjid, Manor Park">
-<meta name="theme-color" content="#08151C">
+<meta name="theme-color" content="#123440">
 <meta name="color-scheme" content="dark">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -20,6 +20,7 @@
 :root {
   --bg: #08151C;
   --bg-deep: #050C11;
+  --status: #123440; /* iOS paints the solid status bar with the page background */
   --text: #F7F4EC;
   --sec: #B7C6CD;
   --ter: #7F939C;
@@ -47,7 +48,7 @@
 /* The page itself never scrolls — only .scroller does, so the tab bar stays pinned.
    (The status bar is opaque: on iOS 26 a see-through status bar makes the web view stop
    short of the bottom of the screen.) Zoom is off: no double-tap or pinch zoom. */
-html, body { height: 100%; overflow: hidden; background: var(--bg-deep); touch-action: manipulation; }
+html, body { height: 100%; overflow: hidden; background: var(--status); touch-action: manipulation; }
 html.short-vp { --bottom-inset: 0px; }
 #shell {
   position: fixed; left: 0; right: 0; top: 0; height: 100%; height: 100dvh; overflow: hidden;
@@ -56,11 +57,11 @@ html.short-vp { --bottom-inset: 0px; }
     radial-gradient(120% 60% at 100% 110%, #0E2A36 0%, rgba(14, 42, 54, 0) 60%),
     linear-gradient(180deg, #0B1E27 0%, var(--bg) 45%, var(--bg-deep) 100%);
 }
-/* The status bar above the app is solid black: start the app black too and fade into the
-   teal, so there's no hard edge where the status bar ends. Sits above the glow layers. */
+/* The solid status bar takes the page background (--status): start the app in that same
+   teal-blue and fade into the rest, so there's no edge where the status bar ends. */
 #shell::after {
   content: ""; position: absolute; left: 0; right: 0; top: 0; height: 190px; z-index: 0; pointer-events: none;
-  background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.82) 22%, rgba(0, 0, 0, 0.45) 55%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(180deg, var(--status) 0%, rgba(18, 52, 64, 0.75) 30%, rgba(18, 52, 64, 0.3) 65%, rgba(18, 52, 64, 0) 100%);
 }
 html.short-vp #shell::after { display: none; }
 body {
@@ -1694,7 +1695,7 @@ fitBottom();
 window.addEventListener('resize', fitBottom);
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') fitBottom(); });
 
-const APP_VERSION = '2026.09.24-10';
+const APP_VERSION = '2026.09.24-11';
 function showVersion() {
   const probe = document.createElement('div');
   probe.style.cssText = 'position:absolute;visibility:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)';
