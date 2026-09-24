@@ -8,7 +8,7 @@
  *     to the front. Bump VERSION below whenever you deploy — the browser sees the
  *     byte change, installs this worker, and the page reloads itself onto it.
  */
-const VERSION = '2026.09.24-1';
+const VERSION = '2026.09.24-2';
 const CACHE = `salah-times-${VERSION}`;
 const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
@@ -25,8 +25,16 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
+    const isUpgrade = keys.some((k) => k !== CACHE); // an older version was installed
+    // Wipe every older cache — including the old 'salah-times-v1' that kept serving the old page
     await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
     await self.clients.claim();
+    // On an upgrade, reload any open windows straight onto the new version.
+    // This matters when the page on screen is an old one with no auto-update code of its own.
+    if (isUpgrade) {
+      const wins = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+      await Promise.all(wins.map((w) => (w.navigate ? w.navigate(w.url).catch(() => {}) : null)));
+    }
   })());
 });
 
@@ -63,6 +71,16 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Everything else (icons, manifest): serve cached, refresh in the background
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE);
+    const cached = await cache.match(req);
+    const network = fetch(req).then((res) => {
+      if (res && res.ok) cache.put(req, res.clone());
+      return res;
+    }).catch(() => null);
+    return cached || (await network) || new Response('', { status: 504 });
+  })());
+});  // Everything else (icons, manifest): serve cached, refresh in the background
   event.respondWith((async () => {
     const cache = await caches.open(CACHE);
     const cached = await cache.match(req);
