@@ -49,8 +49,6 @@
    short of the bottom of the screen.) Zoom is off: no double-tap or pinch zoom. */
 html, body { height: 100%; overflow: hidden; background: var(--bg-deep); touch-action: manipulation; }
 html.short-vp { --bottom-inset: 0px; }
-html.short-vp .tabbar { bottom: 8px; }
-html.short-vp .sheet { bottom: 6px; }
 #shell {
   position: fixed; left: 0; right: 0; top: 0; height: 100%; height: 100dvh; overflow: hidden;
   background:
@@ -99,7 +97,7 @@ button:focus-visible { outline: 2px solid var(--clay); outline-offset: 2px; }
 }
 .app {
   max-width: 480px; margin: 0 auto;
-  padding: calc(var(--safe-top) + 22px) 16px calc(var(--bottom-inset) + 130px);
+  padding: calc(var(--safe-top) + 22px) 16px calc(var(--bottom-inset) + 100px);
 }
 .view { display: none; flex-direction: column; gap: 16px; }
 .view.active { display: flex; animation: fadeIn .25s ease; }
@@ -261,10 +259,11 @@ body.offline .offline-pill { display: inline-block; }
 .empty { border-radius: 26px; padding: 22px 18px; text-align: center; color: var(--sec); font-size: 15px; line-height: 1.5; }
 
 /* Tab bar (fixed, outside the scroller) */
-.fade { position: absolute; left: 0; right: 0; bottom: 0; height: calc(130px + var(--bottom-inset)); z-index: 5; pointer-events: none; background: linear-gradient(to bottom, rgba(5, 12, 17, 0), var(--bg-deep) 72%); }
+.fade { position: absolute; left: 0; right: 0; bottom: 0; height: calc(100px + var(--bottom-inset)); z-index: 5; pointer-events: none; background: linear-gradient(to bottom, rgba(5, 12, 17, 0), var(--bg-deep) 72%); }
 .tabbar {
   position: absolute; z-index: 10; left: 0; right: 0; margin: 0 auto;
-  bottom: calc(var(--bottom-inset) + 18px);
+  /* iOS 26 style: the floating bar sits inside the home-indicator area, ~20pt off the edge */
+  bottom: max(10px, calc(var(--bottom-inset) - 12px));
   width: min(calc(100% - 40px), 420px); height: 64px; border-radius: 999px;
   display: flex; align-items: center; padding: 0 5px;
 }
@@ -281,7 +280,7 @@ body.offline .offline-pill { display: inline-block; }
 .backdrop { position: absolute; inset: 0; z-index: 20; background: rgba(0, 0, 0, 0.45); opacity: 0; pointer-events: none; transition: opacity .25s; }
 .backdrop.open { opacity: 1; pointer-events: auto; }
 .sheet {
-  position: absolute; z-index: 21; left: 0; right: 0; margin: 0 auto; bottom: calc(var(--bottom-inset) + 8px);
+  position: absolute; z-index: 21; left: 0; right: 0; margin: 0 auto; bottom: max(8px, calc(var(--bottom-inset) - 20px));
   width: min(calc(100% - 16px), 464px); transform: translateY(110%); visibility: hidden;
   border-radius: 40px; padding: 8px 20px 20px;
   background: var(--sheet); border: 1px solid var(--border);
@@ -307,7 +306,7 @@ body.offline .offline-pill { display: inline-block; }
 .srow.muted .j { color: var(--ter); }
 
 /* Install hint */
-.install { position: absolute; z-index: 15; left: 0; right: 0; margin: 0 auto; bottom: calc(var(--bottom-inset) + 96px); width: min(calc(100% - 32px), 440px); border-radius: 22px; padding: 12px 12px 12px 16px; display: none; align-items: center; gap: 12px; }
+.install { position: absolute; z-index: 15; left: 0; right: 0; margin: 0 auto; bottom: calc(var(--bottom-inset) + 70px); width: min(calc(100% - 32px), 440px); border-radius: 22px; padding: 12px 12px 12px 16px; display: none; align-items: center; gap: 12px; }
 .install.show { display: flex; }
 .install p { flex-grow: 1; font-size: 13px; color: var(--sec); line-height: 1.4; }
 .install p b { color: var(--text); }
@@ -1688,8 +1687,18 @@ fitBottom();
 window.addEventListener('resize', fitBottom);
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') fitBottom(); });
 
-const APP_VERSION = '2026.09.24-8';
-$('appVersion').textContent = `Version ${APP_VERSION} · ${document.documentElement.classList.contains('short-vp') ? 'status bar: see-through' : 'status bar: solid'}`;
+const APP_VERSION = '2026.09.24-9';
+function showVersion() {
+  const probe = document.createElement('div');
+  probe.style.cssText = 'position:absolute;visibility:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)';
+  document.body.appendChild(probe);
+  const cs = getComputedStyle(probe);
+  const st = Math.round(parseFloat(cs.paddingTop) || 0), sb = Math.round(parseFloat(cs.paddingBottom) || 0);
+  probe.remove();
+  $('appVersion').textContent = `Version ${APP_VERSION} · ${window.innerHeight}/${Math.max(screen.width, screen.height)} · top ${st} · bottom ${sb}${document.documentElement.classList.contains('short-vp') ? ' · short' : ''}`;
+}
+showVersion();
+window.addEventListener('resize', showVersion);
 
 /* ===================== No zoom ===================== */
 // iOS ignores user-scalable=no for pinch, so block Safari's gesture events too.
