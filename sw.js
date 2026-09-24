@@ -8,9 +8,9 @@
  *     to the front. Bump VERSION below whenever you deploy — the browser sees the
  *     byte change, installs this worker, and the page reloads itself onto it.
  */
-const VERSION = '2026.09.24-2';
+const VERSION = '2026.09.24-4';
 const CACHE = `salah-times-${VERSION}`;
-const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
+const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -71,16 +71,6 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Everything else (icons, manifest): serve cached, refresh in the background
-  event.respondWith((async () => {
-    const cache = await caches.open(CACHE);
-    const cached = await cache.match(req);
-    const network = fetch(req).then((res) => {
-      if (res && res.ok) cache.put(req, res.clone());
-      return res;
-    }).catch(() => null);
-    return cached || (await network) || new Response('', { status: 504 });
-  })());
-});  // Everything else (icons, manifest): serve cached, refresh in the background
   event.respondWith((async () => {
     const cache = await caches.open(CACHE);
     const cached = await cache.match(req);
