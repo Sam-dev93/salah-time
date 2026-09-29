@@ -221,9 +221,12 @@ body.offline .offline-pill { display: inline-block; }
 .row-title { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 600; }
 .row-sub { font-size: 13px; color: var(--sec); }
 .row-time { font-size: 19px; font-weight: 600; letter-spacing: -0.2px; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.pill { font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+.pill { font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
 .pill.next { background: var(--clay); color: var(--on-clay); }
 .pill.now { background: var(--fill); color: var(--sec); font-weight: 600; }
+.pill.live { background: var(--green); color: var(--on-clay); }
+.row.is-live { background: var(--green-bg); }
+.row.is-live .row-icon, .row.is-live .row-title, .row.is-live .row-time { color: var(--green); }
 .row.is-next { background: var(--clay-bg); }
 .row.is-next .row-icon, .row.is-next .row-title { color: var(--clay); }
 .row.is-next .row-time { color: var(--green); }
@@ -415,7 +418,7 @@ body.offline .offline-pill { display: inline-block; }
       </div>
       <div class="soon">
         <div class="soon-box">
-          <span class="tile-label">Jama'ah in</span>
+          <span class="tile-label" id="soonLabel">Jama'ah in</span>
           <span class="soon-value roll" id="soonValue"></span>
           <span class="tile-sub" id="soonSub">&nbsp;</span>
           <span class="bar"><i id="soonBar"></i></span>
@@ -1226,8 +1229,32 @@ function renderToday() {
   const next = flat[idx];
   const prev = idx > 0 ? flat[idx - 1] : null;
   const current = currentPrayerKey(today, now);
+  // For 10 minutes after a jama'ah starts, keep showing that prayer ("jama'ah in progress")
+  const LIVE_MS = 10 * 60 * 1000;
+  const live = flat.find((p) => p.dayIndex <= 1 && now >= p.jamah && now - p.jamah < LIVE_MS) || null;
 
-  if (next) {
+  if (live) {
+    setGlow(live.key);
+    $('hero').classList.add('is-soon');
+    $('heroIcon').innerHTML = svg(live.key, 24);
+    $('heroLabel').textContent = "Jama'ah in progress";
+    $('heroName').textContent = live.name;
+    $('heroChip').textContent = '';
+    $('soonLabel').textContent = "Jama'ah started";
+    setRoll($('soonValue'), fmtMS(now - live.jamah));
+    $('soonSub').innerHTML = `at <b>${fmtTime(live.jamah)}</b>`;
+    $('soonBar').style.width = Math.min(100, ((now - live.jamah) / LIVE_MS) * 100) + '%';
+    if (next) {
+      $('soonStripIcon').innerHTML = svg(next.key, 16);
+      $('soonStrip').innerHTML = `Next <b>${next.name}</b> · ${next.dayIndex === 2 ? 'tmrw ' : ''}${fmtTime(next.begin)}`;
+      $('soonStripR').textContent = fmtIn(next.begin - now);
+    } else {
+      $('soonStripIcon').innerHTML = ''; $('soonStrip').textContent = ''; $('soonStripR').textContent = '';
+    }
+    topLine = `<i class="g">${live.name} jama'ah started ${fmtMS(now - live.jamah)} ago</i>`;
+    if (currentView === 'today') $('topLine').innerHTML = topLine;
+  } else if (next) {
+    $('soonLabel').textContent = "Jama'ah in";
     setGlow(next.key);
     const begun = now >= next.begin;
     const isTomorrow = next.dayIndex === 2;
@@ -1281,17 +1308,19 @@ function renderToday() {
   }
 
   // Rebuild the list only when something visible in it changes
-  const nextKey = next && next.dayIndex === 1 ? next.key : '';
-  const listKey = `${today.date.toDateString()}|${current}|${nextKey}|${now.getHours()}:${now.getMinutes()}|${!!ram}`;
+  const liveKey = live && live.dayIndex === 1 ? live.key : '';
+  const nextKey = liveKey ? '' : (next && next.dayIndex === 1 ? next.key : '');
+  const listKey = `${today.date.toDateString()}|${current}|${nextKey}|${liveKey}|${now.getHours()}:${now.getMinutes()}|${!!ram}`;
   if (listKey === lastListKey) return;
   lastListKey = listKey;
 
   $('todayList').innerHTML = today.prayers.map((p) => {
-    const isNow = p.key === current;
+    const isLive = p.key === liveKey;
+    const isNow = !isLive && p.key === current;
     const isNext = p.key === nextKey;
-    const isPast = !isNow && !isNext && p.jamah <= now;
-    const cls = isNext ? 'is-next' : isNow ? 'is-now' : isPast ? 'is-past' : '';
-    const pill = isNext ? '<span class="pill next">Next</span>' : isNow ? '<span class="pill now">Now</span>' : '';
+    const isPast = !isLive && !isNow && !isNext && p.jamah <= now;
+    const cls = isLive ? 'is-live' : isNext ? 'is-next' : isNow ? 'is-now' : isPast ? 'is-past' : '';
+    const pill = isLive ? "<span class=\"pill live\">In progress</span>" : isNext ? '<span class="pill next">Next</span>' : isNow ? '<span class="pill now">Now</span>' : '';
     let sub = `Begins ${fmtTime(p.begin)}`;
     if (p.key === 'fajr' && ram) sub += ' · Suhoor ends';
     else if (p.key === 'fajr' && today.sunrise) sub += ' · Sunrise ' + fmtTime(today.sunrise);
@@ -1685,7 +1714,7 @@ fitBottom();
 window.addEventListener('resize', fitBottom);
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') fitBottom(); });
 
-const APP_VERSION = '2026.09.24-13';
+const APP_VERSION = '2026.09.29-14';
 function showVersion() {
   const probe = document.createElement('div');
   probe.style.cssText = 'position:absolute;visibility:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)';
